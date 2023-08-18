@@ -230,29 +230,23 @@ int main(){
     int width = n_l;
     int height = n_c;
 
-    // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        // Handle initialization error
         return 1;
     }
 
-    // Create a window and renderer
     SDL_Window* window = SDL_CreateWindow("Color Matrix", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if (!window) {
-        // Handle window creation error
         SDL_Quit();
         return 1;
     }
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
-        // Handle renderer creation error
         SDL_DestroyWindow(window);
         SDL_Quit();
         return 1;
     }
 
-    // Event loop
     SDL_Event event;
     bool quit = false;
 
@@ -263,24 +257,20 @@ int main(){
             }
         }
 
-        // Clear the renderer
         SDL_RenderClear(renderer);
 
-        // Render the colors
         for (int y = 0; y < canvas.rows; ++y) {
             for (int x = 0; x < canvas.columns; ++x) {
-                Color color = canvas.matrix[y][x];  // Assuming you have a Color class with r, g, b attributes
+                Color color = canvas.matrix[y][x];  
 
                 SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
                 SDL_RenderDrawPoint(renderer, x, y);
             }
         }
 
-        // Update the renderer
         SDL_RenderPresent(renderer);
     }
 
-    // Cleanup and quit SDL
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
