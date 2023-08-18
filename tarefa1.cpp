@@ -180,7 +180,7 @@ class Sphere{
         this->color = color;
     }
 
-    optional<double> colide(Ray ray){
+    optional<Point> colide(Ray ray){
         Vector w = ray.p_inicial - center;
         double a = ray.direction.scalar(ray.direction);
         double _b = w.scalar(ray.direction);
@@ -195,7 +195,7 @@ class Sphere{
                 double root_2 = -_b - sqrt(delta);
                 if (root_2 < root_1) answer = root_2;
             }
-            return answer;
+            return Point(ray.direction * answer);
         }
         else return nullopt;
     }
