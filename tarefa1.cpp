@@ -101,8 +101,8 @@ class Camera{
     double delta_x;
     double delta_y;
 
-    Camera(double j_ymax, double j_ymin, double j_xmax, double j_xmin, double n_l, double n_c, double d){
-        origin = Point(0, 0, 0);
+    Camera(Point position, double j_ymax, double j_ymin, double j_xmax, double j_xmin, double n_l, double n_c, double d){
+        origin = position;
         this->j_xmax = j_xmax;
         this->j_xmin = j_xmin;
         this->j_ymax = j_ymax;
@@ -203,19 +203,17 @@ class Sphere{
 
 int main(){
 
-    int n_l = 200;
-    int n_c = 200;
+    int n_l = 400;
+    int n_c = 400;
     double d = 3;
 
-    Camera camera = Camera(1, -1, 1, -1, n_l, n_c, -d);
+    Camera camera = Camera(Point(0, 0, 0), 1, -1, 1, -1, n_l, n_c, -d);
     Canvas canvas = Canvas(n_l, n_c);
     Sphere sphere = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
-
-    cout << "delta y = " << camera.delta_y/2 << "\n";
+    Color background = Color(100, 100, 100);
 
     for(int l = 0; l < camera.n_l; l++){
         double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
-        cout << "y = " << y_l << "\n";
         for(int c = 0; c < camera.n_c; c++){
             double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
             Point p_j = Point(x_c, y_l, -d);
@@ -224,7 +222,7 @@ int main(){
                 canvas.matrix[l][c] = sphere.color;
             }
             else{
-                canvas.matrix[l][c] = Color();
+                canvas.matrix[l][c] = background;
             }
         }
     }
