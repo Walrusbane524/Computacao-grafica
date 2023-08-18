@@ -49,8 +49,6 @@ class Vec{
         double modulo(){
             return sqrt(this->scalar(*this));
         }
-
-    
 };
 
 class Point: public Vec{
@@ -112,8 +110,8 @@ class Camera{
         this->n_l = n_l;
         this->n_c = n_c;
         this->d = d;
-        delta_x = abs(j_xmax - j_xmin);
-        delta_y = abs(j_ymax - j_ymin);
+        delta_x = abs(j_xmax - j_xmin)/n_c;
+        delta_y = abs(j_ymax - j_ymin)/n_l;
     }
 };
 
@@ -144,30 +142,6 @@ class Canvas{
             delete[] matrix;
         }
     }
-    /*
-    SDL_Color convertColor(const Color& color) {
-        SDL_Color sdlColor;
-        sdlColor.r = color.r;
-        sdlColor.g = color.g;
-        sdlColor.b = color.b;
-        sdlColor.a = 255; // Assuming full opacity
-        return sdlColor;
-    }
-
-    void render(SDL_Renderer* renderer, int windowWidth, int windowHeight) {
-        int cellWidth = windowWidth / columns;
-        int cellHeight = windowHeight / rows;
-
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                SDL_Rect rect = {j * cellWidth, i * cellHeight, cellWidth, cellHeight};
-                SDL_Color sdlColor = convertColor(matrix[i][j]);
-                SDL_SetRenderDrawColor(renderer, sdlColor.r, sdlColor.g, sdlColor.b, sdlColor.a);
-                SDL_RenderFillRect(renderer, &rect);
-            }
-        }
-    }
-    */
 };
 
 class Ray{
@@ -212,14 +186,14 @@ class Sphere{
         double _b = w.scalar(ray.direction);
         double b = 2 * _b;
         double c = w.scalar(w) - pow(radius, 2);
-        double delta = pow(_b, 2) - 4 * a * c;
+        double delta = pow(b, 2) - 4 * a * c;
 
         if (delta >= 0){
             double root_1 = -_b + sqrt(delta);
             double answer = root_1;
             if (delta > 0){
                 double root_2 = -_b - sqrt(delta);
-                if (root_2 > root_1) answer = root_2;
+                if (root_2 < root_1) answer = root_2;
             }
             return answer;
         }
@@ -231,28 +205,28 @@ int main(){
 
     int n_l = 200;
     int n_c = 200;
-    double d = 15;
+    double d = 3;
 
     Camera camera = Camera(1, -1, 1, -1, n_l, n_c, -d);
     Canvas canvas = Canvas(n_l, n_c);
-    Sphere sphere = Sphere(Point(0, 0, -100), 99.93, Color(255, 0, 0));
+    Sphere sphere = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
+
+    cout << "delta y = " << camera.delta_y/2 << "\n";
 
     for(int l = 0; l < camera.n_l; l++){
-        double y_l = camera.j_ymax - (camera.delta_y/2) - (l*camera.delta_y);
+        double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
+        cout << "y = " << y_l << "\n";
         for(int c = 0; c < camera.n_c; c++){
-            double x_c = camera.j_xmin + (camera.delta_x/2) + (c*camera.delta_x);
+            double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
             Point p_j = Point(x_c, y_l, -d);
             Ray ray = Ray(camera.origin, p_j);
             if (sphere.colide(ray)){
                 canvas.matrix[l][c] = sphere.color;
-                cout << "#";
             }
             else{
                 canvas.matrix[l][c] = Color();
-                cout << " ";
             }
         }
-        cout << "\n";
     }
 
     int width = n_l;
@@ -312,40 +286,6 @@ int main(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
-
-    /*
-    SDL_Init(SDL_INIT_VIDEO);
-
-    int windowWidth = 800;
-    int windowHeight = 800;
-    SDL_Window* window = SDL_CreateWindow("Canvas Display", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    bool quit = false;
-    while (!quit) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                quit = true;
-            }
-        }
-
-        // Clear the renderer
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-
-        // Render the canvas
-        canvas.render(renderer, windowWidth, windowHeight);
-
-        // Update the renderer
-        SDL_RenderPresent(renderer);
-    }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    */
 
     return 0;
 }
