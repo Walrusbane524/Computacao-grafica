@@ -19,10 +19,10 @@ Sphere::Sphere(Point center, double radius, Color color){
 
 optional<double> Sphere::colide(Ray ray){
     Vector w = ray.p_inicial - center;
-    double a = ray.direction.scalar(ray.direction);
-    double _b = w.scalar(ray.direction);
+    double a = ray.direction.dot(ray.direction);
+    double _b = w.dot(ray.direction);
     double b = 2 * _b;
-    double c = w.scalar(w) - pow(radius, 2);
+    double c = w.dot(w) - pow(radius, 2);
     double delta = pow(b, 2) - 4 * a * c;
 
     if (delta >= 0){

@@ -13,19 +13,22 @@ Vec::Vec(double x, double y, double z){
     this->z = z;
 }
 
-Vec Vec::operator+(Vec v){
+Vec Vec::operator+(Vec& v){
     return Vec(v.x + x, v.y + y, v.z + z);
 }
-Vec Vec::operator-(Vec v){
+Vec Vec::operator-(Vec& v){
     return Vec(v.x - x, v.y - y, v.z - z);
 }
 Vec Vec::operator*(double d){
     return Vec(x * d, y * d, z * d);
 }
+Vec Vec::operator*(Vec& v){
+    return Vec(x * v.x, y * v.y, z * v.z);
+}
 Vec Vec::operator/(double d){
     return Vec(x / d, y / d, z / d);
 }
-double Vec::scalar(Vec v){
+double Vec::dot(Vec& v){
     return v.x * x + v.y * y + v.z * z;
 }
 double Vec::modulo(){
