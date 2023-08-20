@@ -1,3 +1,17 @@
+#include <math.h>
+#include <optional>
+#include <SDL2/SDL.h>
+#include <iostream>
+#include <limits>
+#include "headers/camera.h"
+#include "headers/canvas.h"
+#include "headers/color.h"
+#include "headers/object.h"
+#include "headers/point.h"
+#include "headers/ray.h"
+#include "headers/vec.h"
+#include "headers/sphere.h"
+
 int main(){
 
     int n_l = 400;
@@ -16,14 +30,14 @@ int main(){
         double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
         for(int c = 0; c < camera.n_c; c++){
             double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
-            Point p_j = Point(x_c, y_l, camera.origin.getZ() -d);
+            Point p_j = Point(x_c, y_l, camera.origin.z -d);
             Ray ray = Ray(camera.origin, p_j);
             Color cor_atual = background;
-            float smallest_root = 2000000000.0;
+            double smallest_root = numeric_limits<double>::infinity();
             for(Sphere s : objetos){
-                optional<float> intersect = s.colide(ray);
+                optional<double> intersect = s.colide(ray);
                 if (intersect.has_value()){
-                    float root = intersect.value();
+                    double root = intersect.value();
                     if(root < smallest_root){
                         root = smallest_root;
                         cor_atual = s.color;
