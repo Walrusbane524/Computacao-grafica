@@ -2,6 +2,7 @@
 #include <optional>
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
@@ -180,7 +181,7 @@ class Sphere{
         this->color = color;
     }
 
-    optional<Point> colide(Ray ray){
+    optional<float> colide(Ray ray){
         Vector w = ray.p_inicial - center;
         double a = ray.direction.scalar(ray.direction);
         double _b = w.scalar(ray.direction);
@@ -195,7 +196,7 @@ class Sphere{
                 double root_2 = -_b - sqrt(delta);
                 if (root_2 < root_1) answer = root_2;
             }
-            return Point(ray.direction * answer);
+            return answer;
         }
         else return nullopt;
     }
@@ -209,21 +210,33 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 0), 1, -1, 1, -1, n_l, n_c, -d);
     Canvas canvas = Canvas(n_l, n_c);
-    Sphere sphere = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
+    Sphere objetos[1];
+    objetos[0] = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
     Color background = Color(100, 100, 100);
 
     for(int l = 0; l < camera.n_l; l++){
         double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
+        
         for(int c = 0; c < camera.n_c; c++){
             double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
-            Point p_j = Point(x_c, y_l, -d);
+
+            Point p_j = Point(x_c, y_l, camera.origin.getZ() - d);
             Ray ray = Ray(camera.origin, p_j);
-            if (sphere.colide(ray)){
-                canvas.matrix[l][c] = sphere.color;
+
+            Color cor_atual = background;
+            float smallest_root = numeric_limits<double>::infinity();
+
+            for(Sphere s : objetos){
+                optional<float> intersect = s.colide(ray);
+                if (intersect.has_value()){
+                    float root = intersect.value();
+                    if(root < smallest_root){
+                        root = smallest_root;
+                        cor_atual = s.color;
+                    }
+                }
             }
-            else{
-                canvas.matrix[l][c] = background;
-            }
+            canvas.matrix[l][c] = cor_atual;
         }
     }
 
