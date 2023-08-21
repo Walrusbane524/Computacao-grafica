@@ -8,12 +8,12 @@ class Vec{
 
         Vec();
         Vec(double x, double y, double z);
-        Vec operator+(Vec& v);
-        Vec operator-(Vec& v);
-        Vec operator*(double d);
-        Vec operator*(Vec& v);
-        Vec operator/(double d);
-        double dot(Vec& v);
+        Vec operator+(const Vec& v);
+        Vec operator-(const Vec& v);
+        Vec operator*(const double d);
+        Vec operator*(const Vec& v);
+        Vec operator/(const double d);
+        double dot(const Vec& v);
         double modulo();
 };
 

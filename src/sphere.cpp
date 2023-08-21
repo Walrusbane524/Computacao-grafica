@@ -11,13 +11,14 @@ Sphere::Sphere(){
     radius = 1;
     color = Color(255, 0, 0);
 }
+
 Sphere::Sphere(Point center, double radius, Color color){
     this->center = center;
     this->radius = radius;
     this->color = color;
 }
 
-optional<double> Sphere::colide(Ray ray){
+optional<double> Sphere::colide(Ray ray) const {
     Vector w = ray.p_inicial - center;
     double a = ray.direction.dot(ray.direction);
     double _b = w.dot(ray.direction);

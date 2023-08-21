@@ -22,8 +22,9 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 0), 1, -1, 1, -1, n_l, n_c, -d);
     Canvas canvas = Canvas(n_l, n_c);
-    Sphere objetos[1];
-    objetos[0] = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
+    Sphere esfera = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0));
+    Object* objetos[1];
+    objetos[0] = &esfera;
     Color background = Color(100, 100, 100);
 
     for(int l = 0; l < camera.n_l; l++){
@@ -38,13 +39,13 @@ int main(){
             Color cor_atual = background;
             double smallest_root = numeric_limits<double>::infinity();
 
-            for(Sphere s : objetos){
-                optional<double> intersect = s.colide(ray);
+            for(Object* s : objetos){
+                optional<double> intersect = s->colide(ray);
                 if (intersect.has_value()){
                     double root = intersect.value();
                     if(root < smallest_root){
                         root = smallest_root;
-                        cor_atual = s.color;
+                        cor_atual = s->color;
                     }
                 }
             }

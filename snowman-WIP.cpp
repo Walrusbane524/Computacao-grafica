@@ -20,10 +20,13 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, -d);
     Canvas canvas = Canvas(n_l, n_c);
-    Sphere objetos[3];
-    objetos[0] = Sphere(Point(0, -15, -100), 20, Color(255, 255, 255));
-    objetos[1] = Sphere(Point(0, 10, -100), 15, Color(255, 255, 255));
-    objetos[2] = Sphere(Point(0, 30, -100), 10, Color(255, 255, 255));
+    Sphere esfera1 = Sphere(Point(0,  25, -100), 10, Color(255, 255, 255));
+    Sphere esfera2 = Sphere(Point(0,   5, -100), 15, Color(255, 255, 255));
+    Sphere esfera3 = Sphere(Point(0, -20, -100), 20, Color(255, 255, 255));
+    Object* objetos[3];
+    objetos[0] = &esfera3;
+    objetos[1] = &esfera2;
+    objetos[2] = &esfera1;
     Color background = Color(100, 100, 100);
 
     for(int l = 0; l < camera.n_l; l++){
@@ -34,13 +37,13 @@ int main(){
             Ray ray = Ray(camera.origin, p_j);
             Color cor_atual = background;
             double smallest_root = numeric_limits<double>::infinity();
-            for(Sphere s : objetos){
-                optional<double> intersect = s.colide(ray);
+            for(Object* s : objetos){
+                optional<double> intersect = s->colide(ray);
                 if (intersect.has_value()){
                     double root = intersect.value();
                     if(root < smallest_root){
                         root = smallest_root;
-                        cor_atual = s.color;
+                        cor_atual = s->color;
                     }
                 }
             }

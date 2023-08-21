@@ -11,11 +11,10 @@ class Sphere : public Object{
     public:
     Point center;
     double radius;
-    Color color;
 
     Sphere();
     Sphere(Point center, double radius, Color color);
-    optional<double> colide(Ray ray);
+    optional<double> colide(Ray ray) const override;
 };
 
 #endif
