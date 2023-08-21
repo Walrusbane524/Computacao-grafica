@@ -1,4 +1,5 @@
 #include "../headers/scene.h"
+#include <iostream>
 
 using namespace std;
 
@@ -33,15 +34,27 @@ void Scene::paint(Canvas& canvas){
             double smallest_root = numeric_limits<double>::infinity();
 
             for(Object* s : objects){
+
                 optional<double> intersect = s->colide(ray);
-                if (intersect.has_value()){
+
+                if (intersect.has_value() && intersect.value() > 0){
                     double root = intersect.value();
+
+                    Point ponto = ray.p_inicial + (ray.direction * root);
+                    
+                    if(l == 90){
+                        cout << "x = " << ponto.x << endl;
+                        cout << "y = " << ponto.y << endl;
+                        cout << "z = " << ponto.z << endl << endl;
+                    }
+
                     if(root < smallest_root){
                         root = smallest_root;
                         cor_atual = s->color;
                     }
                 }
             }
+            if(l == 90) cor_atual = Color(255,0,0);
             canvas.matrix[l][c] = cor_atual;
         }
     }
