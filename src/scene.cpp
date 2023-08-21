@@ -1,5 +1,4 @@
 #include "../headers/scene.h"
-#include <iostream>
 
 using namespace std;
 
@@ -41,12 +40,6 @@ void Scene::paint(Canvas& canvas){
                     double root = intersect.value();
 
                     Point ponto = ray.p_inicial + (ray.direction * root);
-                    
-                    if(l == 90){
-                        cout << "x = " << ponto.x << endl;
-                        cout << "y = " << ponto.y << endl;
-                        cout << "z = " << ponto.z << endl << endl;
-                    }
 
                     if(root < smallest_root){
                         root = smallest_root;
