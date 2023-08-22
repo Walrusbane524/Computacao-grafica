@@ -35,14 +35,11 @@ void Scene::paint(Canvas& canvas){
             for(Object* s : objects){
 
                 optional<double> intersect = s->colide(ray);
-
                 if (intersect.has_value() && intersect.value() > 0){
-                    double root = intersect.value();
+                    double t = intersect.value();
 
-                    Point ponto = ray.p_inicial + (ray.direction * root);
-
-                    if(root < smallest_root){
-                        root = smallest_root;
+                    if(t < smallest_root){
+                        smallest_root = t;
                         cor_atual = s->color;
                     }
                 }

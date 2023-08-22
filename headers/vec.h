@@ -15,6 +15,7 @@ class Vec{
         Vec operator/(const double d);
         double dot(const Vec& v);
         double modulo();
+        Vec normalize();
 };
 
 #endif

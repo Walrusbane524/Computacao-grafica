@@ -12,5 +12,5 @@ Ray::Ray(Point p_inicial, Vector direction){
 }
 Ray::Ray(Point p_inicial, Point p_ray){
     this->p_inicial = p_inicial;
-    this->direction = (p_ray - p_inicial) / ((p_ray - p_inicial).modulo());
+    this->direction = (p_inicial - p_ray).normalize();
 }

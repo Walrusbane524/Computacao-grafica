@@ -32,5 +32,10 @@ double Vec::dot(const Vec& v){
     return v.x * x + v.y * y + v.z * z;
 }
 double Vec::modulo(){
-    return sqrt(this->dot(*this));
+    return sqrt(x * x + y * y + z * z);
+}
+
+Vec Vec::normalize(){
+    double len = modulo();
+    return Vec(x / len, y / len, z / len);
 }
