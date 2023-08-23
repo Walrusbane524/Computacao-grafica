@@ -14,7 +14,7 @@ class Vec{
         Vec operator*(const Vec& v);
         Vec operator/(const double d);
         double dot(const Vec& v);
-        double modulo();
+        double magnitude();
         Vec normalize();
 };
 

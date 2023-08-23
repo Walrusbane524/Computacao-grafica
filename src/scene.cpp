@@ -20,13 +20,13 @@ void Scene::addObject(Object* object){
 }
 
 void Scene::paint(Canvas& canvas){
-
+    
     for(int l = 0; l < camera.n_l; l++){
         double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
         
         for(int c = 0; c < camera.n_c; c++){
-
             double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
+
             Point p_j = Point(x_c, y_l, camera.origin.z - camera.d);
             Ray ray = Ray(camera.origin, p_j);
             Color cor_atual = background;
@@ -35,6 +35,7 @@ void Scene::paint(Canvas& canvas){
             for(Object* s : objects){
 
                 optional<double> intersect = s->colide(ray);
+                
                 if (intersect.has_value() && intersect.value() > 0){
                     double t = intersect.value();
 
@@ -44,7 +45,7 @@ void Scene::paint(Canvas& canvas){
                     }
                 }
             }
-            if(l == 90) cor_atual = Color(255,0,0);
+            // if(l == 90) cor_atual = Color(255,0,0);
             canvas.matrix[l][c] = cor_atual;
         }
     }
