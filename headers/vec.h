@@ -11,9 +11,13 @@ class Vec{
         Vec operator+(const Vec& v);
         Vec operator-(const Vec& v);
         Vec operator*(const double d);
-        Vec operator*(const Vec& v);
         Vec operator/(const double d);
         double dot(const Vec& v);
+
+        double dot(const Vec& v) const;
+        Vec operator*(const double d) const;
+        Vec operator*(const Vec& v) const;
+
         double magnitude();
         Vec normalize();
 };

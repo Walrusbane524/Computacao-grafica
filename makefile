@@ -27,5 +27,6 @@ obj:
 
 clean:
 	rm -rf obj
+	rm build/*
 
 .PHONY: clean
