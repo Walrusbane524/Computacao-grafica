@@ -28,10 +28,13 @@ int main(){
     Sphere cabeca = Sphere(Point(0,  25, -100), 10, Color(255, 255, 255));
     Sphere tronco = Sphere(Point(0,   5, -100), 15, Color(255, 255, 255));
     Sphere barriga = Sphere(Point(0, -20, -100), 20, Color(255, 255, 255));
-    Cylinder braco_direito = Cylinder(Point(12, 5, -100), Vector(0.9, -0.1, 0).normalize(), 2, 20, Color(205, 133, 63));
-    Cylinder braco_esquerdo = Cylinder(Point(-12, 5, -100), Vector(-0.9, -0.1, 0).normalize(), 2, 20, Color(205, 133, 63));
+    Cylinder braco_direito = Cylinder(Point(20, 8, -100), Vector(0.7, -0.3, 0).normalize(), 1, 12, Color(205, 133, 63));
+    Cylinder braco_esquerdo = Cylinder(Point(-20, 8, -100), Vector(-0.7, -0.3, 0).normalize(), 1, 12, Color(205, 133, 63));
     Plane plano = Plane(Point(0, -40, -100), Vector(0, 1, 0), Color(70, 130, 180));
 
+    Cylinder chapeu = Cylinder(Point(0, 32, -100), Vector(0,1,0).normalize(), 12, 0.5, Color(0, 0, 0));
+    Cylinder chapeu2 = Cylinder(Point(0, 36.5, -100), Vector(0, 1, 0).normalize(), 9, 4, Color(0, 0, 0));
+    Cylinder chapeu3 = Cylinder(Point(0, 34, -100), Vector(0, 1, 0).normalize(), 9.1, 2, Color(255, 255, 255));
 
     Sphere olho1 = Sphere(Point(2.5,  25, -90), 1, Color(0, 0, 0));
     Sphere olho2 = Sphere(Point(-2.5,  25, -90), 1, Color(0, 0, 0));
@@ -50,9 +53,9 @@ int main(){
 
     Scene scene = Scene(camera, background);
 
-    Sphere botao1 = Sphere(Point(0, 5, -85), 1, Color(0, 0, 0));
-    Sphere botao2 = Sphere(Point(0, 0, -80), 1, Color(255, 0, 0));
-    Sphere botao3 = Sphere(Point(0, 10, -85), 1, Color(0, 0, 255));
+    Sphere botao1 = Sphere(Point(0.106044, 10.4984, -86.0445), 1, Color(0, 0, 0));
+    Sphere botao2 = Sphere(Point(0.10401, 5.0965, -84.0101), 1, Color(0, 0, 0));
+    Sphere botao3 = Sphere(Point(0.0990099, -0.0990099, -79.0099), 1, Color(0, 0, 0));
 
     scene.addObject(&cabeca);
     scene.addObject(&olho1);
@@ -78,13 +81,19 @@ int main(){
     scene.addObject(&braco_direito);
     scene.addObject(&braco_esquerdo);
     scene.addObject(&plano);
+    scene.addObject(&chapeu);
+    scene.addObject(&chapeu2);
+    scene.addObject(&chapeu3);
 
-    optional<Point> ponto_ = scene.get_closest_colision(200,200);
+    optional<Point> ponto_ = scene.get_closest_colision(400, 400);
 
     if(ponto_.has_value()){
         cout << ponto_.value().x << endl;
         cout << ponto_.value().y << endl;
         cout << ponto_.value().z << endl;
+        Sphere ponto_real = Sphere(Point(ponto_.value().x,  ponto_.value().y, ponto_.value().z), 1, Color(0, 255, 0));
+        
+        scene.addObject(&ponto_real);
     }
 
     scene.paint(canvas);
