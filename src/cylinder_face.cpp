@@ -20,9 +20,12 @@ CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, 
 }
 
 optional<double> CylindricalFace::colide(Ray ray) const{
-    if(ray.direction.x == this->direction.x && 
+    if((ray.direction.x == this->direction.x && 
        ray.direction.y == this->direction.y &&
-       ray.direction.z == this->direction.z) 
+       ray.direction.z == this->direction.z) ||
+       (ray.direction.x == -this->direction.x && 
+       ray.direction.y == -this->direction.y &&
+       ray.direction.z == -this->direction.z))
     return nullopt;
 
     Vector w = ray.p_inicial - this->base_center;
@@ -33,23 +36,29 @@ optional<double> CylindricalFace::colide(Ray ray) const{
 
     double delta = pow(b, 2) - 4 * a * c;
 
-    if (delta <= 0) return nullopt;
+    if (delta < 0) return nullopt;
 
     double t_1 = (-b - sqrt(delta))/(2 * a);
     double t_2 = (-b + sqrt(delta))/(2 * a);
 
-    double closest_t = t_2;
 
-    if(t_1 < t_2) closest_t = t_1;
 
-    Point p_intersect = Point(ray.p_inicial + (ray.direction * closest_t));
+    Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
+    Vector v_1 = p_intersect_1 - this->base_center;
+    Vector projection_1 = this->direction * v_1.dot(this->direction);
+    double distance_along_axis_1 = projection_1.magnitude();
 
-    Vector v = p_intersect - this->base_center;
-    Vector projection = this->direction * v.dot(this->direction);
+    Point p_intersect_2 = Point(ray.p_inicial + (ray.direction * t_2));
+    Vector v_2 = p_intersect_2 - this->base_center;
+    Vector projection_2 = this->direction * v_2.dot(this->direction);
+    double distance_along_axis_2 = projection_2.magnitude();
 
-    double distance_along_axis = projection.magnitude();
-
-    if(distance_along_axis > 0 && distance_along_axis < this->height) return closest_t;
+    if(distance_along_axis_1 > 0 && distance_along_axis_1 < this->height){
+        if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height && t_2 < t_1) return t_2;
+        else return t_1;
+    }
+    else if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height) return t_2;
+    
     return nullopt;
 }
 
