@@ -15,6 +15,7 @@ class Vec{
         double dot(const Vec& v);
 
         double dot(const Vec& v) const;
+        Vec operator-(const Vec& v) const;
         Vec operator*(const double d) const;
         Vec operator*(const Vec& v) const;
 

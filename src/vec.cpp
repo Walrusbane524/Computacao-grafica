@@ -36,6 +36,9 @@ double Vec::dot(const Vec& v) const{
 Vec Vec::operator*(const double d) const{
     return Vec(x * d, y * d, z * d);
 }
+Vec Vec::operator-(const Vec& v) const{
+    return Vec(x - v.x, y - v.y, z - v.z);
+}
 
 double Vec::magnitude(){
     return sqrt(x * x + y * y + z * z);

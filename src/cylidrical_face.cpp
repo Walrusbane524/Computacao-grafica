@@ -41,8 +41,6 @@ optional<double> CylindricalFace::colide(Ray ray) const{
     double t_1 = (-b - sqrt(delta))/(2 * a);
     double t_2 = (-b + sqrt(delta))/(2 * a);
 
-
-
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
     Vector v_1 = p_intersect_1 - this->base_center;
     Vector projection_1 = this->direction * v_1.dot(this->direction);
