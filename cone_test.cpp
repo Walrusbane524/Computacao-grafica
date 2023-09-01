@@ -15,7 +15,7 @@
 #include "headers/plane.h"
 #include "headers/cylinder.h"
 #include "headers/cylindrical_face.h"
-#include "headers/conical_face.h"
+#include "headers/cone.h"
 
 int main(){
 
@@ -26,7 +26,7 @@ int main(){
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
 
-    ConicalFace cone = ConicalFace(Point(0, 0, -100), Point(0, 20, -100), 10, Color(255, 0, 0));
+    Cone cone = Cone(Point(0, 0, -100), Point(0, 20, -100), 10, Color(255, 0, 0));
 
     Color background = Color(100, 100, 100);
 

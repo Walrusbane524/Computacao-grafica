@@ -10,7 +10,7 @@ class Cylinder : public CompoundObject{
     Point top_center;
     double radius;
 
-    virtual optional<double> colide(Ray ray) const override;
+    optional<double> colide(Ray ray) const override;
 
     Cylinder();
     Cylinder(Point base_center, Point top_center, double radius, Color color);

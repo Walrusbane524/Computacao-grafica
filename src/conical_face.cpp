@@ -30,12 +30,14 @@ ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, dou
 
 optional<double> ConicalFace::colide(Ray ray) const{
     
-    double angle = atan(radius/height);
-    Vector v = this->base_center - this->tip;
+    Vector v = this->tip - ray.p_inicial;
+    Vector dr = ray.direction;
 
-    double a = pow(ray.direction.dot(this->direction), 2) - (ray.direction.dot(ray.direction)) * pow(cos(angle), 2);
-    double b = v.dot(ray.direction) * pow(cos(angle), 2) - (v.dot(this->direction)) * (ray.direction.dot(this->direction));
-    double c = pow(v.dot(this->direction), 2) - (v.dot(v)) * pow(cos(angle), 2);
+    double cos_ = height/sqrt(height * height + radius * radius);
+
+    double a = pow(dr.dot(direction), 2) - dr.dot(dr) * pow(cos_, 2);
+    double b = 2 * (v.dot(dr) * pow(cos_, 2) - (v.dot(direction)) * (dr.dot(direction)));
+    double c = pow(v.dot(direction), 2) - (v.dot(v)) * pow(cos_, 2);
 
     double delta = pow(b, 2) - 4 * a * c;
 
@@ -44,8 +46,6 @@ optional<double> ConicalFace::colide(Ray ray) const{
     double t_1 = (-b - sqrt(delta))/(2*a);
     double t_2 = (-b + sqrt(delta))/(2*a);
 
-    cout << "t_1 = " << t_1 << endl;
-    cout << "t_2 = " << t_2 << endl;
 
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
     Vector v_1 = p_intersect_1 - this->base_center;

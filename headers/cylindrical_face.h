@@ -13,7 +13,7 @@ class CylindricalFace : public Object{
     CylindricalFace();
     CylindricalFace(Point center, Vector direction, double radius, double height, Color color);
 
-    virtual optional<double> colide(Ray ray) const override;
+    optional<double> colide(Ray ray) const override;
 };
 
 #endif
