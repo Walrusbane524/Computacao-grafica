@@ -17,27 +17,44 @@ Vec::Vec(double x, double y, double z){
 Vec Vec::operator+(const Vec& v){
     return Vec(v.x + x, v.y + y, v.z + z);
 }
+
 Vec Vec::operator-(const Vec& v){
     return Vec(x - v.x, y - v.y, z - v.z);
 }
-Vec Vec::operator*(const double d){
-    return Vec(x * d, y * d, z * d);
-}
-Vec Vec::operator/(const double d){
-    return Vec(x / d, y / d, z / d);
-}
-double Vec::dot(const Vec& v){
-    return v.x * x + v.y * y + v.z * z;
+Vec Vec::operator-(const Vec& v) const{
+    return Vec(x - v.x, y - v.y, z - v.z);
 }
 
-double Vec::dot(const Vec& v) const{
-    return v.x * x + v.y * y + v.z * z;
+Vec Vec::operator*(const double d){
+    return Vec(x * d, y * d, z * d);
 }
 Vec Vec::operator*(const double d) const{
     return Vec(x * d, y * d, z * d);
 }
-Vec Vec::operator-(const Vec& v) const{
-    return Vec(x - v.x, y - v.y, z - v.z);
+Vec Vec::operator*(const Vec& v) const{
+    return Vec(x * v.x, y * v.y, z * v.y);
+}
+
+Color Vec::operator*(const Color& c) const{
+    return Color(x * c.r, y * c.g, z * c.b);
+}
+
+Vec Vec::operator/(const double d){
+    return Vec(x / d, y / d, z / d);
+}
+
+double Vec::dot(const Vec& v){
+    return v.x * x + v.y * y + v.z * z;
+}
+double Vec::dot(const Vec& v) const{
+    return v.x * x + v.y * y + v.z * z;
+}
+
+// Vectorial product
+Vec Vec::operator&(const Vec& v) const{
+    return Vec((y * v.z) - (z * v.y), 
+               (z * v.x) - (x * v.z), 
+               (x * v.y) - (y * v.z));
 }
 
 double Vec::magnitude(){

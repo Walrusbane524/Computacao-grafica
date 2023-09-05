@@ -8,6 +8,8 @@ ConicalFace::ConicalFace(){
     this->radius = 10;
     this->color = Color(255, 0, 0);
     this->tip = this->base_center + (this->direction * this->height);
+    this->roughness = Vec(1, 1, 1);
+    this->shine = Vec(1, 1, 1);
 }
 ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Color color){
     Vector h = tip - base_center;
@@ -18,6 +20,20 @@ ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Color colo
     this->radius = radius;
     this->color = color;
     this->tip = tip;
+    this->roughness = Vec(1, 1, 1);
+    this->shine = Vec(1, 1, 1);
+}
+ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Color color, Vec roughness, Vec shine){
+    Vector h = tip - base_center;
+
+    this->base_center = base_center;
+    this->direction = h.normalize();
+    this->height = h.magnitude();
+    this->radius = radius;
+    this->color = color;
+    this->tip = tip;
+    this->roughness = roughness;
+    this->shine = shine;
 }
 ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height, Color color){
     this->base_center = base_center;
@@ -26,9 +42,25 @@ ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, dou
     this->radius = radius;
     this->color = color;
     this->tip = this->base_center + (this->direction * this->height);
+    this->roughness = Vec(1, 1, 1);
+    this->shine = Vec(1, 1, 1);
+}
+ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine){
+    this->base_center = base_center;
+    this->direction = direction;
+    this->height = height;
+    this->radius = radius;
+    this->color = color;
+    this->tip = this->base_center + (this->direction * this->height);
+    this->roughness = roughness;
+    this->shine = shine;
 }
 
-optional<double> ConicalFace::colide(Ray ray) const{
+Vector ConicalFace::get_normal(Point p) const{
+    return ((p * this->tip) & this->direction).normalize();
+}
+
+optional<LitPoint> ConicalFace::colide(Ray ray) const{
     
     Vector v = this->tip - ray.p_inicial;
     Vector dr = ray.direction;
@@ -45,7 +77,7 @@ optional<double> ConicalFace::colide(Ray ray) const{
 
     double t_1 = (-b - sqrt(delta))/(2*a);
     double t_2 = (-b + sqrt(delta))/(2*a);
-
+    double smallest_t;
 
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
     Vector v_1 = p_intersect_1 - this->base_center;
@@ -58,11 +90,15 @@ optional<double> ConicalFace::colide(Ray ray) const{
     double distance_along_axis_2 = projection_2.magnitude();
 
     if(distance_along_axis_1 > 0 && distance_along_axis_1 < this->height){
-        if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height && t_2 < t_1) return t_2;
-        else return t_1;
+        if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height && t_2 < t_1) smallest_t = t_2;
+        else smallest_t = t_1;
     }
-    else if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height) return t_2;
-    
-    return nullopt;
+    else if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height) smallest_t = t_2;
+    else return nullopt;
+
+    Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
+    Vector normal = this->get_normal(p_intersect);
+
+    return LitPoint(p_intersect, smallest_t, normal, this->color, this->roughness, this->shine);
 }
 

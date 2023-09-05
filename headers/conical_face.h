@@ -6,17 +6,22 @@
 class ConicalFace : public Object{
     public:
 
-    Point base_center;
-    Point tip;
-    Vector direction;
-    double radius;
-    double height;
+        Point base_center;
+        Point tip;
+        Vector direction;
+        double radius;
+        double height;
 
-    virtual optional<double> colide(Ray ray) const override;
+        virtual optional<LitPoint> colide(Ray ray) const override;
 
-    ConicalFace();
-    ConicalFace(Point base_center, Point tip, double radius, Color color);
-    ConicalFace(Point base_center, Vector direction, double radius, double height, Color color);
+        ConicalFace();
+        ConicalFace(Point base_center, Point tip, double radius, Color color);
+        ConicalFace(Point base_center, Point tip, double radius, Color color, Vec roughness, Vec shine);
+        ConicalFace(Point base_center, Vector direction, double radius, double height, Color color);
+        ConicalFace(Point base_center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine);
+    
+    private:
+        Vector get_normal(Point p) const override;
 };
 
 #endif

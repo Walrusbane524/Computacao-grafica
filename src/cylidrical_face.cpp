@@ -17,9 +17,27 @@ CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, 
     this->height = height;
     this->direction = direction;
     this->color = color;
+    this->roughness = Vec(1, 1, 1);
+    this->shine = Vec(1, 1, 1);
+}
+CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine){
+    this->base_center = center;
+    this->radius = radius;
+    this->height = height;
+    this->direction = direction;
+    this->color = color;
+    this->roughness = roughness;
+    this->shine = shine;
 }
 
-optional<double> CylindricalFace::colide(Ray ray) const{
+Vector CylindricalFace::get_normal(Point p) const{
+    Vector v = p - this->base_center;
+    Vector projection = this->direction * (v.dot(this->direction));
+    Vector h = v - projection;
+    return h.normalize();
+}
+
+optional<LitPoint> CylindricalFace::colide(Ray ray) const{
     if((ray.direction.x == this->direction.x && 
        ray.direction.y == this->direction.y &&
        ray.direction.z == this->direction.z) ||
@@ -40,6 +58,7 @@ optional<double> CylindricalFace::colide(Ray ray) const{
 
     double t_1 = (-b - sqrt(delta))/(2 * a);
     double t_2 = (-b + sqrt(delta))/(2 * a);
+    double smallest_t;
 
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
     Vector v_1 = p_intersect_1 - this->base_center;
@@ -51,12 +70,16 @@ optional<double> CylindricalFace::colide(Ray ray) const{
     Vector projection_2 = this->direction * v_2.dot(this->direction);
     double distance_along_axis_2 = projection_2.magnitude();
 
-    if(distance_along_axis_1 > 0 && distance_along_axis_1 < this->height){
-        if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height && t_2 < t_1) return t_2;
-        else return t_1;
+    if(projection_1.dot(this->direction) > 0 && distance_along_axis_1 < this->height){
+        if(projection_2.dot(this->direction) > 0 && distance_along_axis_2 < this->height && t_2 < t_1) smallest_t = t_2;
+        else smallest_t = t_1;
     }
-    else if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height) return t_2;
-    
-    return nullopt;
+    else if(projection_2.dot(this->direction) > 0 && distance_along_axis_2 < this->height) smallest_t = t_2;
+    else return nullopt;
+
+    Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
+    Vector normal = this->get_normal(p_intersect);
+
+    return LitPoint(p_intersect, smallest_t, normal, this->color, this->roughness, this->shine);
 }
 

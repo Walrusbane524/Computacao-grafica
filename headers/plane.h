@@ -1,5 +1,4 @@
-#ifndef PLANE
-#define PLANE
+#pragma once
 
 #include <optional>
 #include "point.h"
@@ -9,12 +8,14 @@
 
 class Plane : public Object{
     public:
-    Point center;
-    Vector normal;
+        Point center;
+        Vector normal;
 
-    Plane();
-    Plane(Point center, Vector normal, Color color);
-    optional<double> colide(Ray ray) const override;
+        Plane();
+        Plane(Point center, Vector normal, Color color);
+        Plane(Point center, Vector normal, Color color, Vec roughness, Vec shine);
+        optional<LitPoint> colide(Ray ray) const override;
+
+    private:
+        Vector get_normal(Point p) const override;
 };
-
-#endif

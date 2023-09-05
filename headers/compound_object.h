@@ -1,5 +1,4 @@
-#ifndef COMPOUND_OBJECT
-#define COMPOUND_OBJECT
+#pragma once
 
 #include "object.h"
 #include <vector>
@@ -8,8 +7,8 @@ using namespace std;
 
 class CompoundObject : public Object{
     public:
-    vector<Object*> sub_objects; 
-    virtual optional<double> colide(Ray ray) const = 0;
-};
-
-#endif
+        vector<Object*> sub_objects; 
+        virtual optional<LitPoint> colide(Ray ray) const override;
+    private:
+        Vector get_normal(Point p) const override;
+};  

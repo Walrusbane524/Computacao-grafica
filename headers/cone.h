@@ -7,14 +7,20 @@
 class Cone : public CompoundObject{
     public:
 
-    Point base_center;
-    double radius;
+        Point base_center;
+        double radius;
 
-    optional<double> colide(Ray ray) const override;
+        optional<LitPoint> colide(Ray ray) const override;
 
-    Cone();
-    Cone(Point base_center, Point tip, double radius, Color color);
-    Cone(Point base_center, Vector direction, double radius, double height, Color color);
+        Cone();
+        Cone(Point base_center, Point tip, double radius, Color color);
+        Cone(Point base_center, Point tip, double radius, Color color, Vec roughness, Vec shine);
+        Cone(Point base_center, Vector direction, double radius, double height, Color color);
+        Cone(Point base_center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine);
+    
+    private:
+
+        Vector get_normal(Point p) const override;
 };
 
 #endif

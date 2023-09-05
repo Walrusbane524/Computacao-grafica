@@ -16,9 +16,23 @@ Sphere::Sphere(Point center, double radius, Color color){
     this->center = center;
     this->radius = radius;
     this->color = color;
+    this->roughness = Vec(1, 1, 1);
+    this->shine = Vec(1, 1, 1);
 }
 
-optional<double> Sphere::colide(Ray ray) const {
+Sphere::Sphere(Point center, double radius, Color color, Vec roughness, Vec shine){
+    this->center = center;
+    this->radius = radius;
+    this->color = color;
+    this->roughness = roughness;
+    this->shine = shine;
+}
+
+Vector Sphere::get_normal(Point p) const{
+    return (p - this->center).normalize();
+}
+
+optional<LitPoint> Sphere::colide(Ray ray) const {
     Vector w = ray.p_inicial - center;
     double a = ray.direction.dot(ray.direction);
     double b = 2 * w.dot(ray.direction);
@@ -28,25 +42,27 @@ optional<double> Sphere::colide(Ray ray) const {
     // std::cout << "c.x = " << center.x << std::endl;
     // std::cout << "c.y = " << center.y << std::endl;
     // std::cout << "c.z = " << center.z << std::endl;
-
     // std::cout << "w.x = " << w.x << std::endl;
     // std::cout << "w.y = " << w.y << std::endl;
     // std::cout << "w.z = " << w.z << std::endl;
-
     // std::cout << "a = " << a << std::endl;
     // std::cout << "b = " << b << std::endl;
     // std::cout << "c = " << c << std::endl;
 
     if (delta > 0){
-        double root_1 = (-b + sqrt(delta))/(2 * a);
-        double root_2 = (-b - sqrt(delta))/(2 * a);
-        double answer = root_1;
+        double t_1 = (-b + sqrt(delta))/(2 * a);
+        double t_2 = (-b - sqrt(delta))/(2 * a);
+        double smallest_t = t_1;
 
         // std::cout << "t1 = " << root_1 << std::endl;
         // std::cout << "t2 = " << root_2 << std::endl;
 
-        if (root_2 < root_1) answer = root_2;
-        return answer;
+        if (t_2 < t_1) smallest_t = t_2;
+
+        Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
+        Vector normal = get_normal(p_intersect);
+
+        return LitPoint(p_intersect, smallest_t, normal, this->color, this->roughness, this->shine);
     }
     else return nullopt;
 }
