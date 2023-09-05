@@ -29,7 +29,7 @@ Sphere::Sphere(Point center, double radius, Color color, Vec roughness, Vec shin
 }
 
 Vector Sphere::get_normal(Point p) const{
-    return (p - this->center).normalize();
+    return (p - this->center)/this->radius;
 }
 
 optional<LitPoint> Sphere::colide(Ray ray) const {

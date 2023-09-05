@@ -1,6 +1,7 @@
 #pragma once
 
 #include "object.h"
+#include "vector.h"
 #include <vector>
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 class CompoundObject : public Object{
     public:
         vector<Object*> sub_objects; 
-        virtual optional<LitPoint> colide(Ray ray) const override;
+        virtual optional<LitPoint> colide(Ray ray) const = 0;
     private:
-        Vector get_normal(Point p) const override;
+        virtual Vector get_normal(Point p) const = 0;
 };  
