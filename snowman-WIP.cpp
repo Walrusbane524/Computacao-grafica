@@ -29,8 +29,8 @@ int main(){
     Sphere cabeca = Sphere(Point(0,  25, -100), 10, Color(255, 255, 255));
     Sphere tronco = Sphere(Point(0,   5, -100), 15, Color(255, 255, 255));
     Sphere barriga = Sphere(Point(0, -20, -100), 20, Color(255, 255, 255));
-    Cylinder braco_direito = Cylinder(Point(20, 8, -100), Vector(0.7, -0.3, 0).normalize(), 1, 12, Color(205, 133, 63));
-    Cylinder braco_esquerdo = Cylinder(Point(-20, 8, -100), Vector(-0.7, -0.3, 0).normalize(), 1, 12, Color(205, 133, 63));
+    Cylinder braco_direito = Cylinder(Point(14, 8, -100), Vector(0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
+    Cylinder braco_esquerdo = Cylinder(Point(-14, 8, -100), Vector(-0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
     Plane plano = Plane(Point(0, -40, -100), Vector(0, 1, 0), Color(70, 130, 180));
 
     Cylinder chapeu = Cylinder(Point(0, 32, -100), Vector(0,1,0).normalize(), 12, 0.5, Color(0, 0, 0));
@@ -51,11 +51,12 @@ int main(){
     Sphere boca9 = Sphere(Point(1.5756,  20.4828, -91.2187), 0.5, Color(0, 0, 0));
     Sphere boca10 = Sphere(Point(1.94602,  20.6649, -91.2012), 0.5, Color(0, 0, 0));
 
-    Light light(Point(0, 100, -100), 1.0, 1.0, 1.0);
+    //Light light(Point(0, 0, 20), 1.0, 1.0, 1.0);
+    Light light(Point(0, 100, -80), 1, 1, 1);
 
     Color background = Color(100, 100, 100);
 
-    Scene scene = Scene(camera, background);
+    Scene scene = Scene(camera, background, Vec(0.8, 0.8, 0.8));
 
     Sphere botao1 = Sphere(Point(0.106044, 10.4984, -86.0445), 1, Color(0, 0, 0));
     Sphere botao2 = Sphere(Point(0.10401, 5.0965, -84.0101), 1, Color(0, 0, 0));

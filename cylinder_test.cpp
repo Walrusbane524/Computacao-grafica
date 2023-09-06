@@ -24,17 +24,15 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
-    Plane plano = Plane(Point(0, -10, 0), Vector(0, 1, 0), Color(255, 0, 0));
+   
+    Cylinder cilindro = Cylinder(Point (0, -10, -100), Vector(0, 1, 0.2).normalize(), 20, 20, Color(0, 0, 255), Vec(1, 1, 1), Vec(1, 1, 1));
 
-    Cylinder cilindro = Cylinder(Point (0, 0, -100), Vector(1, 0, 0), 20, 20, Color(0, 0, 255));
-
-    Light light = Light(Point(0, 100, -100), 1, 1, 1);
+    Light light = Light(Point(0, 30, -50), 1, 1, 1);
 
     Color background = Color(100, 100, 100);
 
-    Scene scene = Scene(camera, background);
+    Scene scene = Scene(camera, background, Vec(0.2, 0.2, 0.2));
 
-    scene.addObject(&plano);
     scene.addObject(&cilindro);
 
     scene.addLight(&light);

@@ -88,9 +88,11 @@ void Scene::paint(Canvas& canvas){
             LitPoint closest_point;
             bool intersected = false;
 
-            for(Object* s : objects){
+            long unsigned int closest_idx = 0;
 
-                optional<LitPoint> intersect = s->colide(ray);
+            for(long unsigned int i = 0; i < objects.size(); i++){
+
+                optional<LitPoint> intersect = objects[i]->colide(ray);
                 
                 if (intersect.has_value() && intersect.value().t > 0){
                     LitPoint p = intersect.value();
@@ -99,25 +101,47 @@ void Scene::paint(Canvas& canvas){
                         smallest_root = p.t;
                         closest_point = p;
                         intersected = true;
+                        closest_idx = i;
                     }
                 }
             }
             if(intersected){
                 for(Light* light : lights){
-                    Vector l_ = (light->point - closest_point).normalize();
-                    Vector v = Vector(-ray.direction.x, -ray.direction.y, -ray.direction.z);
-                    Vector r = (closest_point.normal * l_.dot(closest_point.normal) * 2) - l_;
+                    
+                    Ray light_ray = Ray(closest_point, light->point);
+                    bool light_intersect = false;
 
-                    double f_dif = l_.dot(closest_point.normal);
-                    double f_spec = v.dot(r);
+                    // Check if there is another object between the light and the object
+                    for(long unsigned int i = 0; i < objects.size(); i++){
 
-                    if (f_dif < 0) f_dif = 0;
-                    if (f_spec < 0) f_spec = 0;
+                        if(i == closest_idx) continue;
 
-                    Vec diffuse_intensity = *light * (closest_point.roughness * f_dif);
-                    Vec specular_intensity = *light * (closest_point.shine * f_spec);
+                        optional<LitPoint> intersect = objects[i]->colide(light_ray);
+                        
+                        if (intersect.has_value() && intersect.value().t > 0){
+                            light_intersect = true;
+                            break;
+                        }
+                    }
 
-                    Vec color_intensity = this->ambient + diffuse_intensity + specular_intensity;
+                    Vec color_intensity = this->ambient;
+
+                    if(!light_intersect){
+                        Vector l_ = (light->point - closest_point).normalize();
+                        Vector v = Vector(-ray.direction.x, -ray.direction.y, -ray.direction.z);
+                        Vector r = (closest_point.normal * l_.dot(closest_point.normal) * 2) - l_;
+
+                        double f_dif = l_.dot(closest_point.normal);
+                        double f_spec = v.dot(r);
+
+                        if (f_dif < 0) f_dif = 0;
+                        if (f_spec < 0) f_spec = 0;
+
+                        Vec diffuse_intensity = *light * (closest_point.roughness * f_dif);
+                        Vec specular_intensity = *light * (closest_point.shine * f_spec);
+
+                        color_intensity = this->ambient + diffuse_intensity + specular_intensity;
+                    }
 
                     if(color_intensity.x > 1) color_intensity.x = 1;
                     if(color_intensity.y > 1) color_intensity.y = 1;

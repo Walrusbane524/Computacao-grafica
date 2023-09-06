@@ -44,7 +44,6 @@ Cylinder::Cylinder(Point base_center, Point top_center, double radius, Color col
     this->sub_objects.push_back(top_plane);
     this->sub_objects.push_back(cylinder_body);
     this->color = color;
-    
 }
 
 Cylinder::Cylinder(Point base_center, Vector direction, double radius, double height, Color color){
@@ -116,7 +115,10 @@ optional<LitPoint> Cylinder::colide(Ray ray) const{
                     closest_point = intersect.value();
                 }
             }
-            else if(t < smallest_root) smallest_root = t;
+            else if(t < smallest_root) {
+                smallest_root = t;
+                closest_point = intersect.value();
+            }
         }
         cont++;
     }
