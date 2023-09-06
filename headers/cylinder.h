@@ -1,5 +1,4 @@
-#ifndef CYLINDER
-#define CYLINDER
+#pragma once
 
 #include "compound_object.h"
 
@@ -20,5 +19,3 @@ class Cylinder : public CompoundObject{
     private:
         Vector get_normal(Point p) const override;
 };
-
-#endif

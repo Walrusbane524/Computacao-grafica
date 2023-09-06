@@ -35,6 +35,8 @@ int main(){
     scene.addObject(&esfera);
     scene.addLight(&light);
 
+    Ray ray = Ray(Point(0, 10, 0), Point(0, 19.5, -100));
+
     scene.paint(canvas);
 
     return canvas.render();

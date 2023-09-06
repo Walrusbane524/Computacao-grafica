@@ -1,4 +1,5 @@
 #include "../headers/scene.h"
+#include <iostream>
 
 using namespace std;
 
@@ -103,16 +104,24 @@ void Scene::paint(Canvas& canvas){
             }
             if(intersected){
                 for(Light* light : lights){
-                    Vector l_ = light->point - closest_point;
+                    Vector l_ = (light->point - closest_point).normalize();
                     Vector v = Vector(-ray.direction.x, -ray.direction.y, -ray.direction.z);
                     Vector r = (closest_point.normal * l_.dot(closest_point.normal) * 2) - l_;
+
                     double f_dif = l_.dot(closest_point.normal);
                     double f_spec = v.dot(r);
+
+                    if (f_dif < 0) f_dif = 0;
+                    if (f_spec < 0) f_spec = 0;
 
                     Vec diffuse_intensity = *light * (closest_point.roughness * f_dif);
                     Vec specular_intensity = *light * (closest_point.shine * f_spec);
 
                     Vec color_intensity = this->ambient + diffuse_intensity + specular_intensity;
+
+                    if(color_intensity.x > 1) color_intensity.x = 1;
+                    if(color_intensity.y > 1) color_intensity.y = 1;
+                    if(color_intensity.z > 1) color_intensity.z = 1;
 
                     cor_atual = color_intensity * closest_point.color;
                 }   

@@ -14,6 +14,7 @@
 #include "headers/scene.h"
 #include "headers/cylinder.h"
 #include "headers/plane.h"
+#include "headers/light.h"
 
 using namespace std;
 
@@ -49,6 +50,9 @@ int main(){
     Sphere boca8 = Sphere(Point(1.20525,   20.3038, -91.2539), 0.5, Color(0, 0, 0));
     Sphere boca9 = Sphere(Point(1.5756,  20.4828, -91.2187), 0.5, Color(0, 0, 0));
     Sphere boca10 = Sphere(Point(1.94602,  20.6649, -91.2012), 0.5, Color(0, 0, 0));
+
+    Light light(Point(0, 100, -100), 1.0, 1.0, 1.0);
+
     Color background = Color(100, 100, 100);
 
     Scene scene = Scene(camera, background);
@@ -84,6 +88,8 @@ int main(){
     scene.addObject(&chapeu);
     scene.addObject(&chapeu2);
     scene.addObject(&chapeu3);
+
+    scene.addLight(&light);
 
     optional<Point> ponto_ = scene.get_closest_colision(400, 400);
 
