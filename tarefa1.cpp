@@ -24,7 +24,7 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 0), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
-    Sphere esfera = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0), Vec(0, 0, 0), Vec(1, 1, 1));
+    Sphere esfera = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0), Vec(0.5, 0.5, 0.5), Vec(0.5, 0.5, 0.5));
 
     Light light = Light(Point(0, 100, -80), 1.0, 1.0, 1.0);
 
@@ -34,8 +34,6 @@ int main(){
 
     scene.addObject(&esfera);
     scene.addLight(&light);
-
-    Ray ray = Ray(Point(0, 10, 0), Point(0, 19.5, -100));
 
     scene.paint(canvas);
 
