@@ -15,6 +15,7 @@
 #include "headers/cylinder.h"
 #include "headers/plane.h"
 #include "headers/light.h"
+#include "headers/cone.h"
 
 using namespace std;
 
@@ -26,12 +27,16 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
+    
     Sphere cabeca = Sphere(Point(0,  25, -100), 10, Color(255, 255, 255));
     Sphere tronco = Sphere(Point(0,   5, -100), 15, Color(255, 255, 255));
     Sphere barriga = Sphere(Point(0, -20, -100), 20, Color(255, 255, 255));
+
     Cylinder braco_direito = Cylinder(Point(14, 8, -100), Vector(0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
     Cylinder braco_esquerdo = Cylinder(Point(-14, 8, -100), Vector(-0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
-    Plane plano = Plane(Point(0, -40, -100), Vector(0, 1, 0), Color(70, 130, 180));
+    Plane plano = Plane(Point(0, -40, -100), Vector(0, 1, 0).normalize(), Color(70, 130, 180));
+
+    Cone nariz = Cone(Point(0, 23.5, -95), Point(0, 23.5, -80), 1.5, Color(255, 177, 24));
 
     Cylinder chapeu = Cylinder(Point(0, 32, -100), Vector(0,1,0).normalize(), 12, 0.5, Color(0, 0, 0));
     Cylinder chapeu2 = Cylinder(Point(0, 36.5, -100), Vector(0, 1, 0).normalize(), 9, 4, Color(0, 0, 0));
@@ -51,7 +56,7 @@ int main(){
     Sphere boca9 = Sphere(Point(1.5756,  20.4828, -91.2187), 0.5, Color(0, 0, 0));
     Sphere boca10 = Sphere(Point(1.94602,  20.6649, -91.2012), 0.5, Color(0, 0, 0));
 
-    //Light light(Point(0, 0, 20), 1.0, 1.0, 1.0);
+    //Light light(Point(0, 0, -20), 1, 1, 1);
     Light light(Point(0, 100, -80), 1, 1, 1);
 
     Color background = Color(100, 100, 100);
@@ -66,6 +71,7 @@ int main(){
     scene.addObject(&olho1);
     scene.addObject(&olho2);
     scene.addObject(&olho2);
+    scene.addObject(&nariz);
 
     scene.addObject(&boca1);
     scene.addObject(&boca2);
