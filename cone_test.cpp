@@ -13,8 +13,6 @@
 #include "headers/sphere.h"
 #include "headers/scene.h"
 #include "headers/plane.h"
-#include "headers/cylinder.h"
-#include "headers/cylindrical_face.h"
 #include "headers/cone.h"
 
 int main(){
@@ -31,10 +29,13 @@ int main(){
     Color background = Color(100, 100, 100);
 
     Scene scene = Scene(camera, background);
+    Light light = Light(Point(100, 100, -100), 1.0, 1.0, 1.0);
 
     scene.addObject(&cone);
+    scene.addLight(&light);
 
     scene.paint(canvas);
+
 
     return canvas.render();
 }
