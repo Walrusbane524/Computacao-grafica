@@ -1,22 +1,7 @@
-#include <math.h>
-#include <optional>
-#include <SDL2/SDL.h>
-#include <iostream>
-#include <limits>
-#include "../headers/camera.h"
-#include "../headers/canvas.h"
-#include "../headers/color.h"
-#include "../headers/object.h"
-#include "../headers/point.h"
-#include "../headers/ray.h"
-#include "../headers/vec.h"
 #include "../headers/sphere.h"
 #include "../headers/scene.h"
 #include "../headers/cylinder.h"
-#include "../headers/plane.h"
-#include "../headers/light.h"
 #include "../headers/cone.h"
-#include "../headers/compound_object.h"
 #include "../headers/snowman.h"
 
 using namespace std;

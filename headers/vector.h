@@ -1,5 +1,4 @@
-#ifndef VECTOR
-#define VECTOR
+#pragma once
 
 #include "point.h"
 #include "vec.h"
@@ -11,5 +10,3 @@ class Vector : public Vec{
     Vector(Point p);
     Vector(double x, double y, double z);
 };
-
-#endif

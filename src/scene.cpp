@@ -88,8 +88,6 @@ void Scene::paint(Canvas& canvas){
             LitPoint closest_point;
             bool intersected = false;
 
-            long unsigned int closest_idx = 0;
-
             for(long unsigned int i = 0; i < objects.size(); i++){
 
                 optional<LitPoint> intersect = objects[i]->colide(ray);
@@ -101,24 +99,22 @@ void Scene::paint(Canvas& canvas){
                         smallest_root = p.t;
                         closest_point = p;
                         intersected = true;
-                        closest_idx = i;
                     }
                 }
             }
             if(intersected){
                 for(Light* light : lights){
                     
-                    Ray light_ray = Ray(closest_point, light->point);
-                    bool light_intersect = false;
+                    Ray light_ray = Ray(light->point, (Point)closest_point);
+                    double distance_from_light = (light->point - closest_point).magnitude();
+                    double light_intersect = false;
 
                     // Check if there is another object between the light and the object
-                    for(long unsigned int i = 0; i < objects.size(); i++){
+                    for(Object* o : objects){
 
-                        if(i == closest_idx) continue;
-
-                        optional<LitPoint> intersect = objects[i]->colide(light_ray);
+                        optional<LitPoint> intersect = o->colide(light_ray);
                         
-                        if (intersect.has_value() && intersect.value().t > 0){
+                        if (intersect.has_value() && distance_from_light - intersect.value().t > 0.001){
                             light_intersect = true;
                             break;
                         }
