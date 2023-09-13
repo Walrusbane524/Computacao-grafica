@@ -3,10 +3,12 @@
 #include "../headers/cylinder.h"
 #include "../headers/cone.h"
 #include "../headers/snowman.h"
+#include <iostream>
 
 using namespace std;
 
 SnowmanObject::SnowmanObject(Point point){
+
     Sphere* cabeca = new Sphere((point + Point(0, 65, 0)), 10, Color(255, 255, 255));
     Sphere* tronco = new Sphere((point + Point(0, 45, 0)), 15, Color(255, 255, 255));
     Sphere* barriga = new Sphere((point + Point(0, 20, 0)), 20, Color(255, 255, 255));
@@ -14,7 +16,6 @@ SnowmanObject::SnowmanObject(Point point){
     this->sub_objects.push_back(cabeca);
     this->sub_objects.push_back(tronco);
     this->sub_objects.push_back(barriga);
-    
 
     Cylinder* braco_direito = new Cylinder(point + Point(14, 48, 0), Vector(0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
     Cylinder* braco_esquerdo = new Cylinder(point + Point(-14, 48, 0), Vector(-0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
@@ -30,65 +31,48 @@ SnowmanObject::SnowmanObject(Point point){
     this->sub_objects.push_back(chapeu2);
     this->sub_objects.push_back(chapeu3);
 
-    //Point(0, -40, - 100)
+    Sphere* olho1 = new Sphere((point + Point(2.5, 65, 10)), 1, Color(0, 0, 0));
+    Sphere* olho2 = new Sphere((point + Point(-2.5, 65, 10)), 1, Color(0, 0, 0));
 
-    /*Cylinder braco_direito = Cylinder(Point(14, 8, -100), Vector(0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
-    Cylinder braco_esquerdo = Cylinder(Point(-14, 8, -100), Vector(-0.7, -0.3, 0).normalize(), 1, 15, Color(205, 133, 63));
-    Plane plano = Plane(Point(0, -40, -100), Vector(0, 1, 0).normalize(), Color(70, 130, 180));
+    this->sub_objects.push_back(olho1);
+    this->sub_objects.push_back(olho2);
 
-    Cone nariz = Cone(Point(0, 23.5, -95), Point(0, 23.5, -80), 1.5, Color(255, 177, 24));
+    Sphere* boca1 = new Sphere((point + Point(-1.94602,  60.6649, 8.7988)), 0.5, Color(0, 0, 0));
+    Sphere* boca2 = new Sphere((point + Point(-1.57560,  60.4828, 8.7813)), 0.5, Color(0, 0, 0));
+    Sphere* boca3 = new Sphere((point + Point(-1.20525,  60.3038, 8.7461)), 0.5, Color(0, 0, 0));
+    Sphere* boca4 = new Sphere((point + Point(-0.648669, 60.2941, 8.7996)), 0.5, Color(0, 0, 0));
+    Sphere* boca5 = new Sphere((point + Point(-0.0926492, 60.2902,8.8209)), 0.5, Color(0, 0, 0));
+    Sphere* boca6 = new Sphere((point + Point(0.0926492,   60.2902, 8.8209)), 0.5, Color(0, 0, 0));
+    Sphere* boca7 = new Sphere((point + Point(0.648669,60.2941, 8.7996)), 0.5, Color(0, 0, 0));
+    Sphere* boca8 = new Sphere((point + Point(1.20525, 60.3038, 8.7461)), 0.5, Color(0, 0, 0));
+    Sphere* boca9 = new Sphere((point + Point(1.5756,  60.4828, 8.7813)), 0.5, Color(0, 0, 0));
+    Sphere* boca10 = new Sphere((point+ Point(1.94602,  60.6649, 8.7988)), 0.5, Color(0, 0, 0));
 
-    Cylinder chapeu = Cylinder(Point(0, 32, -100), Vector(0,1,0).normalize(), 12, 0.5, Color(0, 0, 0));
-    Cylinder chapeu2 = Cylinder(Point(0, 36.5, -100), Vector(0, 1, 0).normalize(), 9, 4, Color(0, 0, 0));
-    Cylinder chapeu3 = Cylinder(Point(0, 34, -100), Vector(0, 1, 0).normalize(), 9.1, 2, Color(255, 255, 255));
-
-    Sphere olho1 = Sphere(Point(2.5,  25, -90), 1, Color(0, 0, 0));
-    Sphere olho2 = Sphere(Point(-2.5,  25, -90), 1, Color(0, 0, 0));
-
-    Sphere boca1 = Sphere(Point(-1.94602,  20.6649, -91.2012), 0.5, Color(0, 0, 0));
-    Sphere boca2 = Sphere(Point(-1.5756,  20.4828, -91.2187), 0.5, Color(0, 0, 0));
-    Sphere boca3 = Sphere(Point(-1.20525,   20.3038, -91.2539), 0.5, Color(0, 0, 0));
-    Sphere boca4 = Sphere(Point(-0.648669,  20.2941, -91.2004), 0.5, Color(0, 0, 0));
-    Sphere boca5 = Sphere(Point(-0.0926492,   20.2902, -91.1791), 0.5, Color(0, 0, 0));
-    Sphere boca6 = Sphere(Point(0.0926492,   20.2902, -91.1791), 0.5, Color(0, 0, 0));
-    Sphere boca7 = Sphere(Point(0.648669,  20.2941, -91.2004), 0.5, Color(0, 0, 0));
-    Sphere boca8 = Sphere(Point(1.20525,   20.3038, -91.2539), 0.5, Color(0, 0, 0));
-    Sphere boca9 = Sphere(Point(1.5756,  20.4828, -91.2187), 0.5, Color(0, 0, 0));
-    Sphere boca10 = Sphere(Point(1.94602,  20.6649, -91.2012), 0.5, Color(0, 0, 0));
+    this->sub_objects.push_back(boca1);
+    this->sub_objects.push_back(boca2);
+    this->sub_objects.push_back(boca3);
+    this->sub_objects.push_back(boca4);
+    this->sub_objects.push_back(boca5);
+    this->sub_objects.push_back(boca6);
+    this->sub_objects.push_back(boca7);
+    this->sub_objects.push_back(boca8);
+    this->sub_objects.push_back(boca9);
+    this->sub_objects.push_back(boca10);
 
 
-    Sphere botao1 = Sphere(Point(0.106044, 10.4984, -86.0445), 1, Color(0, 0, 0));
-    Sphere botao2 = Sphere(Point(0.10401, 5.0965, -84.0101), 1, Color(0, 0, 0));
-    Sphere botao3 = Sphere(Point(0.0990099, -0.0990099, -79.0099), 1, Color(0, 0, 0));
+    Sphere* botao1 = new Sphere((point + Point(0.106044, 50.4984, 14)), 1, Color(0, 0, 0));
+    Sphere* botao2 = new Sphere((point + Point(0.10401, 45.0965, 15)), 1, Color(0, 0, 0));
+    Sphere* botao3 = new Sphere((point + Point(0.0990099, 40.0990099, 14)), 1, Color(0, 0, 0));
 
-    //scene.addObject(&cabeca);
-    //scene.addObject(&olho1);
-    //scene.addObject(&olho2);
-    //scene.addObject(&olho2);
-    //scene.addObject(&nariz);
+    this->sub_objects.push_back(botao1);
+    this->sub_objects.push_back(botao2);
+    this->sub_objects.push_back(botao3);
 
-    //scene.addObject(&boca1);
-    //scene.addObject(&boca2);
-    //scene.addObject(&boca3);
-    //scene.addObject(&boca4);
-    //scene.addObject(&boca5);
-    //scene.addObject(&boca6);
-    //scene.addObject(&boca7);
-    //scene.addObject(&boca8);
-    //scene.addObject(&boca9);
-    //scene.addObject(&boca10);
+    Cone* nariz = new Cone((point + Point(0, 63.5, 5)), Point(0, 23.5, -80), 1.5, Color(255, 177, 24));
 
-    //scene.addObject(&tronco);
-    //scene.addObject(&barriga);
-    //scene.addObject(&botao1);
-    //scene.addObject(&botao2);
-    //scene.addObject(&botao3);
-    //scene.addObject(&braco_direito);
-    //scene.addObject(&braco_esquerdo);
-    //scene.addObject(&plano);
-    //scene.addObject(&chapeu);
-    //scene.addObject(&chapeu2);
-    //scene.addObject(&chapeu3);*/
+    this->sub_objects.push_back(nariz);
+
+    //Point(0, -40, -100)
 }
 
 optional<LitPoint> SnowmanObject::colide(Ray ray) const{

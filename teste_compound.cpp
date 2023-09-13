@@ -33,7 +33,7 @@ int main(){
 
     Color background = Color(100, 100, 100);
 
-    Scene scene = Scene(camera, background, Vec(0.2, 0.2, 0.2));
+    Scene scene = Scene(camera, background, Vec(0.5, 0.5, 0.5));
 
     scene.addObject(&snm);
     scene.addLight(&light);
