@@ -19,12 +19,12 @@ int main(){
 
     int n_l = 400;
     int n_c = 400;
-    double d = 3;
+    double d = 2.5;
 
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
 
-    Triangle triangle = Triangle();
+    Triangle triangle = Triangle(Vector(0, 0, 1), Point(-20, -10, -100), Point(20, -10, -100), Point(0, 20, -100));
 
     Color background = Color(100, 100, 100);
 
@@ -34,8 +34,11 @@ int main(){
     scene.addObject(&triangle);
     scene.addLight(&light);
 
-    scene.paint(canvas);
+    Ray ray = Ray(Point(0, 0, 0), Vector(0, 0, -1));
 
+    triangle.colide(ray);
+
+    scene.paint(canvas);
 
     return canvas.render();
 }

@@ -54,7 +54,7 @@ double Vec::dot(const Vec& v) const{
 Vec Vec::operator&(const Vec& v) const{
     return Vec((y * v.z) - (z * v.y), 
                (z * v.x) - (x * v.z), 
-               (x * v.y) - (y * v.z));
+               (x * v.y) - (y * v.x));
 }
 
 double Vec::magnitude(){
