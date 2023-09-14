@@ -15,6 +15,7 @@
 #include "headers/light.h"
 #include "headers/compound_object.h"
 #include "headers/snowman.h"
+#include "headers/tree.h"
 
 using namespace std;
 
@@ -27,7 +28,8 @@ int main(){
     Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
 
-    SnowmanObject snm = SnowmanObject(Point(0, -40, -100));
+    SnowmanObject snm = SnowmanObject(Point(-5, -30, -150));
+    TreeObject tr = TreeObject(Point(-60, -20, -150));
 
     Light light = Light(Point(0, 100, -80), 1.0, 1.0, 1.0);
 
@@ -36,6 +38,7 @@ int main(){
     Scene scene = Scene(camera, background, Vec(0.5, 0.5, 0.5));
 
     scene.addObject(&snm);
+    scene.addObject(&tr);
     scene.addLight(&light);
 
     scene.paint(canvas);

@@ -5,8 +5,6 @@
 #include "../headers/snowman.h"
 #include <iostream>
 
-using namespace std;
-
 SnowmanObject::SnowmanObject(Point point){
 
     Sphere* cabeca = new Sphere((point + Point(0, 65, 0)), 10, Color(255, 255, 255));
@@ -31,8 +29,8 @@ SnowmanObject::SnowmanObject(Point point){
     this->sub_objects.push_back(chapeu2);
     this->sub_objects.push_back(chapeu3);
 
-    Sphere* olho1 = new Sphere((point + Point(2.5, 65, 10)), 1, Color(0, 0, 0));
-    Sphere* olho2 = new Sphere((point + Point(-2.5, 65, 10)), 1, Color(0, 0, 0));
+    Sphere* olho1 = new Sphere((point + Point(2.5, 65, 9.5)), 1, Color(0, 0, 0));
+    Sphere* olho2 = new Sphere((point + Point(-2.5, 65, 9.5)), 1, Color(0, 0, 0));
 
     this->sub_objects.push_back(olho1);
     this->sub_objects.push_back(olho2);
@@ -68,7 +66,7 @@ SnowmanObject::SnowmanObject(Point point){
     this->sub_objects.push_back(botao2);
     this->sub_objects.push_back(botao3);
 
-    Cone* nariz = new Cone((point + Point(0, 63.5, 5)), Point(0, 23.5, -80), 1.5, Color(255, 177, 24));
+    Cone* nariz = new Cone((point + Point(0, 63.5, 5)), (point + Point(0, 63.5, 20)), 1.5, Color(255, 177, 24));
 
     this->sub_objects.push_back(nariz);
 
