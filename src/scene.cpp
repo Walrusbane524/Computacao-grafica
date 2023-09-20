@@ -46,9 +46,13 @@ void Scene::addLight(Light* light){
 optional<Point> Scene::get_closest_colision(int frame_x, int frame_y){
     int l = camera.n_l - frame_y;
     int c = frame_x;
-    double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
-    double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
-    Point p_j = Point(x_c, y_l, camera.origin.z - camera.d);
+
+    Vector diff_y = (camera.j * (camera.delta_y/2)) + ((camera.j * camera.delta_y) * l);
+    Vector diff_x = (camera.i * (camera.delta_x/2)) + ((camera.i * camera.delta_x) * c);
+    
+    Point upper_left = camera.origin - (camera.i * camera.width/2) + camera.j * camera.height/2 + camera.k * camera.d;
+
+    Point p_j = upper_left - diff_x - diff_y;
 
     Ray ray = Ray(camera.origin, p_j);
 
@@ -75,13 +79,22 @@ optional<Point> Scene::get_closest_colision(int frame_x, int frame_y){
 
 void Scene::paint(Canvas& canvas){
     
+    Point upper_left = camera.origin - (camera.i * camera.width/2) + (camera.j * camera.height/2) + (camera.k * camera.d);
+
+    //cout << "Upper_left: " << upper_left.x << " " << upper_left.y << " " << upper_left.z << endl ;
+
     for(int l = 0; l < camera.n_l; l++){
-        double y_l = camera.j_ymax - (camera.delta_y/2.0) - (l*camera.delta_y);
+
+        Vector diff_y = (camera.j * (camera.delta_y/2)) + ((camera.j * camera.delta_y) * l);
         
         for(int c = 0; c < camera.n_c; c++){
-            double x_c = camera.j_xmin + (camera.delta_x/2.0) + (c*camera.delta_x);
 
-            Point p_j = Point(x_c, y_l, camera.origin.z - camera.d);
+            Vector diff_x = (camera.i * (camera.delta_x/2)) + ((camera.i * camera.delta_x) * c);
+
+            Point p_j = upper_left + diff_x - diff_y;
+
+            //cout << "p_j: " << p_j.x << " " << p_j.y << " " << p_j.z << endl ;
+
             Ray ray = Ray(camera.origin, p_j);
             Color cor_atual = background;
             double smallest_root = numeric_limits<double>::infinity();

@@ -22,7 +22,9 @@ int main(){
     int n_c = 400;
     double d = 3;
 
-    Camera camera = Camera(Point(0, 0, 0), 1, -1, 1, -1, n_l, n_c, d);
+    //Camera camera = Camera(Point(0, 0, 0), Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, -1), 2, 2, n_l, n_c, d);
+    Camera camera = Camera(Point(100, 0, -100), Vector(0, 0, 1), Vector(0, 1, 0), Vector(-1, 0, 0), 2, 2, n_l, n_c, d);
+    
     Canvas canvas = Canvas(n_l, n_c);
     Sphere esfera = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0), Vec(0.5, 0.5, 0.5), Vec(0.5, 0.5, 0.5));
 

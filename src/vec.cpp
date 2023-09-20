@@ -6,12 +6,21 @@ Vec::Vec(){
     x = 0;
     y = 0;
     z = 0;
+    this->w = 1;
 }
         
 Vec::Vec(double x, double y, double z){
     this->x = x;
     this->y = y;
     this->z = z;
+    this->w = 1;
+}
+
+Vec::Vec(double x, double y, double z, double w){
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
 }
 
 Vec Vec::operator+(const Vec& v){
@@ -19,10 +28,10 @@ Vec Vec::operator+(const Vec& v){
 }
 
 Vec Vec::operator-(const Vec& v){
-    return Vec(x - v.x, y - v.y, z - v.z);
+    return Vec(x - v.x, y - v.y, z - v.z, w - v.w);
 }
 Vec Vec::operator-(const Vec& v) const{
-    return Vec(x - v.x, y - v.y, z - v.z);
+    return Vec(x - v.x, y - v.y, z - v.z, w - v.w);
 }
 
 Vec Vec::operator*(const double d){

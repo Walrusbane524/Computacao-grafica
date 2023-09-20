@@ -3,26 +3,28 @@
 
 Camera::Camera(){
     origin = Point(0, 0, 0);
-    j_ymax = 1;
-    j_ymin = -1;
-    j_xmax = 1;
-    j_xmin = -1;
+    i = Vector(1, 0, 0);
+    j = Vector(0, 1, 0);
+    j = Vector(0, 0, -1);
+    width = 2;
+    height = 2;
     n_l = 400;
     n_c = 400;
     d = 3;
-    delta_x = abs(j_xmax - j_xmin)/n_c;
-    delta_y = abs(j_ymax - j_ymin)/n_l;
+    delta_x = abs(width)/n_c;
+    delta_y = abs(height)/n_l;
 }
 
-Camera::Camera(Point position, double j_ymax, double j_ymin, double j_xmax, double j_xmin, double n_l, double n_c, double d){
-    origin = position;
-    this->j_xmax = j_xmax;
-    this->j_xmin = j_xmin;
-    this->j_ymax = j_ymax;
-    this->j_ymin = j_ymin;
+Camera::Camera(Point position, Vector i, Vector j, Vector k, double width, double height, double n_l, double n_c, double d){
+    this->origin = position;
+    this->i = i.normalize();
+    this->j = j.normalize();
+    this->k = k.normalize();
+    this->width = width;
+    this->height = height;
     this->n_l = n_l;
     this->n_c = n_c;
     this->d = d;
-    delta_x = abs(j_xmax - j_xmin)/n_c;
-    delta_y = abs(j_ymax - j_ymin)/n_l;
+    delta_x = abs(width)/n_c;
+    delta_y = abs(height)/n_l;
 }

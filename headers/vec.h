@@ -5,10 +5,11 @@
 
 class Vec{
     public:
-        double x, y, z;
+        double x, y, z, w;
 
         Vec();
         Vec(double x, double y, double z);
+        Vec(double x, double y, double z, double w);
         Vec operator+(const Vec& v);
         Vec operator-(const Vec& v);
         Vec operator-(const Vec& v) const;
