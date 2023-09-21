@@ -21,7 +21,7 @@ int main(){
     int n_c = 400;
     double d = 2.5;
 
-    Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
+    Camera camera = Camera(Point(0, 0, 20), Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, -1), 2, 2, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
 
     Triangle triangle = Triangle(Vector(0, 0, 1), Point(-20, -10, -100), Point(20, -10, -100), Point(0, 20, -100));
