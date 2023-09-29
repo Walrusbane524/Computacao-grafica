@@ -14,9 +14,9 @@ class Cone : public CompoundObject{
 
         Cone();
         Cone(Point base_center, Point tip, double radius, Color color);
-        Cone(Point base_center, Point tip, double radius, Color color, Vec roughness, Vec shine);
+        Cone(Point base_center, Point tip, double radius, Color color, Material material);
         Cone(Point base_center, Vector direction, double radius, double height, Color color);
-        Cone(Point base_center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine);
+        Cone(Point base_center, Vector direction, double radius, double height, Color color, Material material);
     
     private:
 

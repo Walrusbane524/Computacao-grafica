@@ -9,6 +9,7 @@ CylindricalFace::CylindricalFace(){
     this->radius = 10.0;
     this->direction = Vector(0, 1, 0);
     this->color = Color();
+    this->material = Material();
 }
 
 CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, double height, Color color){
@@ -17,17 +18,15 @@ CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, 
     this->height = height;
     this->direction = direction;
     this->color = color;
-    this->roughness = Vec(1, 1, 1);
-    this->shine = Vec(1, 1, 1);
+    this->material = Material();
 }
-CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine){
+CylindricalFace::CylindricalFace(Point center, Vector direction, double radius, double height, Color color, Material material){
     this->base_center = center;
     this->radius = radius;
     this->height = height;
     this->direction = direction;
     this->color = color;
-    this->roughness = roughness;
-    this->shine = shine;
+    this->material = material;
 }
 
 Vector CylindricalFace::get_normal(Point p) const{
@@ -80,6 +79,6 @@ optional<LitPoint> CylindricalFace::colide(Ray ray) const{
     Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
     Vector normal = this->get_normal(p_intersect);
 
-    return LitPoint(p_intersect, smallest_t, normal, this->color, this->roughness, this->shine);
+    return LitPoint(p_intersect, smallest_t, normal, this->color, this->material);
 }
 

@@ -13,7 +13,7 @@ class Sphere : public Object{
 
         Sphere();
         Sphere(Point center, double radius, Color color);
-        Sphere(Point center, double radius, Color color, Vec roughness, Vec shine);
+        Sphere(Point center, double radius, Color color, Material material);
         optional<LitPoint> colide(Ray ray) const override;
 
     private:

@@ -11,7 +11,7 @@ class Triangle : public Object{
         Point p3;
 
         Triangle();
-        Triangle(Vector normal, Point p1, Point p2, Point p3);
+        Triangle(Vector normal, Point p1, Point p2, Point p3, Material material);
         optional<LitPoint> colide(Ray ray) const override;
 
     private:

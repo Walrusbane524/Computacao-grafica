@@ -13,7 +13,7 @@ class Plane : public Object{
 
         Plane();
         Plane(Point center, Vector normal, Color color);
-        Plane(Point center, Vector normal, Color color, Vec roughness, Vec shine);
+        Plane(Point center, Vector normal, Color color, Material material);
         optional<LitPoint> colide(Ray ray) const override;
 
     private:

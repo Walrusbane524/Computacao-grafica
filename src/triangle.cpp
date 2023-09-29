@@ -8,13 +8,15 @@ Triangle::Triangle(){
     this->p2 = Point(10, -10, -100);
     this->p3 = Point(0, -10, -110);
     this->plane = Plane(p1, Vector(0, 1, 0), Color(255, 0, 0));
+    this->material = Material();
 }
 
-Triangle::Triangle(Vector normal, Point p1, Point p2, Point p3){
+Triangle::Triangle(Vector normal, Point p1, Point p2, Point p3, Material material){
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
     this->plane = Plane(p1, normal, Color(255, 0, 0));
+    this->material = material;
 }
 
 optional<LitPoint> Triangle::colide(Ray ray) const {

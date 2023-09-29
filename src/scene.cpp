@@ -141,13 +141,13 @@ void Scene::paint(Canvas& canvas){
                         Vector r = (closest_point.normal * l_.dot(closest_point.normal) * 2) - l_;
 
                         double f_dif = l_.dot(closest_point.normal);
-                        double f_spec = v.dot(r);
+                        double f_spec = pow(v.dot(r), closest_point.material.reflectivity);
 
                         if (f_dif < 0) f_dif = 0;
                         if (f_spec < 0) f_spec = 0;
 
-                        Vec diffuse_intensity = *light * (closest_point.roughness * f_dif);
-                        Vec specular_intensity = *light * (closest_point.shine * f_spec);
+                        Vec diffuse_intensity = *light * (closest_point.material.roughness * f_dif);
+                        Vec specular_intensity = *light * (closest_point.material.shine * f_spec);
 
                         color_intensity = this->ambient + diffuse_intensity + specular_intensity;
                     }

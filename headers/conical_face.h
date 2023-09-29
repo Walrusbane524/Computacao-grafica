@@ -16,9 +16,9 @@ class ConicalFace : public Object{
 
         ConicalFace();
         ConicalFace(Point base_center, Point tip, double radius, Color color);
-        ConicalFace(Point base_center, Point tip, double radius, Color color, Vec roughness, Vec shine);
+        ConicalFace(Point base_center, Point tip, double radius, Color color, Material material);
         ConicalFace(Point base_center, Vector direction, double radius, double height, Color color);
-        ConicalFace(Point base_center, Vector direction, double radius, double height, Color color, Vec roughness, Vec shine);
+        ConicalFace(Point base_center, Vector direction, double radius, double height, Color color, Material material);
     
     private:
         Vector get_normal(Point p) const override;

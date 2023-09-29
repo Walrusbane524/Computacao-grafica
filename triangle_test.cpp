@@ -24,7 +24,9 @@ int main(){
     Camera camera = Camera(Point(0, 0, 20), Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, -1), 2, 2, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
 
-    Triangle triangle = Triangle(Vector(0, 0, 1), Point(-20, -10, -100), Point(20, -10, -100), Point(0, 20, -100));
+    Material material = Material();
+
+    Triangle triangle = Triangle(Vector(0, 0, 1), Point(-20, -10, -100), Point(20, -10, -100), Point(0, 20, -100), material);
 
     Color background = Color(100, 100, 100);
 
