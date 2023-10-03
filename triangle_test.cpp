@@ -21,7 +21,8 @@ int main(){
     int n_c = 400;
     double d = 2.5;
 
-    Camera camera = Camera(Point(0, 0, 20), Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, -1), 2, 2, n_l, n_c, d);
+    Camera camera = Camera(2, 2, n_l, n_c, d);
+    camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
     Canvas canvas = Canvas(n_l, n_c);
 
     Material material = Material();
@@ -31,7 +32,7 @@ int main(){
     Color background = Color(100, 100, 100);
 
     Scene scene = Scene(camera, background);
-    Light light = Light(Point(100, 100, -100), 1.0, 1.0, 1.0);
+    Light light = Light(Point(0, 100, -30), 1.0, 1.0, 1.0);
 
     scene.addObject(&triangle);
     scene.addLight(&light);
