@@ -88,7 +88,7 @@ Vector Cylinder::get_normal(Point p) const {
 
 optional<LitPoint> Cylinder::colide(Ray ray) const{
 
-    double smallest_root = numeric_limits<double>::infinity();
+    double smallest_t = numeric_limits<double>::infinity();
     LitPoint closest_point;
 
     int cont = 0;
@@ -100,25 +100,25 @@ optional<LitPoint> Cylinder::colide(Ray ray) const{
             Point intersect_point = Point(intersect.value().x, intersect.value().y, intersect.value().z);
             
             if(cont == 0){
-                if((intersect_point - base_center).magnitude() <= radius && t < smallest_root) {
-                    smallest_root = t;
+                if((intersect_point - base_center).magnitude() <= radius && t < smallest_t) {
+                    smallest_t = t;
                     closest_point = intersect.value();
                 }
             }
             else if (cont == 1){
-                if((intersect_point - top_center).magnitude() <= radius && t < smallest_root) {
-                    smallest_root = t;
+                if((intersect_point - top_center).magnitude() <= radius && t < smallest_t) {
+                    smallest_t = t;
                     closest_point = intersect.value();
                 }
             }
-            else if(t < smallest_root) {
-                smallest_root = t;
+            else if(t < smallest_t) {
+                smallest_t = t;
                 closest_point = intersect.value();
             }
         }
         cont++;
     }
 
-    if (smallest_root != numeric_limits<double>::infinity()) return closest_point;
+    if (smallest_t != numeric_limits<double>::infinity()) return closest_point;
     return nullopt;
 }

@@ -127,7 +127,7 @@ void Scene::paint(Canvas& canvas){
 
                         optional<LitPoint> intersect = o->colide(light_ray);
                         
-                        if (intersect.has_value() && distance_from_light - intersect.value().t > 0.001){
+                        if (intersect.has_value() && intersect.value().t > 0 && distance_from_light - intersect.value().t > 0.001){
                             light_intersect = true;
                             break;
                         }

@@ -28,9 +28,9 @@ int main(){
     
     Sphere esfera = Sphere(Point(0, 0, -100), 40, Color(255, 0, 0), Material(Vec(0.7, 0.2, 0.2), Vec(0.7, 0.2, 0.2), 10));
 
-    Plane chão = Plane(Point(0, -40, 0), Vector(0, 1, 0), Color(0, 0, 255), Material(Vec(0.2, 0.7, 0.2), Vec(0, 0, 0), 1));
+    Plane chão = Plane(Point(0, -40, 0), Vector(0, 1, 0), Color(0, 255, 0), Material(Vec(0.2, 0.7, 0.2), Vec(0, 0, 0), 1));
 
-    Plane fundo = Plane(Point(0, 0, -200), Vector(0, 0, 1), Color(0, 255, 0), Material(Vec(0.3, 0.3, 0.7), Vec(0, 0, 0), 1));
+    Plane fundo = Plane(Point(0, 0, -200), Vector(0, 0, 1), Color(0, 0, 255), Material(Vec(0.3, 0.3, 0.7), Vec(0, 0, 0), 1));
 
     Light light = Light(Point(0, 60, -30), 0.7, 0.7, 0.7);
 

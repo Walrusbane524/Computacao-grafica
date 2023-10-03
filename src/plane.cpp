@@ -29,6 +29,7 @@ optional<LitPoint> Plane::colide(Ray ray) const {
     Vector w = ray.p_inicial - center;
 
     double t = -(normal.dot(w)/divisor);
+
     Point p_intersect = ray.p_inicial + (ray.direction * t);
 
     return LitPoint(p_intersect, t, this->normal, this->color, this->material);
