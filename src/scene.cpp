@@ -116,13 +116,16 @@ void Scene::paint(Canvas& canvas){
                 }
             }
             if(intersected){
+
+                Vec ambient_intensity = this->ambient * closest_point.material.ambient;
+                Vec color_intensity = ambient_intensity;
+
                 for(Light* light : lights){
                     
                     Ray light_ray = Ray(light->point, (Point)closest_point);
                     double distance_from_light = (light->point - closest_point).magnitude();
                     double light_intersect = false;
 
-                    // Check if there is another object between the light and the object
                     for(Object* o : objects){
 
                         optional<LitPoint> intersect = o->colide(light_ray);
@@ -132,8 +135,6 @@ void Scene::paint(Canvas& canvas){
                             break;
                         }
                     }
-
-                    Vec color_intensity = this->ambient;
 
                     if(!light_intersect){
                         Vector l_ = (light->point - closest_point).normalize();
@@ -149,17 +150,16 @@ void Scene::paint(Canvas& canvas){
                         Vec diffuse_intensity = *light * (closest_point.material.roughness * f_dif);
                         Vec specular_intensity = *light * (closest_point.material.shine * f_spec);
 
-                        color_intensity = this->ambient + diffuse_intensity + specular_intensity;
+                        color_intensity = color_intensity + diffuse_intensity + specular_intensity;
                     }
+                }
 
-                    if(color_intensity.x > 1) color_intensity.x = 1;
-                    if(color_intensity.y > 1) color_intensity.y = 1;
-                    if(color_intensity.z > 1) color_intensity.z = 1;
+                if(color_intensity.x > 1) color_intensity.x = 1;
+                if(color_intensity.y > 1) color_intensity.y = 1;
+                if(color_intensity.z > 1) color_intensity.z = 1;  
 
-                    cor_atual = color_intensity * closest_point.color;
-                }   
+                cor_atual = color_intensity * Color(255, 255, 255);
             }
-            // if(l == 90) cor_atual = Color(255,0,0);
             canvas.matrix[l][c] = cor_atual;
         }
     }

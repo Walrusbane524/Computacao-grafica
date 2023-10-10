@@ -24,7 +24,7 @@ int main(){
 
     Camera camera = Camera(Point(0, 0, 0), Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, -1), 2, 2, n_l, n_c, d);
     Canvas canvas = Canvas(n_l, n_c);
-    Material material = Material(Vec(0.5, 0.5, 0.5), Vec(0.5, 0.5, 0.5), 1);
+    Material material = Material(Vec(0.5, 0.5, 0.5), Vec(0.5, 0.5, 0.5), Vec(0.5, 0.5, 0.5), 1);
     Sphere esfera = Sphere(Point(0, 0, -100), 20, Color(255, 0, 0), material);
 
     Light light = Light(Point(0, 5, 0), 0.7, 0.7, 0.7);
