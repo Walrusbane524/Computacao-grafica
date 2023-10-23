@@ -121,37 +121,8 @@ void Scene::paint(Canvas& canvas){
                 Vec color_intensity = ambient_intensity;
 
                 for(Light* light : lights){
-                    
-                    Ray light_ray = Ray(light->point, (Point)closest_point);
-                    double distance_from_light = (light->point - closest_point).magnitude();
-                    double light_intersect = false;
-
-                    for(Object* o : objects){
-
-                        optional<LitPoint> intersect = o->colide(light_ray);
-                        
-                        if (intersect.has_value() && intersect.value().t > 0 && distance_from_light - intersect.value().t > 0.001){
-                            light_intersect = true;
-                            break;
-                        }
-                    }
-
-                    if(!light_intersect){
-                        Vector l_ = (light->point - closest_point).normalize();
-                        Vector v = Vector(-ray.direction.x, -ray.direction.y, -ray.direction.z);
-                        Vector r = (closest_point.normal * l_.dot(closest_point.normal) * 2) - l_;
-
-                        double f_dif = l_.dot(closest_point.normal);
-                        double f_spec = pow(v.dot(r), closest_point.material.reflectivity);
-
-                        if (f_dif < 0) f_dif = 0;
-                        if (f_spec < 0) f_spec = 0;
-
-                        Vec diffuse_intensity = *light * (closest_point.material.roughness * f_dif);
-                        Vec specular_intensity = *light * (closest_point.material.shine * f_spec);
-
-                        color_intensity = color_intensity + diffuse_intensity + specular_intensity;
-                    }
+                    Vec diffuse_specular = light->get_diffuse_and_specular(closest_point, this->objects, ray);
+                    color_intensity = color_intensity + diffuse_specular;
                 }
 
                 if(color_intensity.x > 1) color_intensity.x = 1;

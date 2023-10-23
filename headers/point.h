@@ -2,7 +2,7 @@
 #define POINT
 #include "vec.h"
 
-class Point: public Vec{
+class Point : public Vec{
     public:
         Point();
         Point(Vec v);

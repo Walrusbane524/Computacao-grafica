@@ -12,7 +12,9 @@
 #include "headers/vec.h"
 #include "headers/sphere.h"
 #include "headers/scene.h"
-#include "headers/light.h"
+#include "headers/spot_light.h"
+#include "headers/directional_light.h"
+#include "headers/point_light.h"
 #include "headers/plane.h"
 
 using namespace std;
@@ -32,7 +34,7 @@ int main(){
 
     Plane fundo = Plane(Point(0, 0, -200), Vector(0, 0, 1), Color(0, 0, 255), Material(Vec(0, 0, 0), Vec(0.3, 0.3, 0.7), Vec(0.3, 0.3, 0.7), 1));
 
-    Light light = Light(Point(0, 60, -30), 0.7, 0.7, 0.7);
+    PointLight point_light = PointLight(Point(0, 60, -30), 0.7, 0.7, 0.7);
 
     Color background = Color(100, 100, 100);
 
@@ -42,7 +44,7 @@ int main(){
     scene.addObject(&chão);
     scene.addObject(&fundo);
     
-    scene.addLight(&light);
+    scene.addLight(&point_light);
 
     scene.paint(canvas);
 
