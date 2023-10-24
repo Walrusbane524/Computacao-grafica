@@ -18,6 +18,10 @@
 #include "headers/directional_light.h"
 #include "headers/point_light.h"
 #include "headers/plane.h"
+#include "headers/translation_matrix.h"
+#include "headers/rotation_matrix_x_axis.h"
+#include "headers/rotation_matrix_y_axis.h"
+#include "headers/rotation_matrix_z_axis.h"
 
 using namespace std;
 
@@ -51,8 +55,20 @@ int main(){
 
     Scene scene = Scene(camera, background, Vec(0.3, 0.3, 0.3));
 
+    cout << "Esfera.x = " << esfera.center.x << endl;
+    cout << "Esfera.y = " << esfera.center.y << endl;
+    cout << "Esfera.z = " << esfera.center.z << endl;
+
+    //esfera.transform(TranslationMatrix(Vector(0, 20, 0)));
+    //esfera.transform(RotationMatrixXAxis(-0.5));
+    //esfera.transform(RotationMatrixYAxis(-0.5));
+    //esfera.transform(RotationMatrixZAxis(0.5));
+
+    cout << "Esfera.x = " << esfera.center.x << endl;
+    cout << "Esfera.y = " << esfera.center.y << endl;
+    cout << "Esfera.z = " << esfera.center.z << endl;
+
     scene.addObject(&esfera);
-    //scene.addObject(&esfera2);
     scene.addObject(&cilindro);
     scene.addObject(&cone);
     scene.addObject(&chão);

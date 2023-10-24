@@ -4,6 +4,7 @@
 #include "color.h"
 #include "lit_point.h"
 #include "material.h"
+#include "matrix.h"
 #include <optional>
 
 using namespace std;
@@ -14,6 +15,8 @@ class Object{
         Material material;
 
         virtual optional<LitPoint> colide(Ray ray) const = 0;
+        //virtual void transform(Matrix transformation_matrix) const = 0;
+        
     private:
         virtual Vector get_normal(Point p) const = 0;
 };

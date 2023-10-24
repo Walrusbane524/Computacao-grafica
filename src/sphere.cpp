@@ -62,3 +62,7 @@ optional<LitPoint> Sphere::colide(Ray ray) const {
     }
     else return nullopt;
 }
+
+void Sphere::transform(Matrix transformation_matrix){
+    this->center = transformation_matrix * this->center;
+}

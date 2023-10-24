@@ -15,6 +15,7 @@ class Sphere : public Object{
         Sphere(Point center, double radius);
         Sphere(Point center, double radius, Material material);
         optional<LitPoint> colide(Ray ray) const override;
+        void transform(Matrix transformation_matrix);
 
     private:
         Vector get_normal(Point p) const override;
