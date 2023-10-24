@@ -4,7 +4,7 @@
 #include "../headers/cone.h"
 #include "../headers/tree.h"
 #include <iostream>
-
+/*
 TreeObject::TreeObject(Point point){
 
     Cylinder* tronco = new Cylinder(point, Vector(0, 1, 0).normalize(), 4.5, 50, Color(153, 51, 0));
@@ -13,9 +13,9 @@ TreeObject::TreeObject(Point point){
     Cone* folha = new Cone((point + Point(0, 45, 0)), (point + Point(0, 70, 0)), 7, Color(51, 204, 51));
     this->sub_objects.push_back(folha);
 
-    /*
-    Sphere* bola1 = new Sphere((point + Point(-10, 25, 0)), 3, Color(255, 0, 0));
-    this->sub_objects.push_back(bola1);*/
+    
+    //Sphere* bola1 = new Sphere((point + Point(-10, 25, 0)), 3, Color(255, 0, 0));
+    //this->sub_objects.push_back(bola1);
 
 }
 
@@ -38,3 +38,4 @@ optional<LitPoint> TreeObject::colide(Ray ray) const{
 Vector TreeObject::get_normal(Point p) const{
     return Vector();
 }
+*/

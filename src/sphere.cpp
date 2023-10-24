@@ -9,21 +9,18 @@
 Sphere::Sphere(){
     center = Point();
     radius = 1;
-    color = Color(255, 0, 0);
     this->material = Material();
 }
 
-Sphere::Sphere(Point center, double radius, Color color){
+Sphere::Sphere(Point center, double radius){
     this->center = center;
     this->radius = radius;
-    this->color = color;
     this->material = Material();
 }
 
-Sphere::Sphere(Point center, double radius, Color color, Material material){
+Sphere::Sphere(Point center, double radius, Material material){
     this->center = center;
     this->radius = radius;
-    this->color = color;
     this->material = material;
 }
 
@@ -61,7 +58,7 @@ optional<LitPoint> Sphere::colide(Ray ray) const {
         Point p_intersect = ray.p_inicial + (ray.direction * (smallest_t));
         Vector normal = get_normal(p_intersect);
 
-        return LitPoint(p_intersect + (normal * 0.01), smallest_t, normal, this->color, this->material);
+        return LitPoint(p_intersect + (normal * 0.01), smallest_t, normal, this->material);
     }
     else return nullopt;
 }

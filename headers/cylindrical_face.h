@@ -10,8 +10,8 @@ class CylindricalFace : public Object{
         double height;
 
         CylindricalFace();
-        CylindricalFace(Point center, Vector direction, double radius, double height, Color color);
-        CylindricalFace(Point center, Vector direction, double radius, double height, Color color, Material material);
+        CylindricalFace(Point center, Vector direction, double radius, double height);
+        CylindricalFace(Point center, Vector direction, double radius, double height, Material material);
 
         optional<LitPoint> colide(Ray ray) const override;
 

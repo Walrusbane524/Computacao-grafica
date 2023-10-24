@@ -9,41 +9,37 @@ LitPoint::LitPoint(){
     this->material = Material();
 }
 
-LitPoint::LitPoint(Vec v, double t, Vector normal, Color color){
+LitPoint::LitPoint(Vec v, double t, Vector normal){
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
     this->t = t;
     this->normal = normal;
-    this->color = color;
     this->material = Material();
 }
 
-LitPoint::LitPoint(Vec v, double t, Vector normal, Color color, Material material){
+LitPoint::LitPoint(Vec v, double t, Vector normal, Material material){
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
     this->t = t;
     this->normal = normal;
-    this->color = color;
     this->material = material;
 }
 
-LitPoint::LitPoint(double x, double y, double z, double t, Vector normal, Color color){
+LitPoint::LitPoint(double x, double y, double z, double t, Vector normal){
     this->x = x;
     this->y = y;
     this->z = z;
     this->t = t;
     this->normal = normal;
-    this->color = color;
     this->material = Material();
 }
-LitPoint::LitPoint(double x, double y, double z, double t, Vector normal, Color color, Material material){
+LitPoint::LitPoint(double x, double y, double z, double t, Vector normal, Material material){
     this->x = x;
     this->y = y;
     this->z = z;
     this->t = t;
     this->normal = normal;
-    this->color = color;
     this->material = material;
 }

@@ -12,8 +12,8 @@ class Sphere : public Object{
         double radius;
 
         Sphere();
-        Sphere(Point center, double radius, Color color);
-        Sphere(Point center, double radius, Color color, Material material);
+        Sphere(Point center, double radius);
+        Sphere(Point center, double radius, Material material);
         optional<LitPoint> colide(Ray ray) const override;
 
     private:

@@ -2,7 +2,7 @@
 #include "../headers/cylindrical_face.h"
 #include "../headers/plane.h"
 
-Cylinder::Cylinder(Point base_center, Point top_center, double radius, Color color){
+Cylinder::Cylinder(Point base_center, Point top_center, double radius){
     
     double height = (top_center - base_center).magnitude();
     Vector direction = (top_center - base_center).normalize();
@@ -13,17 +13,16 @@ Cylinder::Cylinder(Point base_center, Point top_center, double radius, Color col
     this->top_center = top_center;
     this->material = Material();
 
-    Plane* base_plane = new Plane(base_center, inverse_direction, color, this->material);
-    Plane* top_plane = new Plane(top_center, direction, color, this->material);
-    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, color, this->material);
+    Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
+    Plane* top_plane = new Plane(top_center, direction, this->material);
+    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
 
     this->sub_objects.push_back(base_plane);
     this->sub_objects.push_back(top_plane);
     this->sub_objects.push_back(cylinder_body);
-    this->color = color;
 }
 
-Cylinder::Cylinder(Point base_center, Point top_center, double radius, Color color, Material material){
+Cylinder::Cylinder(Point base_center, Point top_center, double radius, Material material){
     
     double height = (top_center - base_center).magnitude();
     Vector direction = (top_center - base_center).normalize();
@@ -34,17 +33,16 @@ Cylinder::Cylinder(Point base_center, Point top_center, double radius, Color col
     this->top_center = top_center;
     this->material = material;
 
-    Plane* base_plane = new Plane(base_center, inverse_direction, color, this->material);
-    Plane* top_plane = new Plane(top_center, direction, color, this->material);
-    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, color, this->material);
+    Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
+    Plane* top_plane = new Plane(top_center, direction, this->material);
+    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
 
     this->sub_objects.push_back(base_plane);
     this->sub_objects.push_back(top_plane);
     this->sub_objects.push_back(cylinder_body);
-    this->color = color;
 }
 
-Cylinder::Cylinder(Point base_center, Vector direction, double radius, double height, Color color){
+Cylinder::Cylinder(Point base_center, Vector direction, double radius, double height){
     
     Point top_center = Point(base_center + (direction * height));
 
@@ -53,17 +51,16 @@ Cylinder::Cylinder(Point base_center, Vector direction, double radius, double he
     this->top_center = top_center;
     this->material = Material();
 
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    Plane* top_plane = new Plane(top_center, direction, color, this->material);
-    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, color, this->material);
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    Plane* top_plane = new Plane(top_center, direction, this->material);
+    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
 
     this->sub_objects.push_back(base_plane);
     this->sub_objects.push_back(top_plane);
     this->sub_objects.push_back(cylinder_body);
-    this->color = color;
 }
 
-Cylinder::Cylinder(Point base_center, Vector direction, double radius, double height, Color color, Material material){
+Cylinder::Cylinder(Point base_center, Vector direction, double radius, double height, Material material){
     
     Point top_center = Point(base_center + (direction * height));
 
@@ -72,14 +69,13 @@ Cylinder::Cylinder(Point base_center, Vector direction, double radius, double he
     this->top_center = top_center;
     this->material = material;
 
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    Plane* top_plane = new Plane(top_center, direction, color, this->material);
-    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, color, this->material);
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    Plane* top_plane = new Plane(top_center, direction, this->material);
+    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
 
     this->sub_objects.push_back(base_plane);
     this->sub_objects.push_back(top_plane);
     this->sub_objects.push_back(cylinder_body);
-    this->color = color;
 }
 
 Vector Cylinder::get_normal(Point p) const {

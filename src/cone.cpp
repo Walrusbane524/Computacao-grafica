@@ -5,68 +5,65 @@
 Cone::Cone(){
     this->base_center = Point(0, 0, -100);
     this->radius = 10;
-    this->color = Color(255, 0, 0);
     this->material = Material();
 
     Vector direction = Vector(0, 1, 0);
     Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
 
-    Plane* base_plane = new Plane(base_center, inverse_direction, color, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, 20, color, this->material);
+    Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, 20, this->material);
 
     sub_objects.push_back(base_plane);
     sub_objects.push_back(cone_face);
 }
 
-Cone::Cone(Point base_center, Point tip, double radius, Color color){
-    this->base_center = base_center;
-    this->radius = radius;
-    this->color = color;
-    this->material = Material();
-
-    Vector direction = (tip - base_center).normalize();
-
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, color, this->material);
-
-    sub_objects.push_back(base_plane);
-    sub_objects.push_back(cone_face);
-}
-
-Cone::Cone(Point base_center, Point tip, double radius, Color color, Material material){
-    this->base_center = base_center;
-    this->radius = radius;
-    this->color = color;
-    this->material = material;
-
-    Vector direction = (tip - base_center).normalize();
-
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, color, this->material);
-
-    sub_objects.push_back(base_plane);
-    sub_objects.push_back(cone_face);
-}
-
-Cone::Cone(Point base_center, Vector direction, double radius, double height, Color color){
+Cone::Cone(Point base_center, Point tip, double radius){
     this->base_center = base_center;
     this->radius = radius;
     this->material = Material();
 
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, color, this->material);
+    Vector direction = (tip - base_center).normalize();
+
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, this->material);
 
     sub_objects.push_back(base_plane);
     sub_objects.push_back(cone_face);
 }
 
-Cone::Cone(Point base_center, Vector direction, double radius, double height, Color color, Material material){
+Cone::Cone(Point base_center, Point tip, double radius, Material material){
     this->base_center = base_center;
     this->radius = radius;
     this->material = material;
 
-    Plane* base_plane = new Plane(base_center, direction, color, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, color, this->material);
+    Vector direction = (tip - base_center).normalize();
+
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, this->material);
+
+    sub_objects.push_back(base_plane);
+    sub_objects.push_back(cone_face);
+}
+
+Cone::Cone(Point base_center, Vector direction, double radius, double height){
+    this->base_center = base_center;
+    this->radius = radius;
+    this->material = Material();
+
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
+
+    sub_objects.push_back(base_plane);
+    sub_objects.push_back(cone_face);
+}
+
+Cone::Cone(Point base_center, Vector direction, double radius, double height, Material material){
+    this->base_center = base_center;
+    this->radius = radius;
+    this->material = material;
+
+    Plane* base_plane = new Plane(base_center, direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
 
     sub_objects.push_back(base_plane);
     sub_objects.push_back(cone_face);

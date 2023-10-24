@@ -6,47 +6,42 @@ ConicalFace::ConicalFace(){
     this->direction = Vector(0, 1, 0);
     this->height = 20;
     this->radius = 10;
-    this->color = Color(255, 0, 0);
     this->tip = this->base_center + (this->direction * this->height);
     this->material = Material();
 }
-ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Color color){
+ConicalFace::ConicalFace(Point base_center, Point tip, double radius){
     Vector h = tip - base_center;
 
     this->base_center = base_center;
     this->direction = h.normalize();
     this->height = h.magnitude();
     this->radius = radius;
-    this->color = color;
     this->tip = tip;
     this->material = Material();
 }
-ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Color color, Material material){
+ConicalFace::ConicalFace(Point base_center, Point tip, double radius, Material material){
     Vector h = tip - base_center;
 
     this->base_center = base_center;
     this->direction = h.normalize();
     this->height = h.magnitude();
     this->radius = radius;
-    this->color = color;
     this->tip = tip;
     this->material = material;
 }
-ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height, Color color){
+ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height){
     this->base_center = base_center;
     this->direction = direction;
     this->height = height;
     this->radius = radius;
-    this->color = color;
     this->tip = this->base_center + (this->direction * this->height);
     this->material = Material();
 }
-ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height, Color color, Material material){
+ConicalFace::ConicalFace(Point base_center, Vector direction, double radius, double height, Material material){
     this->base_center = base_center;
     this->direction = direction;
     this->height = height;
     this->radius = radius;
-    this->color = color;
     this->tip = this->base_center + (this->direction * this->height);
     this->material = material;
 }
@@ -94,6 +89,6 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
     Vector normal = this->get_normal(p_intersect);
 
-    return LitPoint(p_intersect, smallest_t, normal, this->color, this->material);
+    return LitPoint(p_intersect, smallest_t, normal, this->material);
 }
 

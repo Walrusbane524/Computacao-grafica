@@ -4,7 +4,7 @@
 #include "../headers/cone.h"
 #include "../headers/snowman.h"
 #include <iostream>
-
+/*
 SnowmanObject::SnowmanObject(Point point){
 
     Sphere* cabeca = new Sphere((point + Point(0, 65, 0)), 10, Color(255, 255, 255));
@@ -92,3 +92,4 @@ optional<LitPoint> SnowmanObject::colide(Ray ray) const{
 Vector SnowmanObject::get_normal(Point p) const{
     return Vector();
 }
+*/

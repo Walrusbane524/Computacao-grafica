@@ -10,7 +10,6 @@ using namespace std;
 
 class Object{
     public:
-        Color color;
 
         Material material;
 

@@ -13,10 +13,10 @@ class Cone : public CompoundObject{
         optional<LitPoint> colide(Ray ray) const override;
 
         Cone();
-        Cone(Point base_center, Point tip, double radius, Color color);
-        Cone(Point base_center, Point tip, double radius, Color color, Material material);
-        Cone(Point base_center, Vector direction, double radius, double height, Color color);
-        Cone(Point base_center, Vector direction, double radius, double height, Color color, Material material);
+        Cone(Point base_center, Point tip, double radius);
+        Cone(Point base_center, Point tip, double radius, Material material);
+        Cone(Point base_center, Vector direction, double radius, double height);
+        Cone(Point base_center, Vector direction, double radius, double height, Material material);
     
     private:
 
