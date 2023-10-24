@@ -63,7 +63,7 @@ Cone::Cone(Point base_center, Vector direction, double radius, double height, Co
 Cone::Cone(Point base_center, Vector direction, double radius, double height, Color color, Material material){
     this->base_center = base_center;
     this->radius = radius;
-    this->material = Material();
+    this->material = material;
 
     Plane* base_plane = new Plane(base_center, direction, color, this->material);
     ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, color, this->material);

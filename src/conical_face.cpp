@@ -63,7 +63,7 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     double cos_ = height/sqrt(height * height + radius * radius);
 
     double a = pow(dr.dot(direction), 2) - dr.dot(dr) * pow(cos_, 2);
-    double b = 2 * (v.dot(dr) * pow(cos_, 2) - (v.dot(direction)) * (dr.dot(direction)));
+    double b = 2 * (v.dot(dr) * pow(cos_, 2) - 2 * (v.dot(direction)) * (dr.dot(direction)));
     double c = pow(v.dot(direction), 2) - (v.dot(v)) * pow(cos_, 2);
 
     double delta = pow(b, 2) - 4 * a * c;
