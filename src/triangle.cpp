@@ -18,6 +18,16 @@ Triangle::Triangle(Vector normal, Point p1, Point p2, Point p3, Material materia
     this->plane = Plane(p1, normal);
     this->material = material;
 }
+Triangle::Triangle(Point p1, Point p2, Point p3, Material material){
+    this->p1 = p1;
+    this->p2 = p2;
+    this->p3 = p3;
+    Vector a1 = p2 - p1;
+    Vector a2 = p3 - p1;
+    Vector normal = (a1 & a2).normalize();
+    this->plane = Plane(p1, normal);
+    this->material = material;
+}
 
 optional<LitPoint> Triangle::colide(Ray ray) const {
     optional<LitPoint> intersect = this->plane.colide(ray);
@@ -61,6 +71,12 @@ optional<LitPoint> Triangle::colide(Ray ray) const {
         return intersect.value();
     }
     return nullopt;
+}
+
+void Triangle::transform(Matrix matrix){
+    this->p1 = matrix * this->p1;
+    this->p2 = matrix * this->p2;
+    this->p3 = matrix * this->p3;
 }
 
 Vector Triangle::get_normal(Point p) const{

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "point.h"
 #include "vec.h"
+#include "point.h"
 
 class Vector : public Vec{
     public:

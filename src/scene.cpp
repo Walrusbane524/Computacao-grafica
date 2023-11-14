@@ -129,7 +129,7 @@ void Scene::paint(Canvas& canvas){
                 if(color_intensity.y > 1) color_intensity.y = 1;
                 if(color_intensity.z > 1) color_intensity.z = 1;  
 
-                cor_atual = color_intensity * Color(255, 255, 255);
+                cor_atual = color_intensity * closest_point.color;
             }
             canvas.matrix[l][c] = cor_atual;
         }

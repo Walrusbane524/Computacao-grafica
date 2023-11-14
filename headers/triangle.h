@@ -2,6 +2,8 @@
 
 #include <optional>
 #include "plane.h"
+#include "matrix.h"
+#include "point.h"
 
 class Triangle : public Object{
     public:
@@ -12,7 +14,10 @@ class Triangle : public Object{
 
         Triangle();
         Triangle(Vector normal, Point p1, Point p2, Point p3, Material material);
-        optional<LitPoint> colide(Ray ray) const override;
+        Triangle(Point p1, Point p2, Point p3, Material material);
+        virtual optional<LitPoint> colide(Ray ray) const override;
+
+        void transform(Matrix matrix);
 
     private:
         Vector get_normal(Point p) const override;

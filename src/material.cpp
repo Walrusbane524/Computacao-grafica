@@ -1,9 +1,9 @@
 #include "../headers/material.h"
 
 Material::Material(){
-    this->shine = Vec(0.7, 0.7, 0.7);
-    this->roughness = Vec(0.7, 0.7, 0.7);
-    this->ambient = Vec(0.7, 0.7, 0.7);
+    this->shine = Vec(0.8, 0.8, 0.8);
+    this->roughness = Vec(0.8, 0.8, 0.8);
+    this->ambient = Vec(0.8, 0.8, 0.8);
     this->reflectivity = 1;
 }
 Material::Material(Vec shine, Vec roughness, Vec ambient, double reflectivity){
