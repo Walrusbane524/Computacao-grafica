@@ -4,6 +4,7 @@
 #include "plane.h"
 #include "matrix.h"
 #include "point.h"
+#include "texture.h"
 
 class Triangle : public Object{
     public:
@@ -11,14 +12,17 @@ class Triangle : public Object{
         Point p1;
         Point p2;
         Point p3;
+        vector<Point> uv_points;
+        Texture* texture;
 
         Triangle();
-        Triangle(Vector normal, Point p1, Point p2, Point p3, Material material);
-        Triangle(Point p1, Point p2, Point p3, Material material);
+        Triangle(Vector normal, Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, Texture* texture);
+        Triangle(Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, Texture* texture);
         virtual optional<LitPoint> colide(Ray ray) const override;
 
         void transform(Matrix matrix);
 
     private:
         Vector get_normal(Point p) const override;
+        Point get_uv(Point p) const;
 };

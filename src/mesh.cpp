@@ -5,9 +5,10 @@ Mesh::Mesh(){}
 Mesh::Mesh(vector<Point> points, vector<vector<int>> faces){
     this->points = points;
     this->faces = faces;
+    vector<Point> uv_points;
 
     for(vector<int> face : faces){
-        this->triangles.push_back(Triangle(points[face[0]], points[face[1]], points[face[2]], Material()));
+        this->triangles.push_back(Triangle(points[face[0]], points[face[1]], points[face[2]], Material(), uv_points, this->texture));
     }
 }
 
@@ -38,21 +39,40 @@ Mesh Mesh::addVertex(double x, double y, double z){
     return *this;
 }
 
-Mesh Mesh::addTriangle(vector<int> indices){
-    this->faces.push_back(indices);
-    this->triangles.push_back(Triangle(points[indices[0]], points[indices[1]], points[indices[2]], Material()));
+Mesh Mesh::addTriangle(vector<int> indexes, vector<int> uv_indexes){
+    this->faces.push_back(indexes);
+
+    vector<Point> uvs;
+    uvs.push_back(uv_points[uv_indexes[0]]);
+    uvs.push_back(uv_points[uv_indexes[1]]);
+    uvs.push_back(uv_points[uv_indexes[2]]);
+
+    this->triangles.push_back(
+        Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, this->texture)
+    );
+
+    //cout << "Textured triangle inserted." << endl;
+
     return *this;
 }
 
-void Mesh::transform(Matrix matrix){
+Mesh Mesh::addUVPoints(double u, double v, double w){
+    this->uv_points.push_back(Point(u, v, w));
+    return *this;
+}
+
+Mesh Mesh::transform(Matrix matrix){
     for(long unsigned int i = 0; i < this->points.size(); i++)
         this->points[i] = this->points[i].transform(matrix);
 
-    this->triangles.clear();
+    vector<Triangle> triangle_aux;
 
-    for(vector<int> face : faces){
-        this->triangles.push_back(Triangle(points[face[0]], points[face[1]], points[face[2]], Material()));
+    for(int i = 0; i < faces.size() ; i++){
+        triangle_aux.push_back(Triangle(points[faces[i][0]], points[faces[i][1]], points[faces[i][2]], Material(), triangles[i].uv_points, this->texture));
     }
+    this->triangles = triangle_aux;
+
+    return *this;
 }
 
 Vector Mesh::get_normal(Point p) const{

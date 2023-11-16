@@ -61,7 +61,7 @@ int Canvas::render(){
 
         for (int y = 0; y < rows; ++y) {
             for (int x = 0; x < columns; ++x) {
-                Color color = matrix[y][x];  
+                Color color = matrix[y][columns-x];  
 
                 SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
                 SDL_RenderDrawPoint(renderer, x, y);

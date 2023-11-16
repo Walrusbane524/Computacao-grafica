@@ -1,5 +1,6 @@
 #pragma once
 #include "triangle.h"
+#include "texture.h"
 #include <vector>
 
 class Mesh : public Object{
@@ -7,6 +8,8 @@ class Mesh : public Object{
         vector<Point> points;
         vector<vector<int>> faces;
         vector<Triangle> triangles;
+        vector<Point> uv_points;
+        Texture* texture;
 
         Mesh();
         Mesh(vector<Point> points, vector<vector<int>> faces);
@@ -14,9 +17,10 @@ class Mesh : public Object{
         virtual optional<LitPoint> colide(Ray ray) const override;
 
         Mesh addVertex(double x, double y, double z);
-        Mesh addTriangle(vector<int> indices);
+        Mesh addTriangle(vector<int> indexes, vector<int> uv_indexes);
+        Mesh addUVPoints(double u, double v, double w);
 
-        void transform(Matrix matrix);
+        Mesh transform(Matrix matrix);
 
     private:
 

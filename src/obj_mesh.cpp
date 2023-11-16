@@ -5,7 +5,10 @@
 
 ObjMesh::ObjMesh() : Mesh(){}
 
-ObjMesh::ObjMesh(const string& filepath){
+ObjMesh::ObjMesh(const string& filepath, Texture* texture_ptr){
+    this->texture = texture_ptr;
+    this->material = Material();
+
     ifstream file(filepath);
     string line;
 
@@ -20,35 +23,38 @@ ObjMesh::ObjMesh(const string& filepath){
             double x, y, z;
             iss >> x >> y >> z;
             this->addVertex(x, y, z);
+        } else if (type == "vt") {
+            double u, v;
+            iss >> u >> v;
+            this->addUVPoints(u, v, 0.0);
         } else if (type == "f") {
             string vertex;
-            vector<int> faceIndices;
+            vector<int> vertexIndices;
+            vector<int> uvIndices;
 
             while (iss >> vertex) {
                 size_t pos = vertex.find('/');
-                if (pos != string::npos) {
-                    vertex = vertex.substr(0, pos); // Extract characters before '/'
-                }
-                int index = stoi(vertex); // Convert to integer and adjust to be 0-based
+                int index = stoi(vertex.substr(0, pos));
 
+                // Convert to 0-based index
                 index = (index > 0) ? index - 1 : this->points.size() + index;
- 
-                faceIndices.push_back(index);
-            }
-            /*
-            cout << "points.size() = " << this->points.size() << endl;
-            cout << "Face indices: ";
-            for (int index : faceIndices) {
-                cout << index << " ";
-            }
-            cout << endl;
-            */
+                vertexIndices.push_back(index);
 
-            this->addTriangle(faceIndices);
+                // Check if UV coordinate is present
+                if (pos != string::npos) {
+                    int uvIndex = stoi(vertex.substr(pos + 1));
+                    // Convert to 0-based UV index
+                    uvIndex = (uvIndex > 0) ? uvIndex - 1 : this->uv_points.size() + uvIndex;
+                    uvIndices.push_back(uvIndex);
+                }
+            }
 
-            if(faceIndices.size() > 3){
-                vector<int> face2Indexes = {faceIndices[0], faceIndices[2], faceIndices[3]};
-                this->addTriangle(face2Indexes);
+            this->addTriangle(vertexIndices, uvIndices);
+
+            if (vertexIndices.size() > 3) {
+                vector<int> face2Indexes = {vertexIndices[0], vertexIndices[2], vertexIndices[3]};
+                vector<int> face2UVIndexes = {uvIndices[0], uvIndices[2], uvIndices[3]};
+                this->addTriangle(face2Indexes, face2UVIndexes);
             }
         }
     }

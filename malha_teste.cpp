@@ -19,13 +19,12 @@
 #include "headers/point_light.h"
 #include "headers/translation_matrix.h"
 #include "headers/rotation_matrix_y_axis.h"
-#include "headers/textured_mesh.h"
 
 int main(){
 
-    int n_l = 400;
-    int n_c = 400;
-    double d = 2.;
+    int n_l = 300;
+    int n_c = 300;
+    double d = 2.5;
 
     Camera camera = Camera(2, 2, n_l, n_c, d);
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
@@ -48,14 +47,22 @@ int main(){
 
     Mesh mesh = Mesh(points, faces);
 */
+    Texture* texture = new Texture("assets/textures/porygon_body.png");
+    ObjMesh mesh = ObjMesh("assets/meshes/porygon.obj", texture);
 
-    //ObjMesh mesh = ObjMesh("assets/meshes/Porygon.obj");
-    TexturedMesh mesh = TexturedMesh("assets/meshes/Porygon.obj", "assets/textures/pm0137_00_Eye1.png");
-
-    mesh.transform(RotationMatrixYAxis(1.57));
+    //mesh.transform(RotationMatrixYAxis(-1.57));
+    mesh.transform(RotationMatrixYAxis(-0.75));
     mesh.transform(TranslationMatrix(Vector(0, -50, -200)));
+    //mesh.transform(TranslationMatrix(Vector(0, 0, -5)));
+    /*
+    vector<Point> uv_points;
+    uv_points.push_back(Point(0.5, 0, 0));
+    uv_points.push_back(Point(0, 1, 0));
+    uv_points.push_back(Point(1, 1, 0));
 
-    Color background = Color(0, 0, 0);
+    Triangle triangle = Triangle(Point(0, 50,-100), Point(50, -50,-100), Point(-50, -50,-100), Material(), uv_points, texture);
+    */
+    Color background = Color(255, 255, 255);
 
     Scene scene = Scene(camera, background);
     PointLight light = PointLight(Point(0, 100, -30), 1.0, 1.0, 1.0);

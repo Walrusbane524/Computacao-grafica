@@ -20,9 +20,9 @@ void Texture::readFromFile(const char* filePath){
             for (int x = 0; x < width; ++x) {
                 int index = (y * width + x) * 3;
                 image[y][x] = Color(
-                    data[index] / 255.0,      // Red
-                    data[index + 1] / 255.0,  // Green
-                    data[index + 2] / 255.0   // Blue
+                    data[index],      // Red
+                    data[index + 1],  // Green
+                    data[index + 2]   // Blue
                 );
             }
         }
@@ -38,6 +38,7 @@ void Texture::readFromFile(const char* filePath){
 }
 
 Color Texture::sample(Point p){
+
     int x = static_cast<int> (p.x * width) % width; 
     int y = static_cast<int> (p.y * height) % height;
 

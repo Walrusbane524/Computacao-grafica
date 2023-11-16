@@ -9,5 +9,5 @@ class ObjMesh : public Mesh{
     public:
 
         ObjMesh();
-        ObjMesh(const string& filepath);
+        ObjMesh(const string& filepath, Texture* texture_ptr);
 };
