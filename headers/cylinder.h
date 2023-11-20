@@ -17,5 +17,5 @@ class Cylinder : public CompoundObject{
         Cylinder(Point base_center, Vector direction, double radius, double height, Material material);
     
     private:
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };

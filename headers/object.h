@@ -17,6 +17,4 @@ class Object{
         virtual optional<LitPoint> colide(Ray ray) const = 0;
         //virtual void transform(Matrix transformation_matrix) const = 0;
         
-    private:
-        virtual Vector get_normal(Point p) const = 0;
 };

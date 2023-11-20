@@ -10,4 +10,5 @@ class ObjMesh : public Mesh{
 
         ObjMesh();
         ObjMesh(const string& filepath, Texture* texture_ptr);
+        ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture);
 };

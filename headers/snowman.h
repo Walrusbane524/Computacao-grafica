@@ -10,5 +10,5 @@ class SnowmanObject : public CompoundObject{
         SnowmanObject(Point center);
         optional<LitPoint> colide(Ray ray) const override;
     private:
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };  

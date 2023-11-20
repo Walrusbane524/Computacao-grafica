@@ -1,4 +1,5 @@
 #include "../headers/mesh.h"
+#include <iostream>
 
 Mesh::Mesh(){}
 
@@ -10,6 +11,14 @@ Mesh::Mesh(vector<Point> points, vector<vector<int>> faces){
     for(vector<int> face : faces){
         this->triangles.push_back(Triangle(points[face[0]], points[face[1]], points[face[2]], Material(), uv_points, this->texture));
     }
+}
+
+Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture){
+    this->points = points;
+    this->faces = faces;
+    this->triangles = triangles;
+    this->uv_points = uv_points;
+    this->texture = texture;
 }
 
 optional<LitPoint> Mesh::colide(Ray ray) const{

@@ -61,3 +61,5 @@ ObjMesh::ObjMesh(const string& filepath, Texture* texture_ptr){
 
     file.close();
 }
+
+ObjMesh::ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture) : Mesh(points, faces, triangles, uv_points, texture){}

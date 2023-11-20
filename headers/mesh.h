@@ -13,6 +13,7 @@ class Mesh : public Object{
 
         Mesh();
         Mesh(vector<Point> points, vector<vector<int>> faces);
+        Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture);
 
         virtual optional<LitPoint> colide(Ray ray) const override;
 
@@ -24,5 +25,5 @@ class Mesh : public Object{
 
     private:
 
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };

@@ -1,5 +1,6 @@
 #include "../headers/scene.h"
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -79,6 +80,10 @@ optional<Point> Scene::get_closest_colision(int frame_x, int frame_y){
 
 void Scene::paint(Canvas& canvas){
     
+    auto start_time = chrono::high_resolution_clock::now();
+
+    cout << "Calculating intersections..." << endl;
+
     Point upper_left = camera.origin - (camera.i * camera.width/2) + (camera.j * camera.height/2) + (camera.k * camera.d);
 
     //cout << "Upper_left: " << upper_left.x << " " << upper_left.y << " " << upper_left.z << endl ;
@@ -134,4 +139,8 @@ void Scene::paint(Canvas& canvas){
             canvas.matrix[l][c] = cor_atual;
         }
     }
+    auto end_time = chrono::high_resolution_clock::now();
+    auto elapsed_time = chrono::duration_cast<std::chrono::duration<double>>(end_time - start_time);
+    cout << "Done!" << endl;
+    cout << "Elapsed time: " << elapsed_time.count() << " seconds" << endl;
 }

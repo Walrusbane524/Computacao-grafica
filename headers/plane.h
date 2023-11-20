@@ -17,5 +17,5 @@ class Plane : public Object{
         optional<LitPoint> colide(Ray ray) const override;
 
     private:
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };

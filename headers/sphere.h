@@ -18,5 +18,5 @@ class Sphere : public Object{
         void transform(Matrix transformation_matrix);
 
     private:
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };

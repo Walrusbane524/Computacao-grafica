@@ -23,6 +23,6 @@ class Triangle : public Object{
         void transform(Matrix matrix);
 
     private:
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
         Point get_uv(Point p) const;
 };

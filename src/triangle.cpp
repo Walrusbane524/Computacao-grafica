@@ -45,16 +45,6 @@ optional<LitPoint> Triangle::colide(Ray ray) const {
         Vector s2 = p2 - intersect.value();
         Vector s3 = p3 - intersect.value();
 
-        /*
-        cout << "s1.x = " << s1.x << endl;
-        cout << "s1.y = " << s1.y << endl;
-        cout << "s1.z = " << s1.z << endl << endl;
-
-        cout << "s3.x = " << s3.x << endl;
-        cout << "s3.y = " << s3.y << endl;
-        cout << "s3.z = " << s3.z << endl << endl;
-        */
-
         double total_area = (r1 & r2).magnitude();
 
         //cout << "total_area = " << total_area << endl << endl; 
@@ -65,12 +55,6 @@ optional<LitPoint> Triangle::colide(Ray ray) const {
         double c1 = a1/total_area;
         double c2 = a2/total_area;
         double c3 = 1 - c1 - c2;
-
-        /*
-        cout << "c1 = " << c1 << endl;
-        cout << "c2 = " << c2 << endl;
-        cout << "c3 = " << c3 << endl;
-        */
 
         if(c1 < 0 || c2 < 0 || c3 < 0) 
             return nullopt;

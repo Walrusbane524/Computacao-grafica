@@ -20,7 +20,7 @@ class Cone : public CompoundObject{
     
     private:
 
-        Vector get_normal(Point p) const override;
+        Vector get_normal(Point p) const;
 };
 
 #endif
