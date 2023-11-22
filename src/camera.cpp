@@ -51,3 +51,7 @@ void Camera::lookAt(Point eye, Point at, Point up){
     this->i = (v_up & this->k).normalize();
     this->j = this->k & this->i;
 }
+
+void Camera::lookAt(Point at, Point up){
+    this->lookAt(this->origin, at, up);
+}

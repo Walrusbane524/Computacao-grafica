@@ -14,8 +14,6 @@ class Canvas{
         Canvas(int n_l, int n_c);
 
         ~Canvas();
-
-        int render();
 };
 
 #endif
