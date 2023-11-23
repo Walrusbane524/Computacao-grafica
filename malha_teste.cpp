@@ -20,6 +20,7 @@
 #include "headers/translation_matrix.h"
 #include "headers/rotation_matrix_y_axis.h"
 #include "headers/spherical_wrapper.h"
+#include "headers/renderer.h"
 
 void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
     // Print information about the current node (SphericalWrapper)
@@ -54,8 +55,8 @@ void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
 
 int main(){
 
-    int n_l = 500;
-    int n_c = 500;
+    int n_l = 200;
+    int n_c = 200;
     double d = 1.;
 
     Camera camera = Camera(2, 2, n_l, n_c, d);
@@ -138,5 +139,6 @@ int main(){
     scene.addLight(&light);
     scene.paint(canvas);
 
-    return scene.render(canvas);
+    Renderer renderer = Renderer(scene, canvas);
+    //return scene.render(canvas);
 }

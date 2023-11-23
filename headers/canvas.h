@@ -14,6 +14,8 @@ class Canvas{
         Canvas(int n_l, int n_c);
 
         ~Canvas();
+
+        void resize(int width, int height);
 };
 
 #endif

@@ -24,3 +24,17 @@ Canvas::~Canvas() {
         delete[] matrix;
     }
 }
+
+void Canvas::resize(int width, int height){
+    if(this->matrix != nullptr){
+        for (int i = 0; i < rows; ++i) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }
+    this->rows = height;
+    this->columns = width;
+    matrix = new Color*[height];
+    for (int i = 0; i < height; i++)
+        matrix[i] = new Color[width];
+}
