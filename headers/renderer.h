@@ -6,12 +6,14 @@ class Renderer{
     public:
     SDL_Window* window;
     SDL_Renderer* renderer;
-    Canvas canvas;
+    Canvas  canvas;
     Scene scene;
     bool is_running;
     bool is_rendering;
+    bool shift_down;
 
     Renderer(Scene& scene, Canvas& canvas);
+    Renderer(Scene& scene, int width, int height);
 
     void handleInput(SDL_Event& event);
     void renderFrame();

@@ -4,6 +4,12 @@
 Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->scene = scene;
     this->canvas = canvas;
+    this->shift_down = false;
+}
+
+Renderer::Renderer(Scene& scene, int width, int height){
+    this->scene = scene;
+    this->canvas = Canvas(height, width);
 }
 
 void Renderer::start(){
@@ -40,6 +46,7 @@ void Renderer::handleInput(SDL_Event& event){
     bool resize = false;
     while (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT) {
+            cout << "Closing window"<< endl;
             is_running = false;
         } else if (event.type == SDL_MOUSEBUTTONDOWN) {
             if (event.button.button == SDL_BUTTON_LEFT) {
@@ -52,9 +59,11 @@ void Renderer::handleInput(SDL_Event& event){
                 if(intersect.has_value() && intersect.value().t > 0){
                     LitPoint at = intersect.value();
                     cout << "Intersection at (x = " << at.x << ", y = " << at.y << ", z = " << at.z << ")" << endl;
-                    scene.camera.lookAt(at, Point(scene.camera.origin + Vector(0, 1, 0)));
-                    update = true;
-                    is_rendering = true;
+                    if(shift_down){
+                        scene.camera.lookAt(at, Point(scene.camera.origin + Vector(0, 1, 0)));
+                        update = true;
+                        is_rendering = true;
+                    }
                 }
             }  
         }
@@ -96,6 +105,10 @@ void Renderer::handleInput(SDL_Event& event){
                     scene.camera.origin = scene.camera.origin - scene.camera.j;
                     is_rendering = true;
                     update = true;
+                    break;
+                case SDLK_LSHIFT:
+                    cout << "LSHIFT" << endl;
+                    shift_down = true;
                     break;
             }
         }
@@ -181,6 +194,10 @@ void Renderer::handleInput(SDL_Event& event){
                     update = true;
                     resize = true;
                     break;
+                case SDLK_LSHIFT:
+                    cout << "LSHIFT" << endl;
+                    shift_down = false;
+                    break;
             }
         }
     }
@@ -221,7 +238,7 @@ void Renderer::render(){
 
     SDL_Event event;
     is_rendering = false;
-
+    
     while (is_running) {
         if(!is_rendering){
             //cout << "Handling input. is_rendering:" << is_rendering << endl;
@@ -230,7 +247,6 @@ void Renderer::render(){
         }
         SDL_Delay(32);
     }
-
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

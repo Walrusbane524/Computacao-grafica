@@ -13,7 +13,7 @@ class Canvas{
         
         Canvas(int n_l, int n_c);
 
-        ~Canvas();
+        //~Canvas();
 
         void resize(int width, int height);
 };
