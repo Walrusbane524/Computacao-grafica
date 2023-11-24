@@ -21,6 +21,15 @@ Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> tri
     this->texture = texture;
 }
 
+Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Texture* texture){
+    this->points = points;
+    this->faces = faces;
+    this->triangles = triangles;
+    this->uv_points = uv_points;
+    this->texture = texture;
+    this->normals = normals;
+}
+
 optional<LitPoint> Mesh::colide(Ray ray) const{
 
     double smallest_distance = numeric_limits<double>::infinity();
@@ -69,7 +78,10 @@ Mesh Mesh::addUVPoints(double u, double v, double w){
     this->uv_points.push_back(Point(u, v, w));
     return *this;
 }
-
+Mesh Mesh::addNormal(double u, double v, double w){
+    this->normals.push_back(Vector(u, v, w));
+    return *this;
+}
 Mesh Mesh::transform(Matrix matrix){
     for(long unsigned int i = 0; i < this->points.size(); i++)
         this->points[i] = this->points[i].transform(matrix);
@@ -86,4 +98,26 @@ Mesh Mesh::transform(Matrix matrix){
 
 Vector Mesh::get_normal(Point p) const{
     return Vector();
+}
+
+Mesh Mesh::addTriangle(vector<int> indexes, vector<int> uv_indexes, vector<int> normal_indexes){
+    this->faces.push_back(indexes);
+
+    vector<Point> uvs;
+    uvs.push_back(uv_points[uv_indexes[0]]);
+    uvs.push_back(uv_points[uv_indexes[1]]);
+    uvs.push_back(uv_points[uv_indexes[2]]);
+
+    if(normal_indexes.empty())
+        this->triangles.push_back(
+            Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, this->texture)
+        );
+    else
+        this->triangles.push_back(
+            Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, this->texture)
+        );
+
+    //cout << "Textured triangle inserted." << endl;
+
+    return *this;
 }

@@ -16,9 +16,9 @@ Vec PointLight::get_diffuse_and_specular(LitPoint intersect, vector<Object*> obj
 
     for(Object* o : objects){
 
-        optional<LitPoint> intersect = o->colide(light_ray);
+        optional<LitPoint> shadow_intersect = o->colide(light_ray);
         
-        if (intersect.has_value() && intersect.value().t > 0 && distance_from_light - intersect.value().t > 0.001){
+        if (shadow_intersect.has_value() && shadow_intersect.value().t > 0 && distance_from_light - shadow_intersect.value().t > 0.001){
             light_intersect = true;
             break;
         }

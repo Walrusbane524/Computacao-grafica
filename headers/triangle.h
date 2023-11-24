@@ -13,11 +13,13 @@ class Triangle : public Object{
         Point p2;
         Point p3;
         vector<Point> uv_points;
+        vector<Vector> normals;
         Texture* texture;
 
         Triangle();
         Triangle(Vector normal, Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, Texture* texture);
         Triangle(Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, Texture* texture);
+        Triangle(Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, vector<Vector> normals, Texture* texture);
         virtual optional<LitPoint> colide(Ray ray) const override;
 
         void transform(Matrix matrix);

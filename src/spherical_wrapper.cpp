@@ -68,8 +68,14 @@ SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
             SphericalWrapper* sw_right = new SphericalWrapper();
             sw_right->BinaryWrap(sub_obj2);
             */
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->texture), depth - 1));
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->texture), depth - 1));
+            if(mesh->normals.empty()){
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->texture), depth - 1));
+            }
+            else{
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->normals, mesh->texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->normals, mesh->texture), depth - 1));
+            }
         }
         else
             this->objects.push_back(mesh);

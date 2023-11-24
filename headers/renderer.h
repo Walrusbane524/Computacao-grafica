@@ -17,4 +17,5 @@ class Renderer{
     void renderFrame();
     void render();
     int startWindow(int width, int height);
+    void start();
 };

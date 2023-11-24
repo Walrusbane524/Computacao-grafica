@@ -2,14 +2,17 @@
 #include <iostream>
 
 Renderer::Renderer(Scene& scene, Canvas& canvas){
-    int width = canvas.columns;
-    int height = canvas.rows;
     this->scene = scene;
     this->canvas = canvas;
-    if(startWindow(width, height) == 0){
+}
+
+void Renderer::start(){
+    if(startWindow(canvas.columns, canvas.rows) == 0){
         renderFrame();
         render();
     }
+    else
+        cout << "Error" << endl;
 }
 
 int Renderer::startWindow(int width, int height){
@@ -61,30 +64,40 @@ void Renderer::handleInput(SDL_Event& event){
                 case SDLK_w:
                     cout << "w" << endl;
                     scene.camera.origin = scene.camera.origin + scene.camera.k;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_a:
                     cout << "a" << endl;
                     scene.camera.origin = scene.camera.origin + scene.camera.i;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_d:
                     cout << "d" << endl;
                     scene.camera.origin = scene.camera.origin - scene.camera.i;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_s:
                     cout << "s" << endl;
                     scene.camera.origin = scene.camera.origin - scene.camera.k;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_SPACE:
                     cout << "SPACE" << endl;
                     scene.camera.origin = scene.camera.origin + scene.camera.j;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_c:
                     cout << "c" << endl;
                     scene.camera.origin = scene.camera.origin - scene.camera.j;
+                    is_rendering = true;
+                    update = true;
                     break;
             }
-            is_rendering = true;
-            update = true;
         }
         else if (event.type == SDL_KEYUP) {
             // Check for the key you are interested in
@@ -94,11 +107,15 @@ void Renderer::handleInput(SDL_Event& event){
                     cout << "i" << endl;
                     scene.camera.d += 1.0;
                     cout << "Current d: " << scene.camera.d << endl;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_o:
                     cout << "o" << endl;
                     scene.camera.d = max(1.0, scene.camera.d - 1.0);
                     cout << "Current d: " << scene.camera.d << endl;
+                    is_rendering = true;
+                    update = true;
                     break;
                 case SDLK_EQUALS:
                 // Expand the screen when the '=' key is pressed
@@ -116,6 +133,8 @@ void Renderer::handleInput(SDL_Event& event){
                         scene.camera.d
                     );
                     cout << "Current resolution: (" << canvas.columns << ", " << canvas.rows << ")" << endl;
+                    is_rendering = true;
+                    update = true;
                     resize = true;
                     break;
                 case SDLK_MINUS:
@@ -134,12 +153,35 @@ void Renderer::handleInput(SDL_Event& event){
                         scene.camera.d
                     );
                     cout << "Current resolution: (" << canvas.columns << ", " << canvas.rows << ")" << endl;
+                    is_rendering = true;
+                    update = true;
                     resize = true;
                     break;
                 // Add more cases for other keys as needed
+                case SDLK_f:
+                    cout << "f" << endl;
+                    // Reduce the screen when the '-' key is pressed
+                    if(canvas.columns > 50 && canvas.rows > 50)
+                        canvas.resize(50, 50);
+                    else
+                        canvas.resize(500, 500);
+                    scene.camera = Camera(
+                        scene.camera.origin, 
+                        scene.camera.i, 
+                        scene.camera.j, 
+                        scene.camera.k, 
+                        scene.camera.width,
+                        scene.camera.height, 
+                        canvas.rows, 
+                        canvas.columns,
+                        scene.camera.d
+                    );
+                    cout << "Current resolution: (" << canvas.columns << ", " << canvas.rows << ")" << endl;
+                    is_rendering = true;
+                    update = true;
+                    resize = true;
+                    break;
             }
-            is_rendering = true;
-            update = true;
         }
     }
     if(update){
