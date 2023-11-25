@@ -12,7 +12,4 @@ class ObjMesh : public Mesh{
         ObjMesh(const string& filepath, Texture* texture_ptr);
         ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture);
         ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Texture* texture);
-
-        static bool compareTriangles(const Triangle& a, const Triangle& b);
-        static Point averagePoint(const Triangle& triangle);
 };

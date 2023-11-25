@@ -66,3 +66,16 @@ optional<LitPoint> Sphere::colide(Ray ray) const {
 void Sphere::transform(Matrix transformation_matrix){
     this->center = transformation_matrix * this->center;
 }
+
+void Sphere::info(){
+    cout << "Sphere = {" << endl;
+    cout << " - Point    = " << "(" << center.x << ", " << center.y << ", " << center.z << ")" << endl;
+    cout << " - Radius   = " << "(" << radius << endl;
+    cout << " - Material = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+    cout << "}" << endl;
+}

@@ -1,6 +1,7 @@
 #include "../headers/spherical_wrapper.h"
 #include <limits>
 #include <iostream>
+#include <algorithm>
 
 SphericalWrapper::SphericalWrapper(){
     this->sphere = Sphere();
@@ -53,12 +54,17 @@ SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
 
     if (depth != 0){
         if(mesh->triangles.size() > 2){
-            size_t middleIndex = mesh->triangles.size() / 2;
+
+            Mesh sorted_mesh = *mesh;
+
+            sort(sorted_mesh.triangles.begin(), sorted_mesh.triangles.end(), compareTriangles);
+
+            size_t middleIndex = sorted_mesh.triangles.size() / 2;
             //cout << "mesh.triangles.size(): " << mesh.triangles.size() << endl;
             //cout << "middleIndex: " << middleIndex << endl;
             
-            vector<Triangle> sub_vector1(mesh->triangles.begin(), mesh->triangles.begin() + middleIndex);
-            vector<Triangle> sub_vector2(mesh->triangles.begin() + middleIndex, mesh->triangles.end());
+            vector<Triangle> sub_vector1(sorted_mesh.triangles.begin(), sorted_mesh.triangles.begin() + middleIndex);
+            vector<Triangle> sub_vector2(sorted_mesh.triangles.begin() + middleIndex, sorted_mesh.triangles.end());
             /*
             ObjMesh sub_obj1 = ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->texture);
             ObjMesh sub_obj2 = ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->texture);
@@ -69,12 +75,12 @@ SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
             sw_right->BinaryWrap(sub_obj2);
             */
             if(mesh->normals.empty()){
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->texture), depth - 1));
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
             }
             else{
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->normals, mesh->texture), depth - 1));
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->normals, mesh->texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
+                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
             }
         }
         else
@@ -118,4 +124,32 @@ optional<LitPoint> SphericalWrapper::colide(Ray ray) const {
     }
 
     return nullopt;
+}
+
+bool SphericalWrapper::compareTriangles(const Triangle& a, const Triangle& b){
+    Point centerA = averagePoint(a);
+    Point centerB = averagePoint(b);
+
+    // Lexicographical comparison (ascending order)
+    if (centerA.x != centerB.x) {
+        return centerA.x < centerB.x;
+    } else if (centerA.y != centerB.y) {
+        return centerA.y < centerB.y;
+    } else {
+        return centerA.z < centerB.z;
+    }
+}
+
+Point SphericalWrapper::averagePoint(const Triangle& triangle){
+    double avgX = (triangle.p1.x + triangle.p2.x + triangle.p3.x) / 3.0;
+    double avgY = (triangle.p1.y + triangle.p2.y + triangle.p3.y) / 3.0;
+    double avgZ = (triangle.p1.z + triangle.p2.z + triangle.p3.z) / 3.0;
+    return Point(avgX, avgY, avgZ);
+}
+
+void SphericalWrapper::info(){
+    cout << "Spherical Wrapper = {" << endl;
+    sphere.info();
+    mesh->info();
+    cout << "}" << endl;
 }

@@ -121,3 +121,18 @@ Mesh Mesh::addTriangle(vector<int> indexes, vector<int> uv_indexes, vector<int> 
 
     return *this;
 }
+
+void Mesh::info(){
+    cout << "Mesh = {" << endl;
+    cout << " - Vertices       = " << points.size() << endl;
+    cout << " - Vertex normals = " << normals.size() << endl;
+    cout << " - Faces          = " << faces.size() << endl;
+    cout << " - Material       = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+    cout << " - Texture        = " << texture->path << endl;
+    cout << "}" << endl;
+}

@@ -15,6 +15,8 @@ class CylindricalFace : public Object{
 
         optional<LitPoint> colide(Ray ray) const override;
 
+        void info() override;
+
     private:
         Vector get_normal(Point p) const;
 };

@@ -24,6 +24,8 @@ class Triangle : public Object{
 
         void transform(Matrix matrix);
 
+        void info();
+
     private:
         Vector get_normal(Point p) const;
         Point get_uv(Point p) const;

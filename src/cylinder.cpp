@@ -118,3 +118,11 @@ optional<LitPoint> Cylinder::colide(Ray ray) const{
     if (smallest_t != numeric_limits<double>::infinity()) return closest_point;
     return nullopt;
 }
+
+void Cylinder::info(){
+    cout << "Cylinder = {" << endl;
+    for(Object* o : sub_objects){
+        o->info();
+    }
+    cout << "}" << endl;
+}

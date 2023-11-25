@@ -1,7 +1,7 @@
 #include <math.h>
+#include <iostream>
 #include "../headers/cylindrical_face.h"
 
-#include <iostream>
 using namespace std;
 
 CylindricalFace::CylindricalFace(){
@@ -79,3 +79,17 @@ optional<LitPoint> CylindricalFace::colide(Ray ray) const{
     return LitPoint(p_intersect, smallest_t, normal, this->material);
 }
 
+void CylindricalFace::info(){
+    cout << "Cylindrical Face = {" << endl;
+    cout << " - Base center = " << "(" << base_center.x << ", " << base_center.y << ", " << base_center.z << ")" << endl;
+    cout << " - Direction   = " << "(" << direction.x << ", " << direction.y << ", " << direction.z << ")" << endl;
+    cout << " - Height      = " << height << endl;
+    cout << " - Radius      = " << radius << endl;
+    cout << " - Material    = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+    cout << "}" << endl;
+}

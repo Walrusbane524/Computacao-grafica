@@ -11,6 +11,7 @@ class Renderer{
     bool is_running;
     bool is_rendering;
     bool shift_down;
+    bool ctrl_down;
 
     Renderer(Scene& scene, Canvas& canvas);
     Renderer(Scene& scene, int width, int height);

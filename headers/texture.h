@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "color.h"
 #include "point.h"
 
@@ -10,6 +11,7 @@ class Texture{
         vector<vector<Color>> image;
         int width;
         int height;
+        string path;
 
         Texture();
         Texture(const char* filePath);

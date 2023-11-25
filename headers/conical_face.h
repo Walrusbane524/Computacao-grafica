@@ -20,6 +20,8 @@ class ConicalFace : public Object{
         ConicalFace(Point base_center, Vector direction, double radius, double height);
         ConicalFace(Point base_center, Vector direction, double radius, double height, Material material);
     
+        void info() override;
+
     private:
         Vector get_normal(Point p) const;
 };

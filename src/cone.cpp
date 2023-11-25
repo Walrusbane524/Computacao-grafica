@@ -101,3 +101,11 @@ optional<LitPoint> Cone::colide(Ray ray) const{
     if (smallest_root != numeric_limits<double>::infinity()) return closest_point;
     return nullopt;
 }
+
+void Cone::info(){
+    cout << "Cone = {" << endl;
+    for(Object* o : sub_objects){
+        o->info();
+    }
+    cout << "}" << endl;
+}

@@ -27,6 +27,8 @@ class Mesh : public Object{
 
         Mesh transform(Matrix matrix);
 
+        virtual void info();
+
     private:
 
         Vector get_normal(Point p) const;

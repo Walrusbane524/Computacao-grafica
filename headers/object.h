@@ -6,6 +6,8 @@
 #include "material.h"
 #include "matrix.h"
 #include <optional>
+#include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -15,6 +17,6 @@ class Object{
         Material material;
 
         virtual optional<LitPoint> colide(Ray ray) const = 0;
-        //virtual void transform(Matrix transformation_matrix) const = 0;
         
+        virtual void info() = 0;
 };

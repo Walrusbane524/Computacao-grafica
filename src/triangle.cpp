@@ -21,6 +21,7 @@ Triangle::Triangle(Vector normal, Point p1, Point p2, Point p3, Material materia
     this->uv_points = uv_points;
     this->texture = texture_ptr;
 }
+
 Triangle::Triangle(Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, Texture* texture_ptr){
     this->p1 = p1;
     this->p2 = p2;
@@ -164,4 +165,19 @@ Point Triangle::get_uv(Point p) const{
    
 */
     return texture_point;
+}
+
+void Triangle::info(){
+    cout << "Triangle = {" << endl;
+    cout << " - Point 1 = " << "(" << p1.x << ", " << p1.y << ", " << p1.z << ")" << endl;
+    cout << " - Point 2 = " << "(" << p2.x << ", " << p2.y << ", " << p2.z << ")" << endl;
+    cout << " - Point 3 = " << "(" << p3.x << ", " << p3.y << ", " << p3.z << ")" << endl;
+    plane.info();
+    cout << " - Material = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+    cout << "}" << endl;
 }

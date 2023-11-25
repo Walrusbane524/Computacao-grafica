@@ -8,10 +8,16 @@ class SphericalWrapper : public Object{
     public:
         Sphere sphere;
         vector<Object*> objects;
+        ObjMesh* mesh;
 
         SphericalWrapper();
         SphericalWrapper(ObjMesh* mesh, int depth);
         SphericalWrapper(Sphere sphere, vector<Object*> objects);
 
+        static bool compareTriangles(const Triangle& a, const Triangle& b);
+        static Point averagePoint(const Triangle& triangle);
+
         optional<LitPoint> colide(Ray ray) const override;
+
+        void info();
 };

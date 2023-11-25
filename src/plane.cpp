@@ -35,3 +35,15 @@ optional<LitPoint> Plane::colide(Ray ray) const {
 Vector Plane::get_normal(Point p) const{
     return this->normal;
 }
+
+void Plane::info(){
+    cout << "Plane:" << endl;
+    cout << " - Point  = " << "(" << center.x << ", " << center.y << ", " << center.z << ")" << endl;
+    cout << " - Normal = " << "(" << normal.x << ", " << normal.y << ", " << normal.z << ")" << endl;
+    cout << " - Material    = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+}

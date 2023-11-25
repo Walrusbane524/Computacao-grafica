@@ -5,6 +5,7 @@ Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->scene = scene;
     this->canvas = canvas;
     this->shift_down = false;
+    this->ctrl_down = false;
 }
 
 Renderer::Renderer(Scene& scene, int width, int height){
@@ -64,6 +65,9 @@ void Renderer::handleInput(SDL_Event& event){
                         update = true;
                         is_rendering = true;
                     }
+                    if(ctrl_down){
+                        scene.objects[at.obj_index]->info();
+                    }
                 }
             }  
         }
@@ -109,6 +113,10 @@ void Renderer::handleInput(SDL_Event& event){
                 case SDLK_LSHIFT:
                     cout << "LSHIFT" << endl;
                     shift_down = true;
+                    break;
+                case SDLK_LCTRL:
+                    cout << "LCTRL" << endl;
+                    ctrl_down = true;
                     break;
             }
         }
@@ -197,6 +205,10 @@ void Renderer::handleInput(SDL_Event& event){
                 case SDLK_LSHIFT:
                     cout << "LSHIFT" << endl;
                     shift_down = false;
+                    break;
+                case SDLK_LCTRL:
+                    cout << "LCTRL" << endl;
+                    ctrl_down = false;
                     break;
             }
         }

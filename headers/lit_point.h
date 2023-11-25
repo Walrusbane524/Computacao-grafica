@@ -10,6 +10,7 @@ class LitPoint: public Vec{
         double t;
         Color color;
         Material material;
+        long unsigned int obj_index;
 
         LitPoint();
         LitPoint(Vec v, double t, Vector normal);

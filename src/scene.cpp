@@ -58,9 +58,9 @@ optional<LitPoint> Scene::get_closest_colision(int frame_x, int frame_y){
     double smallest_root = numeric_limits<double>::infinity();
     LitPoint closest_point;
 
-    for(Object* s : objects){
+    for(long unsigned int i = 0; i < objects.size(); i++){
 
-        optional<LitPoint> intersect = s->colide(ray);
+        optional<LitPoint> intersect = objects[i]->colide(ray);
         
         if (intersect.has_value() && intersect.value().t > 0){
             double t = intersect.value().t;
@@ -68,6 +68,7 @@ optional<LitPoint> Scene::get_closest_colision(int frame_x, int frame_y){
             if(t < smallest_root){
                 smallest_root = t;
                 closest_point = intersect.value();
+                closest_point.obj_index = i;
             }
         }
     }
@@ -89,11 +90,9 @@ void Scene::paint(Canvas& canvas){
     for(int l = 0; l < camera.n_l; l++){
 
         Vector diff_y = (camera.j * (camera.delta_y/2)) + ((camera.j * camera.delta_y) * l);
-        
         for(int c = 0; c < camera.n_c; c++){
 
             Vector diff_x = (camera.i * (camera.delta_x/2)) + ((camera.i * camera.delta_x) * c);
-
             Point p_j = upper_left + diff_x - diff_y;
 
             //cout << "p_j: " << p_j.x << " " << p_j.y << " " << p_j.z << endl ;
@@ -114,6 +113,7 @@ void Scene::paint(Canvas& canvas){
                     if(p.t < smallest_root){
                         smallest_root = p.t;
                         closest_point = p;
+                        closest_point.obj_index = i;
                         intersected = true;
                     }
                 }

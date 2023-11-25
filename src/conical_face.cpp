@@ -92,3 +92,17 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     return LitPoint(p_intersect, smallest_t, normal, this->material);
 }
 
+void ConicalFace::info(){
+    cout << "Conical Face = {" << endl;
+    cout << " - Base center = " << "(" << base_center.x << ", " << base_center.y << ", " << base_center.z << ")" << endl;
+    cout << " - Tip Point   = " << "(" << tip.x << ", " << tip.y << ", " << tip.z << ")" << endl;
+    cout << " - Direction   = " << "(" << direction.x << ", " << direction.y << ", " << direction.z << ")" << endl;
+    cout << " - Radius      = " << radius << endl;
+    cout << " - Material    = {";
+    cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
+    cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
+    cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;
+    cout << "       m  = " << material.reflectivity << endl;
+    cout << "   }" << endl;
+    cout << "}" << endl;
+}

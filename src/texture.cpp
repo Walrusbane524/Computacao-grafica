@@ -6,9 +6,11 @@ Texture::Texture(){}
 
 Texture::Texture(const char* filePath) : Texture(){
     readFromFile(filePath);
+    this->path = filePath;
 }
 
 void Texture::readFromFile(const char* filePath){
+    this->path = filePath;
     int width, height, channels;
     unsigned char* data = stbi_load(filePath, &width, &height, &channels, 0);
 
