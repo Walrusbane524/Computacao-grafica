@@ -59,7 +59,7 @@ void Renderer::handleInput(SDL_Event& event){
 
                 if(intersect.has_value() && intersect.value().t > 0){
                     LitPoint at = intersect.value();
-                    cout << "Intersection at (x = " << at.x << ", y = " << at.y << ", z = " << at.z << ")" << endl;
+                    cout << "Intersection at (x = " << at.x << ", y = " << at.y << ", z = " << at.z << ", t = " << at.t << ")" << endl;
                     if(shift_down){
                         scene.camera.lookAt(at, Point(scene.camera.origin + Vector(0, 1, 0)));
                         update = true;

@@ -56,9 +56,9 @@ void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
 
 int main(){
 
-    int n_l = 200;
-    int n_c = 200;
-    double d = 1.;
+    int n_l = 50;
+    int n_c = 50;
+    double d = 1.5;
 
     Camera camera = Camera(2, 2, n_l, n_c, d);
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
@@ -93,7 +93,7 @@ int main(){
     ObjMesh bulbasaur = ObjMesh("assets/meshes/bulbasaur.obj", bulbasaur_texture);
     cout << "Bulbasaur loaded" << endl;
 
-    squirtle.transform(ScaleMatrix(Vec(0.5, 0.5, 0.5)));
+    //squirtle.transform(ScaleMatrix(Vec(0.5, 0.5, 0.5)));
     squirtle.transform(RotationMatrixYAxis(0.35));
     squirtle.transform(TranslationMatrix(Vector(-30, -50, -200)));
 
@@ -114,7 +114,9 @@ int main(){
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
 
     cout << "Meshes wrapped" << endl;
-    
+
+    //printSphericalWrapperTree(wrapped_bulbasaur);
+
     //cout << "Finished" << endl;
 
     //printSphericalWrapperTree(wrapped_squirtle);

@@ -9,6 +9,8 @@ SphericalWrapper::SphericalWrapper(){
 
 SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
 
+    this->mesh = mesh;
+
     double sum_x = 0.0;
     double sum_y = 0.0;
     double sum_z = 0.0;
@@ -52,39 +54,27 @@ SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
 
     this->sphere = Sphere(mesh_center, largest_distance + 0.01 * largest_distance);
 
-    if (depth != 0){
-        if(mesh->triangles.size() > 2){
+    if (depth != 0 && mesh->triangles.size() > 2){
 
-            Mesh sorted_mesh = *mesh;
+        ObjMesh sorted_mesh = *mesh;
 
-            sort(sorted_mesh.triangles.begin(), sorted_mesh.triangles.end(), compareTriangles);
+        //sort(sorted_mesh.triangles.begin(), sorted_mesh.triangles.end(), compareTriangles);
 
-            size_t middleIndex = sorted_mesh.triangles.size() / 2;
-            //cout << "mesh.triangles.size(): " << mesh.triangles.size() << endl;
-            //cout << "middleIndex: " << middleIndex << endl;
-            
-            vector<Triangle> sub_vector1(sorted_mesh.triangles.begin(), sorted_mesh.triangles.begin() + middleIndex);
-            vector<Triangle> sub_vector2(sorted_mesh.triangles.begin() + middleIndex, sorted_mesh.triangles.end());
-            /*
-            ObjMesh sub_obj1 = ObjMesh(mesh->points, mesh->faces, sub_vector1, mesh->uv_points, mesh->texture);
-            ObjMesh sub_obj2 = ObjMesh(mesh->points, mesh->faces, sub_vector2, mesh->uv_points, mesh->texture);
+        size_t middleIndex = sorted_mesh.triangles.size() / 2;
+        //cout << "mesh.triangles.size(): " << mesh.triangles.size() << endl;
+        //cout << "middleIndex: " << middleIndex << endl;
+        
+        vector<Triangle> sub_vector1(sorted_mesh.triangles.begin(), sorted_mesh.triangles.begin() + middleIndex);
+        vector<Triangle> sub_vector2(sorted_mesh.triangles.begin() + middleIndex, sorted_mesh.triangles.end());
 
-            SphericalWrapper* sw_left = new SphericalWrapper();
-            sw_left->BinaryWrap(sub_obj1);
-            SphericalWrapper* sw_right = new SphericalWrapper();
-            sw_right->BinaryWrap(sub_obj2);
-            */
-            if(mesh->normals.empty()){
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
-            }
-            else{
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
-                this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
-            }
+        if(mesh->normals.empty()){
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
         }
-        else
-            this->objects.push_back(mesh);
+        else{
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
+        }
     }
     else
         this->objects.push_back(mesh);
@@ -99,6 +89,7 @@ optional<LitPoint> SphericalWrapper::colide(Ray ray) const {
     optional<LitPoint> boundary_intersect = this->sphere.colide(ray);
 
     if (boundary_intersect.has_value() && boundary_intersect.value().t > 0) {
+        //cout << "Intersected boundary" << endl;
         double smallest_distance = numeric_limits<double>::infinity();
         LitPoint closest_point;
         bool intersected = false;
@@ -108,6 +99,7 @@ optional<LitPoint> SphericalWrapper::colide(Ray ray) const {
 
             if (intersect.has_value() && intersect.value().t > 0) {
                 if (intersect.value().t < smallest_distance) {
+                    //cout << "Intersected sub_object" << endl;
                     smallest_distance = intersect.value().t;
                     closest_point = intersect.value();
                     intersected = true;

@@ -24,6 +24,7 @@ $(MAIN_OBJ): $(MAIN_SRC) | obj
 
 obj:
 	mkdir -p obj
+	mkdir -p build
 
 clean:
 	rm -rf obj

@@ -48,8 +48,21 @@ optional<LitPoint> Sphere::colide(Ray ray) const {
     if (delta > 0){
         double t_1 = (-b + sqrt(delta))/(2 * a);
         double t_2 = (-b - sqrt(delta))/(2 * a);
-        double smallest_t = t_1;
-
+        double smallest_t;
+        if(t_1 > 0){
+            if(t_2 > 0){
+                if(t_1 < t_2)
+                    smallest_t = t_1;
+                else
+                    smallest_t = t_2;
+            }
+            else
+                smallest_t = t_1;
+        }
+        else if(t_2 > 0)
+            smallest_t = t_2;
+        else
+            return nullopt;
         // std::cout << "t1 = " << root_1 << std::endl;
         // std::cout << "t2 = " << root_2 << std::endl;
 
@@ -58,7 +71,7 @@ optional<LitPoint> Sphere::colide(Ray ray) const {
         Point p_intersect = ray.p_inicial + (ray.direction * (smallest_t));
         Vector normal = get_normal(p_intersect);
 
-        return LitPoint(p_intersect + (normal * 0.01), smallest_t, normal, this->material);
+        return LitPoint(p_intersect, smallest_t, normal, this->material);
     }
     else return nullopt;
 }
@@ -69,8 +82,8 @@ void Sphere::transform(Matrix transformation_matrix){
 
 void Sphere::info(){
     cout << "Sphere = {" << endl;
-    cout << " - Point    = " << "(" << center.x << ", " << center.y << ", " << center.z << ")" << endl;
-    cout << " - Radius   = " << "(" << radius << endl;
+    cout << " - Center   = " << "(" << center.x << ", " << center.y << ", " << center.z << ")" << endl;
+    cout << " - Radius   = " << radius << endl;
     cout << " - Material = {";
     cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
     cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
