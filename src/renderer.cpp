@@ -6,11 +6,13 @@ Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->canvas = canvas;
     this->shift_down = false;
     this->ctrl_down = false;
+    movement_speed = 1;
 }
 
 Renderer::Renderer(Scene& scene, int width, int height){
     this->scene = scene;
     this->canvas = Canvas(height, width);
+    movement_speed = 1;
 }
 
 void Renderer::start(){
@@ -76,37 +78,37 @@ void Renderer::handleInput(SDL_Event& event){
             switch (event.key.keysym.sym) {
                 case SDLK_w:
                     cout << "w" << endl;
-                    scene.camera.origin = scene.camera.origin + scene.camera.k;
+                    scene.camera.origin = scene.camera.origin + (scene.camera.k * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_a:
                     cout << "a" << endl;
-                    scene.camera.origin = scene.camera.origin + scene.camera.i;
+                    scene.camera.origin = scene.camera.origin + (scene.camera.i * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_d:
                     cout << "d" << endl;
-                    scene.camera.origin = scene.camera.origin - scene.camera.i;
+                    scene.camera.origin = scene.camera.origin - (scene.camera.i * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_s:
                     cout << "s" << endl;
-                    scene.camera.origin = scene.camera.origin - scene.camera.k;
+                    scene.camera.origin = scene.camera.origin - (scene.camera.k * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_SPACE:
                     cout << "SPACE" << endl;
-                    scene.camera.origin = scene.camera.origin + scene.camera.j;
+                    scene.camera.origin = scene.camera.origin + (scene.camera.j * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_c:
                     cout << "c" << endl;
-                    scene.camera.origin = scene.camera.origin - scene.camera.j;
+                    scene.camera.origin = scene.camera.origin - (scene.camera.j * movement_speed);
                     is_rendering = true;
                     update = true;
                     break;
@@ -126,14 +128,14 @@ void Renderer::handleInput(SDL_Event& event){
             switch (event.key.keysym.sym) {
                 case SDLK_i:
                     cout << "i" << endl;
-                    scene.camera.d += 1.0;
+                    scene.camera.d += movement_speed;
                     cout << "Current d: " << scene.camera.d << endl;
                     is_rendering = true;
                     update = true;
                     break;
                 case SDLK_o:
                     cout << "o" << endl;
-                    scene.camera.d = max(1.0, scene.camera.d - 1.0);
+                    scene.camera.d = max(1.0, scene.camera.d - movement_speed);
                     cout << "Current d: " << scene.camera.d << endl;
                     is_rendering = true;
                     update = true;
@@ -191,6 +193,15 @@ void Renderer::handleInput(SDL_Event& event){
                     is_rendering = true;
                     update = true;
                     resize = true;
+                    break;
+                case SDLK_0:
+                    movement_speed += 1;
+                    cout << "Movement speed: " << movement_speed << endl;
+                    break;
+                
+                case SDLK_9:
+                    movement_speed = max(1, movement_speed - 1);
+                    cout << "Movement speed: " << movement_speed << endl;
                     break;
                 // Add more cases for other keys as needed
                 case SDLK_f:
