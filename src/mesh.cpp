@@ -89,7 +89,7 @@ Mesh Mesh::transform(Matrix matrix){
     vector<Triangle> triangle_aux;
 
     for(int i = 0; i < faces.size() ; i++){
-        triangle_aux.push_back(Triangle(points[faces[i][0]], points[faces[i][1]], points[faces[i][2]], Material(), triangles[i].uv_points, this->texture));
+        triangle_aux.push_back(Triangle(points[faces[i][0]], points[faces[i][1]], points[faces[i][2]], Material(), triangles[i].uv_points, triangles[i].normals, this->texture));
     }
     this->triangles = triangle_aux;
 
@@ -108,15 +108,22 @@ Mesh Mesh::addTriangle(vector<int> indexes, vector<int> uv_indexes, vector<int> 
     uvs.push_back(uv_points[uv_indexes[1]]);
     uvs.push_back(uv_points[uv_indexes[2]]);
 
-    if(normal_indexes.empty())
+    if(normal_indexes.empty()){
         this->triangles.push_back(
             Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, this->texture)
         );
-    else
-        this->triangles.push_back(
-            Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, this->texture)
-        );
+    }
+    else{
+        vector<Vector> normal_points;
+        
+        normal_points.push_back(normals[normal_indexes[0]]);
+        normal_points.push_back(normals[normal_indexes[1]]);
+        normal_points.push_back(normals[normal_indexes[2]]);
 
+        this->triangles.push_back(
+            Triangle(points[indexes[0]], points[indexes[1]], points[indexes[2]], this->material, uvs, normal_points, this->texture)
+        );
+    }
     //cout << "Textured triangle inserted." << endl;
 
     return *this;

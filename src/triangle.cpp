@@ -72,7 +72,9 @@ optional<LitPoint> Triangle::colide(Ray ray) const {
         cout << "y = " << point.normal.y << endl;
         cout << "z = " << point.normal.z << endl;
         */
-        if(!normals.empty()){
+        //cout << this->normals.size() << endl;
+        if(!this->normals.empty()){
+            //cout << "Interpolating normals..." << endl;
             point.normal = get_normal(point);
             /*
             cout << "Normal after interpolation:" << endl;

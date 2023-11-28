@@ -85,6 +85,7 @@ int main(){
     cout << "Squirtle loaded" << endl;
     Texture* porygon_texture = new Texture("assets/textures/porygon.png");
     ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
+    cout << porygon.triangles[0].normals.size() << endl;
     cout << "Porygon loaded" << endl;
 
     Texture* charmander_texture = new Texture("assets/textures/charmander.jpeg");
