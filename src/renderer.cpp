@@ -138,6 +138,18 @@ void Renderer::handleInput(SDL_Event& event){
                     is_rendering = true;
                     update = true;
                     break;
+                case SDLK_p:
+                    cout << "p" << endl;
+                    scene.camera.orthographic = !scene.camera.orthographic;
+                    cout << "Current projection type: ";
+                    if(scene.camera.orthographic)
+                        cout << "ortographic";
+                    else
+                        cout << "perspective";
+                    cout << endl;
+                    is_rendering = true;
+                    update = true;
+                    break;
                 case SDLK_EQUALS:
                 // Expand the screen when the '=' key is pressed
                     cout << "=" << endl;
@@ -151,7 +163,8 @@ void Renderer::handleInput(SDL_Event& event){
                         scene.camera.height, 
                         canvas.rows, 
                         canvas.columns,
-                        scene.camera.d
+                        scene.camera.d,
+                        scene.camera.orthographic
                     );
                     cout << "Current resolution: (" << canvas.columns << ", " << canvas.rows << ")" << endl;
                     is_rendering = true;
@@ -171,7 +184,8 @@ void Renderer::handleInput(SDL_Event& event){
                         scene.camera.height, 
                         canvas.rows, 
                         canvas.columns,
-                        scene.camera.d
+                        scene.camera.d,
+                        scene.camera.orthographic
                     );
                     cout << "Current resolution: (" << canvas.columns << ", " << canvas.rows << ")" << endl;
                     is_rendering = true;

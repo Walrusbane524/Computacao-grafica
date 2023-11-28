@@ -19,9 +19,11 @@
 #include "headers/point_light.h"
 #include "headers/translation_matrix.h"
 #include "headers/rotation_matrix_y_axis.h"
+#include "headers/rotation_matrix_u_axis.h"
 #include "headers/spherical_wrapper.h"
 #include "headers/renderer.h"
 #include "headers/scale_matrix.h"
+
 
 void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
     // Print information about the current node (SphericalWrapper)
@@ -58,9 +60,9 @@ int main(){
 
     int n_l = 50;
     int n_c = 50;
-    double d = 1.5;
+    double d = 30;
 
-    Camera camera = Camera(2, 2, n_l, n_c, d);
+    Camera camera = Camera(100, 100, n_l, n_c, d);
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
     Canvas canvas = Canvas(n_l, n_c);
 
@@ -95,6 +97,7 @@ int main(){
 
     //squirtle.transform(ScaleMatrix(Vec(0.5, 0.5, 0.5)));
     squirtle.transform(RotationMatrixYAxis(0.35));
+    //squirtle.transform(RotationMatrixUAxis(Vector(0, 1, 0), 0.35));    
     squirtle.transform(TranslationMatrix(Vector(-30, -50, -200)));
 
     charmander.transform(RotationMatrixYAxis(-0.75));

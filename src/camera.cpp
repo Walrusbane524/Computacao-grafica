@@ -13,6 +13,7 @@ Camera::Camera(){
     d = 3;
     delta_x = abs(width)/n_c;
     delta_y = abs(height)/n_l;
+    orthographic = false;
 }
 
 Camera::Camera(double width, double height, double n_l, double n_c, double d){
@@ -27,6 +28,7 @@ Camera::Camera(double width, double height, double n_l, double n_c, double d){
     this->d = d;
     delta_x = abs(width)/n_c;
     delta_y = abs(height)/n_l;
+    orthographic = false;
 }
 
 Camera::Camera(Point position, Vector i, Vector j, Vector k, double width, double height, double n_l, double n_c, double d){
@@ -41,6 +43,11 @@ Camera::Camera(Point position, Vector i, Vector j, Vector k, double width, doubl
     this->d = d;
     delta_x = abs(width)/n_c;
     delta_y = abs(height)/n_l;
+    orthographic = false;
+}
+
+Camera::Camera(Point position, Vector i, Vector j, Vector k, double width, double height, double n_l, double n_c, double d, bool orthographic) : Camera(position, i, j, k, width, height, n_l, n_c, d){
+    this->orthographic = orthographic;
 }
 
 void Camera::lookAt(Point eye, Point at, Point up){

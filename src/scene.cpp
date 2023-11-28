@@ -53,7 +53,12 @@ optional<LitPoint> Scene::get_closest_colision(int frame_x, int frame_y){
     
     Point upper_left = camera.origin - (camera.i * camera.width/2) + (camera.j * camera.height/2) + (camera.k * camera.d);
     Point p_j = upper_left + diff_x - diff_y;
-    Ray ray = Ray(camera.origin, p_j);
+    Ray ray;
+    
+    if(camera.orthographic)
+        ray = Ray(p_j, camera.k);
+    else
+        ray = Ray(camera.origin, p_j);
 
     double smallest_root = numeric_limits<double>::infinity();
     LitPoint closest_point;
@@ -85,8 +90,6 @@ void Scene::paint(Canvas& canvas){
 
     Point upper_left = camera.origin - (camera.i * camera.width/2) + (camera.j * camera.height/2) + (camera.k * camera.d);
 
-    //cout << "Upper_left: " << upper_left.x << " " << upper_left.y << " " << upper_left.z << endl ;
-
     for(int l = 0; l < camera.n_l; l++){
 
         Vector diff_y = (camera.j * (camera.delta_y/2)) + ((camera.j * camera.delta_y) * l);
@@ -94,10 +97,12 @@ void Scene::paint(Canvas& canvas){
 
             Vector diff_x = (camera.i * (camera.delta_x/2)) + ((camera.i * camera.delta_x) * c);
             Point p_j = upper_left + diff_x - diff_y;
-
+            Ray ray;
             //cout << "p_j: " << p_j.x << " " << p_j.y << " " << p_j.z << endl ;
-
-            Ray ray = Ray(camera.origin, p_j);
+            if(camera.orthographic)
+                ray = Ray(p_j, camera.k);
+            else
+                ray = Ray(camera.origin, p_j);
             Color cor_atual = background;
             double smallest_root = numeric_limits<double>::infinity();
             LitPoint closest_point;
