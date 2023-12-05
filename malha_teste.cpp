@@ -96,6 +96,10 @@ int main(){
     ObjMesh bulbasaur = ObjMesh("assets/meshes/bulbasaur.obj", bulbasaur_texture);
     cout << "Bulbasaur loaded" << endl;
 
+    Texture* porygon_machine_texture = new Texture("assets/textures/porygon_machine.jpeg");
+    ObjMesh porygon_machine = ObjMesh("assets/meshes/porygon_machine.obj", porygon_machine_texture);
+    cout << "Porygon machine loaded" << endl;
+
     //squirtle.transform(ScaleMatrix(Vec(0.5, 0.5, 0.5)));
     squirtle.transform(RotationMatrixYAxis(0.35));
     //squirtle.transform(RotationMatrixUAxis(Vector(0, 1, 0), 0.35));    
@@ -109,6 +113,9 @@ int main(){
 
     bulbasaur.transform(RotationMatrixYAxis(0.75));
     bulbasaur.transform(TranslationMatrix(Vector(-100, -50, -200)));
+
+    porygon_machine.transform(RotationMatrixYAxis(0.75));
+    porygon_machine.transform(TranslationMatrix(Vector(0, -50, -300)));
     
     cout << "Meshes moved" << endl;
 
@@ -116,6 +123,7 @@ int main(){
     SphericalWrapper wrapped_porygon = SphericalWrapper(&porygon, -1);
     SphericalWrapper wrapped_charmander = SphericalWrapper(&charmander, -1);
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
+    SphericalWrapper wrapped_porygon_machine = SphericalWrapper(&porygon_machine, -1);
 
     cout << "Meshes wrapped" << endl;
 
@@ -147,6 +155,7 @@ int main(){
     scene.addObject(&wrapped_porygon);
     scene.addObject(&wrapped_charmander);
     scene.addObject(&wrapped_bulbasaur);
+    scene.addObject(&wrapped_porygon_machine);
     /*
     scene.addObject(&wrapped_cube);
     scene.addObject(&wrapped_smooth_cube);
