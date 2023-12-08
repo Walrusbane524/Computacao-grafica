@@ -23,7 +23,8 @@
 #include "headers/spherical_wrapper.h"
 #include "headers/renderer.h"
 #include "headers/scale_matrix.h"
-
+#include "headers/textured_plane.h"
+#include "headers/textured_sphere.h"
 
 void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
     // Print information about the current node (SphericalWrapper)
@@ -60,7 +61,7 @@ int main(){
 
     int n_l = 50;
     int n_c = 50;
-    double d = 30;
+    double d = 60;
 
     Camera camera = Camera(100, 100, n_l, n_c, d);
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
@@ -115,7 +116,7 @@ int main(){
     bulbasaur.transform(TranslationMatrix(Vector(-100, -50, -200)));
 
     porygon_machine.transform(RotationMatrixYAxis(0.75));
-    porygon_machine.transform(TranslationMatrix(Vector(0, -50, -300)));
+    porygon_machine.transform(TranslationMatrix(Vector(0, -50, -400)));
     
     cout << "Meshes moved" << endl;
 
@@ -135,22 +136,36 @@ int main(){
     //mesh.transform(TranslationMatrix(Vector(0, 0, -5)));
     
     
+    Texture* plane_texture = new Texture("assets/textures/wood.jpg");
+
+    cout << plane_texture->image[0][0].r << endl;
+
     Plane plane = Plane(
         Point(0, -50, 0), 
         Vector(0, 1, 0),
         Material(
-            Vec(0.3, 0.6, 0.3),
-            Vec(0.3, 0.8, 0.3),
-            Vec(0.3, 1.0, 0.3),
+            Vec(1., 1., 1.),
+            Vec(1., 1., 1.),
+            Vec(1., 1., 1.),
             1
         )
     );
+
+    TexturedPlane textured_plane = TexturedPlane(plane, Vector(0, 0, 10), plane_texture);
+
+    Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
+    Sphere pokeball_sphere = Sphere(Point(0, 0, -100), 50);
+
+    TexturedSphere pokeball = TexturedSphere(pokeball_sphere, pokeball_texture);
+    pokeball.rotation_matrix = new RotationMatrixYAxis(1.5);
+
 
     Color background = Color(100, 100, 255);
 
     Scene scene = Scene(camera, background);
     PointLight light = PointLight(Point(0, 100, 30), 1.0, 1.0, 1.0);
 
+    scene.addObject(&pokeball);
     scene.addObject(&wrapped_squirtle);
     scene.addObject(&wrapped_porygon);
     scene.addObject(&wrapped_charmander);
@@ -160,7 +175,7 @@ int main(){
     scene.addObject(&wrapped_cube);
     scene.addObject(&wrapped_smooth_cube);
     */
-    scene.addObject(&plane);
+    scene.addObject(&textured_plane);
     scene.addLight(&light);
     scene.paint(canvas);
 

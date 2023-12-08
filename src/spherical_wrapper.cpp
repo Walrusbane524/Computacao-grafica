@@ -88,7 +88,7 @@ SphericalWrapper::SphericalWrapper(Sphere sphere, vector<Object*> objects){
 optional<LitPoint> SphericalWrapper::colide(Ray ray) const {
     optional<LitPoint> boundary_intersect = this->sphere.colide(ray);
 
-    if (boundary_intersect.has_value() && boundary_intersect.value().t > 0) {
+    if (boundary_intersect.has_value()) {
         //cout << "Intersected boundary" << endl;
         double smallest_distance = numeric_limits<double>::infinity();
         LitPoint closest_point;

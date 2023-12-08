@@ -1,6 +1,7 @@
 #include "../headers/texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../headers/stb_image.h"
+#include <iostream>
 
 Texture::Texture(){}
 
@@ -41,7 +42,7 @@ void Texture::readFromFile(const char* filePath){
 
 Color Texture::sample(Point p){
 
-    int x = static_cast<int> (p.x * width) % width; 
+    int x = static_cast<int> (p.x * width) % width;
     int y = static_cast<int> (p.y * height) % height;
 
     return image[y][x];
