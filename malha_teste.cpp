@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 #include <math.h>
 #include <optional>
 #include <SDL2/SDL.h>
@@ -134,8 +135,7 @@ int main(){
 
     //printSphericalWrapperTree(wrapped_squirtle);
     //mesh.transform(TranslationMatrix(Vector(0, 0, -5)));
-    
-    
+
     Texture* plane_texture = new Texture("assets/textures/wood.jpg");
 
     cout << plane_texture->image[0][0].r << endl;
@@ -154,7 +154,7 @@ int main(){
     TexturedPlane textured_plane = TexturedPlane(plane, Vector(0, 0, 10), plane_texture);
 
     Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
-    Sphere pokeball_sphere = Sphere(Point(0, 0, -100), 50);
+    Sphere pokeball_sphere = Sphere(Point(0, 0, -100), 5);
 
     TexturedSphere pokeball = TexturedSphere(pokeball_sphere, pokeball_texture);
     pokeball.rotation_matrix = new RotationMatrixYAxis(1.5);

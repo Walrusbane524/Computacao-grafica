@@ -32,4 +32,8 @@ class Scene{
     void addLight(Light* light);
 
     void paint(Canvas& canvas);
+
+    void paint_thread(Canvas& canvas);
+
+    void render_quadrant(Canvas& canvas, int start_l, int end_l, int start_c, int end_c);
 };

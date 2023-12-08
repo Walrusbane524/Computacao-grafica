@@ -1,6 +1,8 @@
 #include "../headers/scene.h"
 #include <iostream>
 #include <chrono>
+#include <thread>
+#include <limits>
 
 using namespace std;
 
@@ -147,3 +149,86 @@ void Scene::paint(Canvas& canvas){
     cout << "Done!" << endl;
     cout << "Elapsed time: " << elapsed_time.count() << " seconds" << endl;
 }
+
+void Scene::render_quadrant(Canvas& canvas, int start_l, int end_l, int start_c, int end_c) {
+    for (int l = start_l; l < end_l; l++) {
+        for (int c = start_c; c < end_c; c++) {
+            Point upper_left = camera.origin - (camera.i * camera.width/2) + (camera.j * camera.height/2) + (camera.k * camera.d);
+            Vector diff_y = (camera.j * (camera.delta_y/2)) + ((camera.j * camera.delta_y) * l);
+            Vector diff_x = (camera.i * (camera.delta_x/2)) + ((camera.i * camera.delta_x) * c);
+            Point p_j = upper_left + diff_x - diff_y;
+            Ray ray;
+            if (camera.orthographic)
+                ray = Ray(p_j, camera.k);
+            else
+                ray = Ray(camera.origin, p_j);
+            Color cor_atual = background;
+            double smallest_root = std::numeric_limits<double>::infinity();
+            LitPoint closest_point;
+            bool intersected = false;
+            for (size_t i = 0; i < objects.size(); i++) {
+                std::optional<LitPoint> intersect = objects[i]->colide(ray);
+                if (intersect.has_value() && intersect.value().t > 0) {
+                    LitPoint p = intersect.value();
+                    if (p.t < smallest_root) {
+                        smallest_root = p.t;
+                        closest_point = p;
+                        closest_point.obj_index = i;
+                        intersected = true;
+                    }
+                }
+            }
+            if (intersected) {
+                Vec ambient_intensity = this->ambient * closest_point.material.ambient;
+                Vec color_intensity = ambient_intensity;
+                for (Light* light : lights) {
+                    Vec diffuse_specular = light->get_diffuse_and_specular(closest_point, this->objects, ray);
+                    color_intensity = color_intensity + diffuse_specular;
+                }
+                if (color_intensity.x > 1) color_intensity.x = 1;
+                if (color_intensity.y > 1) color_intensity.y = 1;
+                if (color_intensity.z > 1) color_intensity.z = 1;
+                cor_atual = color_intensity * closest_point.color;
+            }
+            canvas.matrix[l][c] = cor_atual;
+        }
+    }
+}
+
+void Scene::paint_thread(Canvas& canvas) {
+    auto start_time = std::chrono::high_resolution_clock::now();
+    std::cout << "Rendering..." << std::endl;
+
+    int num_threads = 4;
+
+     // Obtém o número de threads suportadas pelo hardware
+
+    std::vector<std::thread> threads;
+    int quadrant_height = camera.n_l / num_threads;
+    int quadrant_width = camera.n_c / num_threads;
+
+    for (int i = 0; i < num_threads; i++) {
+        int start_l = i * quadrant_height;
+        int end_l = (i + 1) * quadrant_height;
+        for (int j = 0; j < num_threads; j++){
+            int start_c = j * quadrant_width;
+            int end_c = (j + 1) * quadrant_width;
+            threads.emplace_back(&Scene::render_quadrant, this, std::ref(canvas), start_l, end_l, start_c, end_c);
+        }
+
+
+        // Ajuste os valores de start_c e end_c para renderizar apenas uma parte da largura para cada thread
+
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto elapsed_time = std::chrono::duration_cast<std::chrono::duration<double>>(end_time - start_time);
+
+    std::cout << "Done!" << std::endl;
+    std::cout << "Elapsed time: " << elapsed_time.count() << " seconds" << std::endl;
+}
+

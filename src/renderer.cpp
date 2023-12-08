@@ -1,11 +1,13 @@
 #include "../headers/renderer.h"
 #include <iostream>
+#include <thread>
 
 Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->scene = scene;
     this->canvas = canvas;
     this->shift_down = false;
     this->ctrl_down = false;
+    this->with_thread = true;
     movement_speed = 1;
     is_running = false;
 }
@@ -242,7 +244,19 @@ void Renderer::handleInput(SDL_Event& event){
         }
     }
     if(update){
-        scene.paint(canvas);
+        if (with_thread){
+            int num_threads = std::thread::hardware_concurrency();
+            if(num_threads < 4 ){
+                cout << "Running without parallelism.!" << endl;
+                scene.paint(canvas);
+            }
+            else{
+                scene.paint_thread(canvas);
+            }
+        }
+        else{
+            scene.paint_thread(canvas);
+        }
         is_rendering = false;
     }
     if(resize){

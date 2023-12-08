@@ -12,6 +12,7 @@ class Renderer{
     bool is_rendering;
     bool shift_down;
     bool ctrl_down;
+    bool with_thread;
     int movement_speed;
 
     Renderer(Scene& scene, Canvas& canvas);
