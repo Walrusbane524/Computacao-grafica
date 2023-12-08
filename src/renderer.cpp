@@ -7,16 +7,19 @@ Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->shift_down = false;
     this->ctrl_down = false;
     movement_speed = 1;
+    is_running = false;
 }
 
 Renderer::Renderer(Scene& scene, int width, int height){
     this->scene = scene;
     this->canvas = Canvas(height, width);
     movement_speed = 1;
+    is_running = false;
 }
 
 void Renderer::start(){
     if(startWindow(canvas.columns, canvas.rows) == 0){
+        is_running = true;
         renderFrame();
         render();
     }
