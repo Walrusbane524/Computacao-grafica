@@ -157,6 +157,16 @@ void Renderer::handleInput(SDL_Event& event){
                     is_rendering = true;
                     update = true;
                     break;
+                case SDLK_t:
+                    cout << "t" << endl;
+                    this->with_thread = !with_thread;
+                    cout << "Current rendering mode: ";
+                    if(with_thread)
+                        cout << "with threads";
+                    else
+                        cout << "without threads";
+                    cout << endl;
+                    break;
                 case SDLK_EQUALS:
                 // Expand the screen when the '=' key is pressed
                     cout << "=" << endl;
@@ -247,7 +257,9 @@ void Renderer::handleInput(SDL_Event& event){
         if (with_thread){
             int num_threads = std::thread::hardware_concurrency();
             if(num_threads < 4 ){
-                cout << "Running without parallelism.!" << endl;
+                cout << "Number of threads:" << num_threads << endl;
+                cout << "Insuficient threads. Setting render mode to without threads" << endl;
+                with_thread = false;
                 scene.paint(canvas);
             }
             else{
@@ -255,7 +267,7 @@ void Renderer::handleInput(SDL_Event& event){
             }
         }
         else{
-            scene.paint_thread(canvas);
+            scene.paint(canvas);
         }
         is_rendering = false;
     }

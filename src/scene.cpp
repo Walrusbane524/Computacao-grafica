@@ -197,7 +197,7 @@ void Scene::render_quadrant(Canvas& canvas, int start_l, int end_l, int start_c,
 
 void Scene::paint_thread(Canvas& canvas) {
     auto start_time = std::chrono::high_resolution_clock::now();
-    std::cout << "Rendering..." << std::endl;
+    std::cout << "Rendering with threads..." << std::endl;
 
     int num_threads = 4;
 
