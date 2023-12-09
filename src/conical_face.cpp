@@ -58,15 +58,15 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     double cos_ = height/sqrt(height * height + radius * radius);
 
     double a = pow(dr.dot(direction), 2) - dr.dot(dr) * pow(cos_, 2);
-    double b = 2 * (v.dot(dr) * pow(cos_, 2) - 2 * (v.dot(direction)) * (dr.dot(direction)));
+    double b = (v.dot(dr) * pow(cos_, 2) - (v.dot(direction)) * (dr.dot(direction)));
     double c = pow(v.dot(direction), 2) - (v.dot(v)) * pow(cos_, 2);
 
-    double delta = pow(b, 2) - 4 * a * c;
+    double delta = pow(b, 2) - a * c;
 
     if(delta <= 0) return nullopt;
 
-    double t_1 = (-b - sqrt(delta))/(2*a);
-    double t_2 = (-b + sqrt(delta))/(2*a);
+    double t_1 = (-b - sqrt(delta))/(a);
+    double t_2 = (-b + sqrt(delta))/(a);
     double smallest_t;
 
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));

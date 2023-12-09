@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 #include <math.h>
 #include <optional>
 #include <SDL2/SDL.h>
@@ -13,29 +14,50 @@
 #include "headers/sphere.h"
 #include "headers/scene.h"
 #include "headers/plane.h"
+#include "headers/triangle.h"
 #include "headers/cone.h"
+#include "headers/mesh.h"
+#include "headers/obj_mesh.h"
+#include "headers/point_light.h"
+#include "headers/translation_matrix.h"
+#include "headers/rotation_matrix_y_axis.h"
+#include "headers/rotation_matrix_u_axis.h"
+#include "headers/spherical_wrapper.h"
+#include "headers/renderer.h"
+#include "headers/scale_matrix.h"
+#include "headers/textured_plane.h"
+#include "headers/textured_sphere.h"
 
 int main(){
 
-    int n_l = 400;
-    int n_c = 400;
-    double d = 3;
+    int n_l = 50;
+    int n_c = 50;
+    double d = 60;
 
-    Camera camera = Camera(Point(0, 0, 20), 1, -1, 1, -1, n_l, n_c, d);
+    Camera camera = Camera(100, 100, n_l, n_c, d);
+    camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
     Canvas canvas = Canvas(n_l, n_c);
 
-    Cone cone = Cone(Point(0, 0, -100), Point(0, 20, -100), 10, Color(255, 0, 0));
+    Material material = Material(
+        Vec(0.8, 0.8, 0.8),
+        Vec(0.8, 0.8, 0.8),
+        Vec(0.8, 0.8, 0.8),
+        2.0
+    );
 
-    Color background = Color(100, 100, 100);
+    Cone cone = Cone(Point(0, 0, -100), Point(0, 20, -100), 10, material);
+
+    Color background = Color(0, 0, 0);
 
     Scene scene = Scene(camera, background);
-    Light light = Light(Point(100, 100, -100), 1.0, 1.0, 1.0);
+    PointLight light = PointLight(Point(0, 100, 30), 1.0, 1.0, 1.0);
 
     scene.addObject(&cone);
+    
     scene.addLight(&light);
-
     scene.paint(canvas);
 
-
-    return canvas.render();
+    Renderer renderer = Renderer(scene, canvas);
+    renderer.start();
+    //return scene.render(canvas);
 }

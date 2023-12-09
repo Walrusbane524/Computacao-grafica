@@ -26,7 +26,7 @@
 #include "headers/scale_matrix.h"
 #include "headers/textured_plane.h"
 #include "headers/textured_sphere.h"
-
+/*
 void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
     // Print information about the current node (SphericalWrapper)
     try{
@@ -57,6 +57,8 @@ void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
         }
     }
 }
+
+*/
 
 int main(){
 
