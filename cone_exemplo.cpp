@@ -74,7 +74,7 @@ int main(){
     Color background = Color(255, 204, 204);
 
     Scene scene = Scene(camera, background);
-    PointLight light = PointLight(Point(40, 50, 40), 1.0, 1.0s, 1.0);
+    PointLight light = PointLight(Point(40, 50, 40), 1.0, 1.0, 1.0);
 
     scene.addObject(&cone);
     /*
