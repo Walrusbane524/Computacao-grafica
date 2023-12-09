@@ -8,8 +8,9 @@ class TexturedPlane : public Object{
     Texture* texture;
     Vector vx;
     Vector vy;
+    double scale_factor;
 
-    TexturedPlane(Plane plane, Vector vector, Texture* texture);
+    TexturedPlane(Plane plane, Vector vector, Texture* texture, double scale_factor);
 
     optional<LitPoint> colide(Ray ray) const override;
 

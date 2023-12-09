@@ -1,10 +1,11 @@
 #include "../headers/textured_plane.h"
 
-TexturedPlane::TexturedPlane(Plane plane, Vector vector, Texture* texture){
+TexturedPlane::TexturedPlane(Plane plane, Vector vector, Texture* texture, double scale_factor){
     this->plane = plane;
     this->texture = texture;
     this->vx = this->plane.normal & vector;
     this->vy = this->vx & this->plane.normal;
+    this->scale_factor = scale_factor;
 }
 
 optional<LitPoint> TexturedPlane::colide(Ray ray) const{
@@ -31,13 +32,13 @@ optional<LitPoint> TexturedPlane::colide(Ray ray) const{
 Color TexturedPlane::calculate_color(Point p) const{
     Vector distance_from_center = p - plane.center;
 
-    double u = this->vx.dot(distance_from_center) * 1/10000;
-    double v = this->vy.dot(distance_from_center) * 1/10000;
+    double u = this->vx.dot(distance_from_center) * 1/scale_factor;
+    double v = this->vy.dot(distance_from_center) * 1/scale_factor;
 
     //cout << "u = " << u << endl;
     //cout << "v = " << v << endl;
 
-    Point uv = Point(abs(u), abs(v), 0);
+    Point uv = Point(u, v, 0);
 
     return this->texture->sample(uv);
 }  

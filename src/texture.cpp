@@ -42,8 +42,18 @@ void Texture::readFromFile(const char* filePath){
 
 Color Texture::sample(Point p){
 
-    int x = static_cast<int> (p.x * width) % width;
-    int y = static_cast<int> (p.y * height) % height;
+    int x = abs(static_cast<int> (p.x * width) % width);
+    int y = abs(static_cast<int> (p.y * height) % height);
+
+    /*
+    cout << "x = " << x << endl;
+    cout << "y = " << y << endl;
+
+    cout << "Color:" << endl;
+    cout << "r = " << image[y][x].r << endl;
+    cout << "g = " << image[y][x].g << endl;
+    cout << "b = " << image[y][x].b << endl;
+    */
 
     return image[y][x];
 }
