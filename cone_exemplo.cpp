@@ -64,18 +64,19 @@ int main(){
     Material material = Material(Vec(0.2, 0.05, 0.04),
                                  Vec(0.2, 0.4, 0.05),
                                  Vec(0.8,0.1,0.8),
-                                 2);
+                                 6);
 
-    Cone cilindro = Cone(Point(0, 0, -100),
-                                 Point(0, 10, -100),
-                                 5, material);
+
+    Cone cone = Cone(Point(0, 0, -100),
+                                 Point(0, 20, -100),
+                                 10, material);
 
     Color background = Color(255, 204, 204);
 
     Scene scene = Scene(camera, background);
-    PointLight light = PointLight(Point(40, 50, 40), 1.0, 1.0, 1.0);
+    PointLight light = PointLight(Point(40, 50, 40), 1.0, 1.0s, 1.0);
 
-    scene.addObject(&cilindro);
+    scene.addObject(&cone);
     /*
     scene.addObject(&wrapped_cube);
     scene.addObject(&wrapped_smooth_cube);
@@ -87,8 +88,6 @@ int main(){
     renderer.start();
     //return scene.render(canvas);
 }
-//
-// Created by Murilo on 08/12/2023.
 //
 //
 // Created by Murilo on 08/12/2023.
