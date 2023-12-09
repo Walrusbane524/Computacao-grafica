@@ -75,6 +75,14 @@ int main(){
     ObjMesh bookshelf = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
     cout << "Bookshelf loaded" << endl;
 
+    ObjMesh table = ObjMesh("assets/meshes/mesa.obj", bookshelf_texture);
+
+    Texture* computer_texture = new Texture("assets/textures/computer.jpeg");
+    ObjMesh computer = ObjMesh("assets/meshes/computer.obj", computer_texture);
+
+    Texture* heal_machine_texture = new Texture("assets/textures/heal_machine.jpeg");
+    ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture);
+
     //squirtle.transform(ScaleMatrix(Vec(0.5, 0.5, 0.5)));
     squirtle.transform(RotationMatrixYAxis(0.35));
     //squirtle.transform(RotationMatrixUAxis(Vector(0, 1, 0), 0.35));    
@@ -95,6 +103,12 @@ int main(){
     bookshelf.transform(RotationMatrixYAxis(0.75));
     bookshelf.transform(TranslationMatrix(Vector(-100, -50, -400)));
 
+    table.transform(TranslationMatrix(Vector(725, 0, 950)));
+    
+    computer.transform(TranslationMatrix(Vector(725, 100, 950)));
+
+    heal_machine.transform(TranslationMatrix(Vector(925, 0, 925)));
+
     cout << "Meshes moved" << endl;
 
     SphericalWrapper wrapped_squirtle = SphericalWrapper(&squirtle, -1);
@@ -103,15 +117,50 @@ int main(){
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
     SphericalWrapper wrapped_porygon_machine = SphericalWrapper(&porygon_machine, -1);
     SphericalWrapper wrapped_bookshelf = SphericalWrapper(&bookshelf, -1);
+    SphericalWrapper wrapped_table = SphericalWrapper(&table, -1);
+    SphericalWrapper wrapped_computer = SphericalWrapper(&computer, -1);
+    SphericalWrapper wrapped_heal_machine = SphericalWrapper(&heal_machine, -1);
 
     cout << "Meshes wrapped" << endl;
 
-    //printSphericalWrapperTree(wrapped_bulbasaur);
+    Material pokeball_material = Material(
+        Vec(0.1, 0.1, 0.1),
+        Vec(0.7, 0.7, 0.7),
+        Vec(0.8, 0.8, 0.8),
+        30
+    );
 
-    //cout << "Finished" << endl;
+    Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
 
-    //printSphericalWrapperTree(wrapped_squirtle);
-    //mesh.transform(TranslationMatrix(Vector(0, 0, -5)));
+    Sphere sphere_1 = Sphere(
+        Point(925 + 21, 80, 925 + 27),
+        9,
+        pokeball_material
+    );
+
+    TexturedSphere pokeball_1 = TexturedSphere(sphere_1, pokeball_texture);
+
+    Sphere sphere_2 = Sphere(
+        Point(925 - 21, 80, 925 + 27),
+        9,
+        pokeball_material
+    );
+
+    TexturedSphere pokeball_2 = TexturedSphere(sphere_2, pokeball_texture);
+
+    Sphere sphere_3 = Sphere(
+        Point(925 + 21, 80, 925 + 5),
+        9,
+        pokeball_material
+    );
+
+    TexturedSphere pokeball_3 = TexturedSphere(sphere_3, pokeball_texture);
+
+    Matrix* pokeballs_rotation_matrix = new RotationMatrixYAxis(-1.5708);
+
+    pokeball_1.rotation_matrix = pokeballs_rotation_matrix;
+    pokeball_2.rotation_matrix = pokeballs_rotation_matrix;
+    pokeball_3.rotation_matrix = pokeballs_rotation_matrix;
 
     Texture* floor_texture = new Texture("assets/textures/wood.jpg");
 
@@ -183,13 +232,7 @@ int main(){
         )
     );
 
-    TexturedPlane ceiling = TexturedPlane(ceiling_plane, Vector(10, 0, 0), ceiling_texture, 30000);
-
-    Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
-    Sphere pokeball_sphere = Sphere(Point(0, 0, -100), 5);
-
-    TexturedSphere pokeball = TexturedSphere(pokeball_sphere, pokeball_texture);
-    pokeball.rotation_matrix = new RotationMatrixYAxis(1.5);
+    TexturedPlane ceiling = TexturedPlane(ceiling_plane, Vector(10, 0, 0), ceiling_texture, 3000);
 
 
     Color background = Color(100, 100, 255);
@@ -212,6 +255,15 @@ int main(){
     scene.addObject(&east_wall);
     scene.addObject(&west_wall);
     scene.addObject(&ceiling);
+
+    scene.addObject(&wrapped_table);
+    scene.addObject(&wrapped_computer);
+    scene.addObject(&wrapped_heal_machine);
+
+    scene.addObject(&pokeball_1);
+    scene.addObject(&pokeball_2);
+    scene.addObject(&pokeball_3);
+
     scene.addLight(&light);
     scene.paint(canvas);
 

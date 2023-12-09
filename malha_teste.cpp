@@ -161,7 +161,7 @@ int main(){
         )
     );
 
-    TexturedPlane textured_plane = TexturedPlane(plane, Vector(0, 0, 10), plane_texture);
+    TexturedPlane textured_plane = TexturedPlane(plane, Vector(0, 0, 10), plane_texture, 10000);
 
     Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
     Sphere pokeball_sphere = Sphere(Point(0, 0, -100), 5);
