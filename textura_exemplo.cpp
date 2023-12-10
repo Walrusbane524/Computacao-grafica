@@ -69,33 +69,56 @@ int main(){
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
     Canvas canvas = Canvas(n_l, n_c);
 
-    Texture* porygon_texture = new Texture("assets/textures/porygon.png");
-    ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
-    ObjMesh porygon2 = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
+    Material pokeball_material = Material(
+            Vec(0.1, 0.1, 0.1),
+            Vec(0.7, 0.7, 0.7),
+            Vec(0.8, 0.8, 0.8),
+            30
+    );
 
-    cout << porygon.triangles[0].normals.size() << endl;
-    cout << "Porygons loaded" << endl;
+    Texture* pokeball_texture = new Texture("assets/textures/pokeball.jpg");
 
-    porygon.transform(RotationMatrixYAxis(3.14));
-    porygon.transform(TranslationMatrix(Vector(-50, -50, -150)));
+    Texture* bulbasaur_texture = new Texture("assets/textures/bulbasaur.jpeg");
+    ObjMesh bulbasaur = ObjMesh("assets/meshes/bulbasaur.obj", bulbasaur_texture);
 
-    porygon2.transform(RotationMatrixYAxis(3.14));
-    porygon2.transform(TranslationMatrix(Vector(50, -50, -150)));
+    bulbasaur.transform(RotationMatrixYAxis(3.14));
+    bulbasaur.transform(TranslationMatrix(Vector(50, -20, -200)));
 
-    cout << "Meshes moved" << endl;
+    SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
 
-    SphericalWrapper wrapped_porygon = SphericalWrapper(&porygon, -1);
-    SphericalWrapper wrapped_porygon2 = SphericalWrapper(&porygon2, -1);
+    Sphere sphere_1 = Sphere(
+            Point(-50, -10, -200),
+            15,
+            pokeball_material
+    );
 
-    cout << "Meshes wrapped" << endl;
+    Plane ceiling_plane = Plane(
+            Point(0, 0, -300),
+            Vector(0, 0, 1),
+            Material(
+                    Vec(0.4, 0.4, 0.4),
+                    Vec(0.8, 0.8, 0.8),
+                    Vec(0.8, 0.8, 0.8),
+                    1
+            )
+    );
+
+    Texture* ceiling_texture = new Texture("assets/textures/wood.jpg");
+
+    TexturedPlane ceiling = TexturedPlane(ceiling_plane, Vector(10, 0, 0), ceiling_texture, 3000);
+
+    TexturedSphere pokeball_1 = TexturedSphere(sphere_1, pokeball_texture);
+    pokeball_1.rotation_matrix = new RotationMatrixYAxis(1.57);
+
+    PointLight light = PointLight(Point(0, 20, -100), 1, 1, 1);
 
     Color background = Color(100, 100, 255);
 
     Scene scene = Scene(camera, background);
     //DirectionalLight light = DirectionalLight(Vector(0, 0, 1), 1, 1, 1);
-    scene.addObject(&wrapped_porygon);
-    scene.addObject(&wrapped_porygon2);
-
+    scene.addObject(&pokeball_1);
+    scene.addObject(&ceiling);
+    scene.addObject(&wrapped_bulbasaur);
     scene.addLight(&light);
     scene.paint(canvas);
 
@@ -104,4 +127,8 @@ int main(){
 }
 //
 // Created by Murilo on 09/12/2023.
+//
+
+//
+// Created by Murilo on 10/12/2023.
 //

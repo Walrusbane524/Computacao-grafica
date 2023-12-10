@@ -10,7 +10,6 @@ class TexturedSphere : public Object{
     Texture* texture;
     Matrix* rotation_matrix;
 
-
     TexturedSphere(Sphere shere, Texture* texture);
 
     optional<LitPoint> colide(Ray ray) const override;
