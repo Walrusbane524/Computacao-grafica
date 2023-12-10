@@ -22,9 +22,13 @@ class Triangle : public Object{
         Triangle(Point p1, Point p2, Point p3, Material material, vector<Point> uv_points, vector<Vector> normals, Texture* texture);
         virtual optional<LitPoint> colide(Ray ray) const override;
 
+        void info();
+
         void transform(Matrix matrix);
 
-        void info();
+        void translate() override;
+        void rotate() override;
+        void scale() override;
 
     private:
         Vector get_normal(Point p) const;
