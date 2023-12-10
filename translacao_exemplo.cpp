@@ -19,7 +19,9 @@
 #include "headers/obj_mesh.h"
 #include "headers/point_light.h"
 #include "headers/translation_matrix.h"
+#include "headers/rotation_matrix_x_axis.h"
 #include "headers/rotation_matrix_y_axis.h"
+#include "headers/rotation_matrix_z_axis.h"
 #include "headers/rotation_matrix_u_axis.h"
 #include "headers/spherical_wrapper.h"
 #include "headers/renderer.h"
@@ -69,23 +71,18 @@ int main(){
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
     Canvas canvas = Canvas(n_l, n_c);
 
-    Texture* cube_texture = new Texture("assets/textures/uv_map_test.jpeg");
-    ObjMesh cube = ObjMesh("assets/meshes/cube.obj", cube_texture);
-    ObjMesh cube2 = ObjMesh("assets/meshes/cube.obj", cube_texture);
+    Texture* cube_texture = new Texture("assets/textures/books.jpg");
+    ObjMesh cube = ObjMesh("assets/meshes/livros.obj", cube_texture);
 
     cout << "Porygons loaded" << endl;
 
-    cube.transform(RotationMatrixYAxis(3.14));
+    cube.transform(RotationMatrixXAxis(3.14 * 1.5));
+    cube.transform(RotationMatrixYAxis(3.14 * 2));
     cube.transform(TranslationMatrix(Vector(-3, 0, -10)));
-
-    cube2.transform(RotationMatrixYAxis(3.14));
-    cube2.transform(ScaleMatrix(Vec(2, 2,2)));
-    cube2.transform(TranslationMatrix(Vector(3, 0, -10)));
 
     cout << "Meshes moved" << endl;
 
     SphericalWrapper wrapped_porygon = SphericalWrapper(&cube, -1);
-    SphericalWrapper wrapped_porygon2 = SphericalWrapper(&cube2, -1);
 
     cout << "Meshes wrapped" << endl;
 
@@ -96,7 +93,6 @@ int main(){
     PointLight light = PointLight(Point(0, 0, 0), 1.0, 1.0, 1.0);
 
     scene.addObject(&wrapped_porygon);
-    scene.addObject(&wrapped_porygon2);
 
     scene.addLight(&light);
     scene.paint(canvas);
