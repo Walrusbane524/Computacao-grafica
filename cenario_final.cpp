@@ -52,11 +52,10 @@ int main(){
     
     Texture* squirtle_texture = new Texture("assets/textures/squirtle.jpeg");
     ObjMesh squirtle = ObjMesh("assets/meshes/squirtle.obj", squirtle_texture);
-
     cout << "Squirtle loaded" << endl;
+
     Texture* porygon_texture = new Texture("assets/textures/porygon.png");
     ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
-    //cout << porygon.triangles[0].normals.size() << endl;
     cout << "Porygon loaded" << endl;
 
     Texture* charmander_texture = new Texture("assets/textures/charmander.jpeg");
@@ -93,8 +92,8 @@ int main(){
     porygon_machine.transform(TranslationMatrix(Vector(800, 0, 700)));
     porygon.transform(TranslationMatrix(Vector(800, 120, 700)));
     
-    bookshelf.transform(RotationMatrixYAxis(0.75));
-    bookshelf.transform(TranslationMatrix(Vector(-100, -50, -400)));
+    //bookshelf.transform(RotationMatrixYAxis(0.75));
+    bookshelf.transform(TranslationMatrix(Vector(175, 0, 965)));
 
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
     
@@ -239,7 +238,6 @@ int main(){
 
     //scene.addObject(&pokeball);
     //scene.addObject(&wrapped_porygon_machine);
-    //scene.addObject(&wrapped_bookshelf);
     scene.addObject(&floor);
     scene.addObject(&north_wall);
     scene.addObject(&south_wall);
@@ -257,6 +255,7 @@ int main(){
     scene.addObject(&wrapped_computer_table);
     scene.addObject(&wrapped_computer);
     scene.addObject(&wrapped_heal_machine);
+    scene.addObject(&wrapped_bookshelf);
 
     scene.addObject(&pokeball_1);
     scene.addObject(&pokeball_2);
