@@ -47,3 +47,66 @@ void Plane::info(){
     cout << "       m  = " << material.reflectivity << endl;
     cout << "   }" << endl;
 }
+
+void Plane::translate(){
+    Vector vector;
+    cout << "Insert the displacement values: " << endl;
+    cout << "x = ";
+    cin >> vector.x;
+    cout << "y = ";
+    cin >> vector.y;
+    cout << "z = ";
+    cin >> vector.z;
+
+    TranslationMatrix matrix = TranslationMatrix(vector);
+    this->center = matrix * center;
+}
+
+void Plane::rotate(){
+    Vector vector;
+    int type = 0;
+    while(type > 4 | type < 1){
+        cout << "Select a type of rotation:" << endl;
+        cout << "1. X-axis" << endl;
+        cout << "2. Y-axis" << endl;
+        cout << "3. Z-axis" << endl;
+        cout << "4. U-vector-axis" << endl;
+        cin >> type;
+        if(type > 4 | type < 1)
+            cout << "Insert a valid number!" << endl;
+    }
+    double radians;
+    Matrix matrix;
+    switch(type){
+        case 1:
+            cout << "Insert the angle (radians):" << endl;
+            cin >> radians;
+            matrix = RotationMatrixXAxis(radians);
+        case 2:
+            cout << "Insert the angle (radians):" << endl;
+            cin >> radians;
+            matrix = RotationMatrixYAxis(radians);
+        case 3:
+            cout << "Insert the angle (radians):" << endl;
+            cin >> radians;
+            matrix = RotationMatrixZAxis(radians);
+        case 4:
+            cout << "Insert the angle (radians):" << endl;
+            cin >> radians;
+            cout << "Insert the u vector values: " << endl;
+            cout << "x = ";
+            cin >> vector.x;
+            cout << "y = ";
+            cin >> vector.y;
+            cout << "z = ";
+            cin >> vector.z;
+
+            Vector vector;
+            
+            matrix = RotationMatrixUAxis(vector, radians);
+    }
+    this->normal = matrix * this->normal;
+}
+void Plane::scale(){
+    cout << "You cant scale a plane." << endl;
+}
