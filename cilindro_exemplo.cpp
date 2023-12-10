@@ -29,7 +29,7 @@ int main(){
                                  Vec(1,1,1),
                                  1);
 
-    Cylinder cilindro = Cylinder(Point(0, -30, -100),
+    Cylinder cilindro = Cylinder(Point(0, -30, -200),
                                  Vector(0, 0.8, 0.45).normalize(),
                                  25, 60, material);
 

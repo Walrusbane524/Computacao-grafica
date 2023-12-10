@@ -5,7 +5,8 @@ RotationMatrixUAxis::RotationMatrixUAxis() : Matrix(){}
 
 RotationMatrixUAxis::RotationMatrixUAxis(double** matrix) : Matrix(matrix){}
 
-RotationMatrixUAxis::RotationMatrixUAxis(Vector u,double radians){
+RotationMatrixUAxis::RotationMatrixUAxis(Vector u,double angle_degrees){
+    double radians = angle_degrees * (3.1415/180);
     u = u.normalize();
     this->matrix = new double* [4] {
         new double[4] {    cos(radians) + pow(u.x, 2) * (1 - cos(radians)),   u.x * u.y * (1 - cos(radians)) - u.z * sin(radians),   u.x * u.z * (1 - cos(radians)) + u.y * sin(radians),   0},

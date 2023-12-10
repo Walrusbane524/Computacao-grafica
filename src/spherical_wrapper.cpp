@@ -290,7 +290,7 @@ void SphericalWrapper::scale(){
     cout << "z = ";
     cin >> vector.z;
 
-    TranslationMatrix matrix = TranslationMatrix(vector);
+    ScaleMatrix matrix = ScaleMatrix(vector);
     this->transform(matrix);
 }
 

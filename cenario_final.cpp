@@ -253,7 +253,8 @@ int main(){
     Vec ambient = Vec(0.5, 0.5, 0.5);
 
     Scene scene = Scene(camera, background, ambient);
-    PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
+    //PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
+    SpotLight light = SpotLight(Point(500, 490, 500), Vector(0, 0, 1), 90, 0.8, 0.8, 0.8);
 
     SpotLight porygon_machine_light = SpotLight(Point(800, 185, 700), Vector(0, -1, 0), 90, 0, 0, 1);
     //PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
