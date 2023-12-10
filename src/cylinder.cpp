@@ -189,8 +189,6 @@ void Cylinder::rotate(){
 
 void Cylinder::scale(){
     Vector vector;
-    double r_factor;
-    double h_factor;
     cout << "Insert the scaling values: " << endl;
     cout << "x = ";
     cin >> vector.x;
@@ -199,13 +197,8 @@ void Cylinder::scale(){
     cout << "z = ";
     cin >> vector.z;
 
-    cout << "Insert the radius multiplier: " << endl;
-    cin >> r_factor;
-
-    cout << "Insert the height multiplier: " << endl;
-    cin >> h_factor;
-
     TranslationMatrix matrix = TranslationMatrix(vector);
+
     this->scale(matrix);
 }
 
@@ -224,6 +217,14 @@ void Cylinder::rotate(Matrix matrix){
         obj_ptr->rotate(matrix);
 }
 void Cylinder::scale(Matrix matrix){
+    double r_factor;
+    double h_factor;
+
+    cout << "Insert the radius multiplier: " << endl;
+    cin >> r_factor;
+    
+    this->radius *= r_factor;
+
     this->top_center = matrix * top_center;
     this->base_center = matrix * base_center;
     for(Object* obj_ptr : sub_objects)

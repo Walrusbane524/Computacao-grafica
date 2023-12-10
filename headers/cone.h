@@ -17,7 +17,15 @@ class Cone : public CompoundObject{
         Cone(Point base_center, Point tip, double radius, Material material);
         Cone(Point base_center, Vector direction, double radius, double height);
         Cone(Point base_center, Vector direction, double radius, double height, Material material);
+
         void info() override;
+        void translate() override;
+        void rotate() override;
+        void scale() override;
+
+        void translate(Matrix matrix) override;
+        void rotate(Matrix matrix) override;
+        void scale(Matrix matrix) override;
     
     private:
 
