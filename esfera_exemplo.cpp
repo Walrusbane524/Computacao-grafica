@@ -3,7 +3,6 @@
 #include <optional>
 #include <SDL2/SDL.h>
 #include <iostream>
-
 #include "headers/renderer.h"
 #include "headers/camera.h"
 #include "headers/scene.h"
@@ -30,7 +29,7 @@ int main(){
                                  Vec(0.8,0.1,0.8),
                                  5);
 
-    Sphere esfera = Sphere(Point(0, 0, -100), 50, material);
+    Sphere esfera = Sphere(Point(0, 0, -100), 45, material);
 
     Color background = Color(255, 204, 204);
 

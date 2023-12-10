@@ -18,6 +18,7 @@
 #include "headers/mesh.h"
 #include "headers/obj_mesh.h"
 #include "headers/point_light.h"
+#include "headers/spot_light.h"
 #include "headers/translation_matrix.h"
 #include "headers/rotation_matrix_y_axis.h"
 #include "headers/rotation_matrix_u_axis.h"
@@ -57,11 +58,14 @@ int main(){
     ObjMesh porygon_machine = ObjMesh("assets/meshes/porygon_machine.obj", porygon_machine_texture);
     cout << "Porygon machine loaded" << endl;
 
-    Texture* bookshelf_texture = new Texture("assets/textures/bookshelf.jpeg");
-    ObjMesh bookshelf = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    cout << "Bookshelf loaded" << endl;
+    Texture* bookshelf_texture = new Texture("assets/textures/livros2.jpg");
+    ObjMesh bookshelf = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    ObjMesh bookshelf2 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
 
-    ObjMesh computer_table = ObjMesh("assets/meshes/mesa.obj", bookshelf_texture);
+    cout << "Bookshelfs loaded" << endl;
+
+    Texture* table_texture = new Texture("assets/textures/mesa.jpg");
+    ObjMesh computer_table = ObjMesh("assets/meshes/mesa.obj", table_texture);
 
     ObjMesh pokemon_table = computer_table;
 
@@ -72,14 +76,15 @@ int main(){
     ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture);
 
     pokemon_table.transform(TranslationMatrix(Vector(320, 0, 700)));
-    squirtle.transform(  TranslationMatrix(Vector(320 - 70, 0, 700 - 100)));
+    squirtle.transform(TranslationMatrix(Vector(320 - 70, 0, 700 - 100)));
     charmander.transform(TranslationMatrix(Vector(320 + 70, 0, 700 - 100)));
-    bulbasaur.transform( TranslationMatrix(Vector(     320, 0, 700 - 100)));
+    bulbasaur.transform(TranslationMatrix(Vector(320, 0, 700 - 100)));
 
     porygon_machine.transform(TranslationMatrix(Vector(800, 0, 700)));
     porygon.transform(TranslationMatrix(Vector(800, 120, 700)));
     
-    bookshelf.transform(TranslationMatrix(Vector(175, 0, 965)));
+    bookshelf.transform(TranslationMatrix(Vector(175, 0, 960)));
+    bookshelf2.transform(TranslationMatrix(Vector(380, 0, 960)));
 
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
     
@@ -95,6 +100,7 @@ int main(){
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
     SphericalWrapper wrapped_porygon_machine = SphericalWrapper(&porygon_machine, -1);
     SphericalWrapper wrapped_bookshelf = SphericalWrapper(&bookshelf, -1);
+    SphericalWrapper wrapped_bookshelf2 = SphericalWrapper(&bookshelf2, -1);
     SphericalWrapper wrapped_computer_table = SphericalWrapper(&computer_table, -1);
     SphericalWrapper wrapped_pokemon_table = SphericalWrapper(&pokemon_table, -1);
     SphericalWrapper wrapped_computer = SphericalWrapper(&computer, -1);
@@ -132,14 +138,42 @@ int main(){
         9,
         pokeball_material
     );
+    pokemon_table.transform(TranslationMatrix(Vector(320, 0, 700)));
 
     TexturedSphere pokeball_3 = TexturedSphere(sphere_3, pokeball_texture);
+
+    Sphere sphere_4 = Sphere(
+            Point(320 - 70, 108, 700),
+            9,
+            pokeball_material
+    );
+
+    TexturedSphere pokeball_4 = TexturedSphere(sphere_4, pokeball_texture);
+
+    Sphere sphere_5 = Sphere(
+            Point(320, 108, 700),
+            9,
+            pokeball_material
+    );
+
+    TexturedSphere pokeball_5 = TexturedSphere(sphere_5, pokeball_texture);
+
+    Sphere sphere_6 = Sphere(
+            Point(320 + 70, 108, 700),
+            9,
+            pokeball_material
+    );
+
+    TexturedSphere pokeball_6 = TexturedSphere(sphere_6, pokeball_texture);
 
     Matrix* pokeballs_rotation_matrix = new RotationMatrixYAxis(-1.5708);
 
     pokeball_1.rotation_matrix = pokeballs_rotation_matrix;
     pokeball_2.rotation_matrix = pokeballs_rotation_matrix;
     pokeball_3.rotation_matrix = pokeballs_rotation_matrix;
+    pokeball_4.rotation_matrix = pokeballs_rotation_matrix;
+    pokeball_5.rotation_matrix = pokeballs_rotation_matrix;
+    pokeball_6.rotation_matrix = pokeballs_rotation_matrix;
 
     Texture* floor_texture = new Texture("assets/textures/wood.jpg");
 
@@ -220,7 +254,9 @@ int main(){
 
     Scene scene = Scene(camera, background, ambient);
     PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
-    PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
+
+    SpotLight porygon_machine_light = SpotLight(Point(800, 185, 700), Vector(0, -1, 0), 90, 0, 0, 1);
+    //PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
 
     scene.addObject(&floor);
     scene.addObject(&north_wall);
@@ -240,10 +276,15 @@ int main(){
     scene.addObject(&wrapped_computer);
     scene.addObject(&wrapped_heal_machine);
     scene.addObject(&wrapped_bookshelf);
+    scene.addObject(&wrapped_bookshelf2);
 
     scene.addObject(&pokeball_1);
     scene.addObject(&pokeball_2);
     scene.addObject(&pokeball_3);
+    scene.addObject(&pokeball_4);
+    scene.addObject(&pokeball_5);
+    scene.addObject(&pokeball_6);
+
 
     scene.addLight(&light);
     scene.addLight(&porygon_machine_light);

@@ -3,7 +3,6 @@
 #include <optional>
 #include <SDL2/SDL.h>
 #include <iostream>
-#include <limits>
 #include "headers/camera.h"
 #include "headers/canvas.h"
 #include "headers/color.h"
@@ -70,10 +69,7 @@ int main(){
     );
 
     Color background = Color(100, 100, 255);
-
     Scene scene = Scene(camera, background);
-    //PointLight light = PointLight(Point(0, 20, -5), 0.5, 0.5, 0.5);
-    //SpotLight light = SpotLight(Point(0, 20, -5), Vector(0, 0.5, 1), 10, 0.5, 0.5, 0.5);
 
     scene.addObject(&esfera);
     scene.addObject(&plane);
@@ -83,8 +79,6 @@ int main(){
     Renderer renderer = Renderer(scene, canvas);
     renderer.start();
 }
-
-
 //
 // Created by Murilo on 09/12/2023.
 //
