@@ -49,21 +49,14 @@ Color TexturedSphere::calculate_color(Point p) const{
 }  
 
 void TexturedSphere::info(){
+    cout << "TexturedSphere = {" << endl;
     this->sphere.info();
+    cout << " - Texture        = " << texture->path << endl;
+    cout << "}" << endl;
 }
 
 void TexturedSphere::translate(){
-    Vector vector;
-    cout << "Insert the displacement values: " << endl;
-    cout << "x = ";
-    cin >> vector.x;
-    cout << "y = ";
-    cin >> vector.y;
-    cout << "z = ";
-    cin >> vector.z;
-
-    TranslationMatrix matrix = TranslationMatrix(vector);
-    this->sphere.center = matrix * sphere.center;
+    this->sphere.translate();
 }
 
 void TexturedSphere::rotate(){
@@ -104,24 +97,19 @@ void TexturedSphere::rotate(){
             
             rotation_matrix = new RotationMatrixUAxis(vector, radians);
     }
-    this->sphere.center = *rotation_matrix * this->sphere.center;
+    rotate(*rotation_matrix);
 }
 
 void TexturedSphere::scale(){
-    Vector vector;
-    double factor;
-    cout << "Insert the scaling values: " << endl;
-    cout << "x = ";
-    cin >> vector.x;
-    cout << "y = ";
-    cin >> vector.y;
-    cout << "z = ";
-    cin >> vector.z;
+    this->sphere.scale();
+}
 
-    cout << "Insert the radius multiplier: " << endl;
-    cin >> factor;
-
-    TranslationMatrix matrix = TranslationMatrix(vector);
-    this->sphere.center = matrix * sphere.center;
-    this->sphere.radius *= factor;
+void TexturedSphere::translate(Matrix matrix){
+    this->sphere.translate(matrix);
+}
+void TexturedSphere::rotate(Matrix matrix){
+    this->sphere.rotate(matrix);
+}
+void TexturedSphere::scale(Matrix matrix){
+    this->sphere.scale(matrix);
 }
