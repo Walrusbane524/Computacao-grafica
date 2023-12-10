@@ -14,10 +14,10 @@ SpotLight::SpotLight(Point point, Vector direction, double angle_degrees, double
 }
 
 Vec SpotLight::get_diffuse_and_specular(LitPoint intersect, vector<Object*> objects, Ray camera_ray) const{
-    
+
     double radians = this->angle_degrees * (PI/180);
     double cosine = cos(radians);
-    Vector l = (this->point - (Point)intersect).normalize();
+    Vector l = ((Point)intersect - this->point).normalize();
 
     if (cosine <= (l.dot(this->direction)))
         return PointLight::get_diffuse_and_specular(intersect, objects, camera_ray);

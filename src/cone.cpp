@@ -7,11 +7,13 @@ Cone::Cone(){
     this->radius = 10;
     this->material = Material();
 
-    Vector direction = Vector(0, 1, 0);
+    this->direction = Vector(0, 1, 0);
+    this->height = 20;
+
     Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
 
     Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
-    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, 20, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
 
     sub_objects.push_back(base_plane);
     sub_objects.push_back(cone_face);
@@ -20,9 +22,9 @@ Cone::Cone(){
 Cone::Cone(Point base_center, Point tip, double radius){
     this->base_center = base_center;
     this->radius = radius;
+    this->height = (tip - base_center).magnitude();
     this->material = Material();
-
-    Vector direction = (tip - base_center).normalize();
+    this->direction = (tip - base_center).normalize();
 
     Plane* base_plane = new Plane(base_center, direction, this->material);
     ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, this->material);
@@ -35,8 +37,8 @@ Cone::Cone(Point base_center, Point tip, double radius, Material material){
     this->base_center = base_center;
     this->radius = radius;
     this->material = material;
-
-    Vector direction = (tip - base_center).normalize();
+    this->height = (tip - base_center).magnitude();
+    this->direction = (tip - base_center).normalize();
 
     Plane* base_plane = new Plane(base_center, direction, this->material);
     ConicalFace* cone_face = new ConicalFace(base_center, tip, radius, this->material);
@@ -49,6 +51,8 @@ Cone::Cone(Point base_center, Vector direction, double radius, double height){
     this->base_center = base_center;
     this->radius = radius;
     this->material = Material();
+    this->height = height;
+    this->direction = direction;
 
     Plane* base_plane = new Plane(base_center, direction, this->material);
     ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
@@ -61,6 +65,8 @@ Cone::Cone(Point base_center, Vector direction, double radius, double height, Ma
     this->base_center = base_center;
     this->radius = radius;
     this->material = material;
+    this->direction = direction;
+    this->height = height;
 
     Plane* base_plane = new Plane(base_center, direction, this->material);
     ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
@@ -210,8 +216,17 @@ void Cone::scale(Matrix matrix){
     cin >> h_factor;
 
     this->radius *= r_factor;
+    this->height *= h_factor;
 
     this->base_center = matrix * base_center;
-    for(Object* obj_ptr : sub_objects)
-        obj_ptr->scale(matrix);
+    
+    sub_objects.clear();
+
+    Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
+
+    Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
+    ConicalFace* cone_face = new ConicalFace(base_center, direction, radius, height, this->material);
+
+    sub_objects.push_back(base_plane);
+    sub_objects.push_back(cone_face);
 }
