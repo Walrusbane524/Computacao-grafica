@@ -37,19 +37,6 @@ int main(){
     camera.lookAt(Point(500, 100, 500), Point(500, 100, 1000), Point(500, 200, 500));
     Canvas canvas = Canvas(n_l, n_c);
 
-    /*
-    Texture* test_texture = new Texture("assets/textures/uv_map_test.jpeg");
-
-    ObjMesh cube = ObjMesh("assets/meshes/cube.obj", test_texture);
-    ObjMesh smooth_cube = ObjMesh("assets/meshes/smooth_cube.obj", test_texture);
-
-    cube.transform(TranslationMatrix(Vector(-2, 0, -10)));
-    smooth_cube.transform(TranslationMatrix(Vector(2, 0, -10)));
-
-    SphericalWrapper wrapped_cube = SphericalWrapper(&cube, -1);
-    SphericalWrapper wrapped_smooth_cube = SphericalWrapper(&smooth_cube, -1);
-    */
-    
     Texture* squirtle_texture = new Texture("assets/textures/squirtle.jpeg");
     ObjMesh squirtle = ObjMesh("assets/meshes/squirtle.obj", squirtle_texture);
     cout << "Squirtle loaded" << endl;
@@ -92,7 +79,6 @@ int main(){
     porygon_machine.transform(TranslationMatrix(Vector(800, 0, 700)));
     porygon.transform(TranslationMatrix(Vector(800, 120, 700)));
     
-    //bookshelf.transform(RotationMatrixYAxis(0.75));
     bookshelf.transform(TranslationMatrix(Vector(175, 0, 965)));
 
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
@@ -236,8 +222,6 @@ int main(){
     PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
     PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
 
-    //scene.addObject(&pokeball);
-    //scene.addObject(&wrapped_porygon_machine);
     scene.addObject(&floor);
     scene.addObject(&north_wall);
     scene.addObject(&south_wall);
