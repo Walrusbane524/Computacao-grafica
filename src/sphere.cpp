@@ -110,14 +110,14 @@ void Sphere::translate(){
 void Sphere::rotate(){
     Vector vector;
     int type = 0;
-    while(type > 4 | type < 1){
+    while(type > 4 || type < 1){
         cout << "Select a type of rotation:" << endl;
         cout << "1. X-axis" << endl;
         cout << "2. Y-axis" << endl;
         cout << "3. Z-axis" << endl;
         cout << "4. U-vector-axis" << endl;
         cin >> type;
-        if(type > 4 | type < 1)
+        if(type > 4 || type < 1)
             cout << "Insert a valid number!" << endl;
     }
     double radians;
