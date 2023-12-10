@@ -51,3 +51,77 @@ Color TexturedSphere::calculate_color(Point p) const{
 void TexturedSphere::info(){
     this->sphere.info();
 }
+
+void TexturedSphere::translate(){
+    Vector vector;
+    cout << "Insert the displacement values: " << endl;
+    cout << "x = ";
+    cin >> vector.x;
+    cout << "y = ";
+    cin >> vector.y;
+    cout << "z = ";
+    cin >> vector.z;
+
+    TranslationMatrix matrix = TranslationMatrix(vector);
+    this->sphere.center = matrix * sphere.center;
+}
+
+void TexturedSphere::rotate(){
+    Vector vector;
+    int type = 0;
+    while(type > 4 || type < 1){
+        cout << "Select a type of rotation:" << endl;
+        cout << "1. X-axis" << endl;
+        cout << "2. Y-axis" << endl;
+        cout << "3. Z-axis" << endl;
+        cout << "4. U-vector-axis" << endl;
+        cin >> type;
+        if(type > 4 || type < 1)
+            cout << "Insert a valid number!" << endl;
+    }
+    double radians;
+    
+    cout << "Insert the angle (radians):" << endl;
+    cin >> radians;
+
+    switch(type){
+        case 1:
+            rotation_matrix = new RotationMatrixXAxis(radians);
+        case 2:
+            rotation_matrix = new RotationMatrixYAxis(radians);
+        case 3:
+            rotation_matrix = new RotationMatrixZAxis(radians);
+        case 4:
+            cout << "Insert the u vector values: " << endl;
+            cout << "x = ";
+            cin >> vector.x;
+            cout << "y = ";
+            cin >> vector.y;
+            cout << "z = ";
+            cin >> vector.z;
+
+            Vector vector;
+            
+            rotation_matrix = new RotationMatrixUAxis(vector, radians);
+    }
+    this->sphere.center = *rotation_matrix * this->sphere.center;
+}
+
+void TexturedSphere::scale(){
+    Vector vector;
+    double factor;
+    cout << "Insert the scaling values: " << endl;
+    cout << "x = ";
+    cin >> vector.x;
+    cout << "y = ";
+    cin >> vector.y;
+    cout << "z = ";
+    cin >> vector.z;
+
+    cout << "Insert the radius multiplier: " << endl;
+    cin >> factor;
+
+    TranslationMatrix matrix = TranslationMatrix(vector);
+    this->sphere.center = matrix * sphere.center;
+    this->sphere.radius *= factor;
+}
