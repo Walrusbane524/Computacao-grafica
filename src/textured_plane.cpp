@@ -56,12 +56,6 @@ void TexturedPlane::rotate(){
 }
 
 void TexturedPlane::scale(){
-    double factor;
-    cout << "Insert the texture scale multiplier:" << endl;
-    cin >> factor;
-
-    this->scale_factor *= factor;
-    
     this->plane.scale();
 }
 
@@ -72,5 +66,11 @@ void TexturedPlane::rotate(Matrix matrix){
     this->plane.rotate(matrix);
 }
 void TexturedPlane::scale(Matrix matrix){
+    double factor;
+    cout << "Insert the texture scale multiplier:" << endl;
+    cin >> factor;
+
+    this->scale_factor *= factor;
+    
     this->plane.scale(matrix);
 }

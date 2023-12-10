@@ -118,8 +118,7 @@ void ConicalFace::translate(){
     cin >> vector.z;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->base_center = matrix * base_center;
-    this->tip = matrix * tip;
+    translate(matrix);
 }
 
 void ConicalFace::rotate(){
@@ -165,16 +164,11 @@ void ConicalFace::rotate(){
             
             matrix = RotationMatrixUAxis(vector, radians);
     }
-    this->base_center = matrix * this->base_center;
-    this->tip = matrix * this->tip;
-    this->height = (tip - base_center).magnitude();
-    this->direction = (tip - base_center).normalize();
+    this->rotate(matrix);
 }
 
 void ConicalFace::scale(){
     Vector vector;
-    double r_factor;
-    double h_factor;
     cout << "Insert the scaling values: " << endl;
     cout << "x = ";
     cin >> vector.x;
@@ -183,13 +177,31 @@ void ConicalFace::scale(){
     cout << "z = ";
     cin >> vector.z;
 
+    TranslationMatrix matrix = TranslationMatrix(vector);
+
+    this->scale(matrix);
+}
+
+void ConicalFace::translate(Matrix matrix){
+    this->base_center = matrix * base_center;
+    this->tip = matrix * tip;
+}
+void ConicalFace::rotate(Matrix matrix){
+    this->base_center = matrix * this->base_center;
+    this->tip = matrix * this->tip;
+    this->height = (tip - base_center).magnitude();
+    this->direction = (tip - base_center).normalize();
+}
+void ConicalFace::scale(Matrix matrix){
+    double r_factor;
+    double h_factor;
+
     cout << "Insert the radius multiplier: " << endl;
     cin >> r_factor;
 
     cout << "Insert the height multiplier: " << endl;
     cin >> h_factor;
-
-    TranslationMatrix matrix = TranslationMatrix(vector);
+    
     this->base_center = matrix * base_center;
     this->radius *= r_factor;
     this->height *= h_factor;
