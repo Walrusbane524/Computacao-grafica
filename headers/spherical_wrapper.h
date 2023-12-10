@@ -22,7 +22,12 @@ class SphericalWrapper : public Object{
 
         void info();
         void transform(Matrix matrix);
+        
         void translate() override;
         void rotate() override;
         void scale() override;
+
+        void translate(Matrix matrix) override;
+        void rotate(Matrix matrix) override;
+        void scale(Matrix matrix) override;
 };
