@@ -218,7 +218,6 @@ void Cylinder::rotate(Matrix matrix){
 }
 void Cylinder::scale(Matrix matrix){
     double r_factor;
-    double h_factor;
 
     cout << "Insert the radius multiplier: " << endl;
     cin >> r_factor;
