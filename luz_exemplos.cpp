@@ -52,8 +52,7 @@ int main(){
     Scene scene = Scene(camera, background);
     //PointLight light = PointLight(Point(0, 20, -5), 0.5, 0.5, 0.5);
     //SpotLight light = SpotLight(Point(0, 20, -5), Vector(0, 0.5, 1), 10, 0.5, 0.5, 0.5);
-    DirectionalLight light = DirectionalLight(Vector(0, -1, -1), 0.5, 0.5, 0.5);
-
+    DirectionalLight light = DirectionalLight(Vector(0, -1, -1), 1, 1, 1);
 
     scene.addObject(&esfera);
     scene.addObject(&plane);
