@@ -138,10 +138,7 @@ void Cylinder::translate(){
     cin >> vector.z;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->base_center = matrix * base_center;
-
-    for(Object* obj_ptr : sub_objects)
-        obj_ptr->translate(matrix);
+    translate(matrix);
 }
 
 void Cylinder::rotate(){
@@ -187,9 +184,7 @@ void Cylinder::rotate(){
             
             matrix = RotationMatrixUAxis(vector, radians);
     }
-
-    for(Object* obj_ptr : sub_objects)
-        obj_ptr->rotate(matrix);
+    this->rotate(matrix);
 }
 
 void Cylinder::scale(){
@@ -211,6 +206,25 @@ void Cylinder::scale(){
     cin >> h_factor;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
+    this->scale(matrix);
+}
+
+void Cylinder::translate(Matrix matrix){
+    this->top_center = matrix * top_center;
+    this->base_center = matrix * base_center;
+
+    for(Object* obj_ptr : sub_objects)
+        obj_ptr->translate(matrix);
+}
+void Cylinder::rotate(Matrix matrix){
+    this->base_center = matrix * base_center;
+    this->top_center = matrix * top_center;
+
+    for(Object* obj_ptr : sub_objects)
+        obj_ptr->rotate(matrix);
+}
+void Cylinder::scale(Matrix matrix){
+    this->top_center = matrix * top_center;
     this->base_center = matrix * base_center;
     for(Object* obj_ptr : sub_objects)
         obj_ptr->scale(matrix);

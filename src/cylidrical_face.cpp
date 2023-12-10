@@ -105,7 +105,7 @@ void CylindricalFace::translate(){
     cin >> vector.z;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->base_center = matrix * base_center;
+    translate(matrix);
 }
 
 void CylindricalFace::rotate(){
@@ -151,14 +151,11 @@ void CylindricalFace::rotate(){
             
             matrix = RotationMatrixUAxis(vector, radians);
     }
-    this->base_center = matrix * this->base_center;
-    this->direction = matrix * this->direction;
+    rotate(matrix);
 }
 
 void CylindricalFace::scale(){
     Vector vector;
-    double r_factor;
-    double h_factor;
     cout << "Insert the scaling values: " << endl;
     cout << "x = ";
     cin >> vector.x;
@@ -167,13 +164,27 @@ void CylindricalFace::scale(){
     cout << "z = ";
     cin >> vector.z;
 
+    TranslationMatrix matrix = TranslationMatrix(vector);
+    scale(matrix);
+}
+
+void CylindricalFace::translate(Matrix matrix){
+    this->base_center = matrix * base_center;
+}
+void CylindricalFace::rotate(Matrix matrix){
+    this->base_center = matrix * this->base_center;
+    this->direction = matrix * this->direction;
+}
+void CylindricalFace::scale(Matrix matrix){
+    double r_factor;
+    double h_factor;
+
     cout << "Insert the radius multiplier: " << endl;
     cin >> r_factor;
 
     cout << "Insert the height multiplier: " << endl;
     cin >> h_factor;
-
-    TranslationMatrix matrix = TranslationMatrix(vector);
+    
     this->base_center = matrix * base_center;
     this->radius *= r_factor;
     this->height *= h_factor;
