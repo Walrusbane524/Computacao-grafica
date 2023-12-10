@@ -61,15 +61,15 @@ int main(){
     //printSphericalWrapperTree(wrapped_squirtle);
     //mesh.transform(TranslationMatrix(Vector(0, 0, -5)));
 
-    Material material = Material(Vec(0.2, 0.05, 0.04),
-                                 Vec(0.2, 0.4, 0.05),
+    Material material = Material(Vec(0.2, 0.5, 0.8),
+                                 Vec(0.2, 0.5, 0.6),
                                  Vec(0.8,0.1,0.8),
-                                 6);
+                                 10);
 
 
     Cone cone = Cone(Point(0, 0, -100),
-                                 Point(0, 20, -100),
-                                 10, material);
+                                 Point(0, 50, -110),
+                                 15, material);
 
     Color background = Color(255, 204, 204);
 
