@@ -59,7 +59,7 @@ void Plane::translate(){
     cin >> vector.z;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->center = matrix * center;
+    translate(matrix);
 }
 
 void Plane::rotate(){
@@ -105,8 +105,18 @@ void Plane::rotate(){
             
             matrix = RotationMatrixUAxis(vector, radians);
     }
-    this->normal = matrix * this->normal;
+    rotate(matrix);
 }
 void Plane::scale(){
+    cout << "You cant scale a plane." << endl;
+}
+
+void Plane::translate(Matrix matrix){
+    this->center = matrix * center;
+}
+void Plane::rotate(Matrix matrix){
+    this->normal = matrix * this->normal;   
+}
+void Plane::scale(Matrix matrix){
     cout << "You cant scale a plane." << endl;
 }
