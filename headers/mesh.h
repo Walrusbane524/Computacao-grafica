@@ -27,6 +27,10 @@ class Mesh : public Object{
 
         Mesh transform(Matrix matrix);
 
+        void translate() override;
+        void rotate() override;
+        void scale() override;
+
         virtual void info();
 
     private:
