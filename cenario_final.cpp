@@ -61,6 +61,10 @@ int main(){
     Texture* bookshelf_texture = new Texture("assets/textures/livros2.jpg");
     ObjMesh bookshelf = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
     ObjMesh bookshelf2 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    ObjMesh bookshelf3 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    ObjMesh bookshelf4 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    ObjMesh bookshelf5 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    ObjMesh bookshelf6 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
 
     cout << "Bookshelfs loaded" << endl;
 
@@ -75,6 +79,12 @@ int main(){
     Texture* heal_machine_texture = new Texture("assets/textures/heal_machine.jpeg");
     ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture);
 
+    Texture* tapete_texture = new Texture("assets/textures/tapete.jpg");
+    ObjMesh tapete = ObjMesh("assets/meshes/tapete.obj", tapete_texture);
+
+    Texture* wood = new Texture("assets/textures/wood.jpg");
+    ObjMesh door = ObjMesh("assets/meshes/door.obj", wood);
+
     pokemon_table.transform(TranslationMatrix(Vector(320, 0, 700)));
     squirtle.transform(TranslationMatrix(Vector(320 - 70, 0, 700 - 100)));
     charmander.transform(TranslationMatrix(Vector(320 + 70, 0, 700 - 100)));
@@ -85,6 +95,10 @@ int main(){
     
     bookshelf.transform(TranslationMatrix(Vector(175, 0, 960)));
     bookshelf2.transform(TranslationMatrix(Vector(380, 0, 960)));
+    bookshelf3.transform(TranslationMatrix(Vector(150, 0, 300)));
+    bookshelf4.transform(TranslationMatrix(Vector(300, 0, 300)));
+    bookshelf5.transform(TranslationMatrix(Vector(850, 0, 300)));
+    bookshelf6.transform(TranslationMatrix(Vector(850 - 205, 0, 300)));
 
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
     
@@ -92,6 +106,10 @@ int main(){
 
     heal_machine.transform(TranslationMatrix(Vector(925, 0, 925)));
 
+    tapete.transform(ScaleMatrix(Vec(65, 10, 50)));
+    tapete.transform(TranslationMatrix(Vector(500 , 0, 50)));
+
+    door.transform(TranslationMatrix(Vector(500 , 2, 1)));
     cout << "Meshes moved" << endl;
 
     SphericalWrapper wrapped_squirtle = SphericalWrapper(&squirtle, -1);
@@ -101,10 +119,16 @@ int main(){
     SphericalWrapper wrapped_porygon_machine = SphericalWrapper(&porygon_machine, -1);
     SphericalWrapper wrapped_bookshelf = SphericalWrapper(&bookshelf, -1);
     SphericalWrapper wrapped_bookshelf2 = SphericalWrapper(&bookshelf2, -1);
+    SphericalWrapper wrapped_bookshelf3 = SphericalWrapper(&bookshelf3, -1);
+    SphericalWrapper wrapped_bookshelf4 = SphericalWrapper(&bookshelf4, -1);
+    SphericalWrapper wrapped_bookshelf5 = SphericalWrapper(&bookshelf5, -1);
+    SphericalWrapper wrapped_bookshelf6 = SphericalWrapper(&bookshelf6, -1);
     SphericalWrapper wrapped_computer_table = SphericalWrapper(&computer_table, -1);
     SphericalWrapper wrapped_pokemon_table = SphericalWrapper(&pokemon_table, -1);
     SphericalWrapper wrapped_computer = SphericalWrapper(&computer, -1);
     SphericalWrapper wrapped_heal_machine = SphericalWrapper(&heal_machine, -1);
+    SphericalWrapper wrapped_tapete = SphericalWrapper(&tapete, -1);
+    SphericalWrapper wrapped_door = SphericalWrapper(&door, -1);
 
     cout << "Meshes wrapped" << endl;
 
@@ -275,8 +299,15 @@ int main(){
     scene.addObject(&wrapped_computer_table);
     scene.addObject(&wrapped_computer);
     scene.addObject(&wrapped_heal_machine);
+    scene.addObject(&wrapped_tapete);
+    scene.addObject(&wrapped_door);
+
     scene.addObject(&wrapped_bookshelf);
     scene.addObject(&wrapped_bookshelf2);
+    scene.addObject(&wrapped_bookshelf4);
+    scene.addObject(&wrapped_bookshelf3);
+    scene.addObject(&wrapped_bookshelf5);
+    scene.addObject(&wrapped_bookshelf6);
 
     scene.addObject(&pokeball_1);
     scene.addObject(&pokeball_2);
@@ -285,9 +316,10 @@ int main(){
     scene.addObject(&pokeball_5);
     scene.addObject(&pokeball_6);
 
-
-    scene.addLight(&light);
+    //scene.addLight(&light);
     scene.addLight(&porygon_machine_light);
+    //scene.addLight(&light);
+
 
     scene.paint(canvas);
 
