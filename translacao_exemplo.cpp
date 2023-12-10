@@ -73,7 +73,6 @@ int main(){
     ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
     ObjMesh porygon2 = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
 
-    cout << porygon.triangles[0].normals.size() << endl;
     cout << "Porygons loaded" << endl;
 
     porygon.transform(RotationMatrixYAxis(3.14));
@@ -92,6 +91,7 @@ int main(){
     Color background = Color(100, 100, 255);
 
     Scene scene = Scene(camera, background);
+    PointLight light = PointLight(Point(0, 50, 0), 0.8, 0.8, 0.8);
     //DirectionalLight light = DirectionalLight(Vector(0, 0, 1), 1, 1, 1);
     scene.addObject(&wrapped_porygon);
     scene.addObject(&wrapped_porygon2);

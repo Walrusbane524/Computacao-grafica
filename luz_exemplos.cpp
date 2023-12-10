@@ -24,6 +24,28 @@ int main(){
     int n_l = 50;
     int n_c = 50;
     double d = 60;
+    int light_type;
+    cout << "Tipo de Luz: \n   1 - Pontual;\n   2 - Spot;\n   3 - Direcional:\n";
+    cin >> light_type;
+
+    Light* light;
+
+    switch (light_type) {
+        case 1:
+            light = new PointLight(Point(0, 20, -5), 0.5, 0.5, 0.5);
+            break;
+        case 2:
+            light = new SpotLight(Point(0, 20, -5),
+                                           Vector(0, 0.5, 1),
+                                           10, 0.5, 0.5, 0.5);
+            break;
+        case 3:
+            light = new DirectionalLight(Vector(0, -1, -1), 1, 1, 1);
+            break;
+        default:
+            cout << "Luz inválida!";
+            return -1;
+    }
 
     Camera camera = Camera(100, 100, n_l, n_c, d);
     camera.lookAt(Point(0, 0, 0), Point(0, 0, -100), Point(0, 200, 0));
@@ -52,16 +74,14 @@ int main(){
     Scene scene = Scene(camera, background);
     //PointLight light = PointLight(Point(0, 20, -5), 0.5, 0.5, 0.5);
     //SpotLight light = SpotLight(Point(0, 20, -5), Vector(0, 0.5, 1), 10, 0.5, 0.5, 0.5);
-    DirectionalLight light = DirectionalLight(Vector(0, -1, -1), 1, 1, 1);
 
     scene.addObject(&esfera);
     scene.addObject(&plane);
-    scene.addLight(&light);
+    scene.addLight(&(*light));
     scene.paint(canvas);
 
     Renderer renderer = Renderer(scene, canvas);
     renderer.start();
-    //return scene.render(canvas);
 }
 
 

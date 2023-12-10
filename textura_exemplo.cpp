@@ -4,60 +4,27 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <limits>
+#include "headers/renderer.h"
 #include "headers/camera.h"
+#include "headers/scene.h"
 #include "headers/canvas.h"
 #include "headers/color.h"
-#include "headers/object.h"
 #include "headers/point.h"
 #include "headers/ray.h"
 #include "headers/vec.h"
-#include "headers/sphere.h"
-#include "headers/scene.h"
-#include "headers/plane.h"
-#include "headers/triangle.h"
-#include "headers/mesh.h"
-#include "headers/obj_mesh.h"
 #include "headers/point_light.h"
+#include "headers/sphere.h"
+#include "headers/spherical_wrapper.h"
 #include "headers/translation_matrix.h"
 #include "headers/rotation_matrix_y_axis.h"
-#include "headers/rotation_matrix_u_axis.h"
-#include "headers/spherical_wrapper.h"
-#include "headers/renderer.h"
-#include "headers/scale_matrix.h"
-#include "headers/textured_plane.h"
+#include "headers/material.h"
+#include "headers/texture.h"
+#include "headers/point_light.h"
+#include "headers/sphere.h"
 #include "headers/textured_sphere.h"
-#include "headers/directional_light.h"
-
-void printSphericalWrapperTree(const SphericalWrapper& wrapper, int depth = 0) {
-    // Print information about the current node (SphericalWrapper)
-    try{
-        cout << std::string(2 * depth, ' ') << "Node: ";
-        cout << "Sphere radius: " << wrapper.sphere.radius << std::endl;
-    }
-    catch(...){
-        cout << "Sphere error" << endl;
-    }
-
-    // Print information about each child (Object or SphericalWrapper)
-    for (const auto& obj : wrapper.objects) {
-        try{
-            if (const SphericalWrapper* childWrapper = dynamic_cast<const SphericalWrapper*>(obj)) {
-                // Recursive call for SphericalWrapper child
-
-                printSphericalWrapperTree(*childWrapper, depth + 1);
-
-            } else {
-                if(const ObjMesh* childWrapper = dynamic_cast<const ObjMesh*>(obj))
-                    cout << string(2 * (depth + 1), ' ') << "Child mesh size: " << childWrapper->triangles.size() << endl;
-                else
-                    cout << string(2 * (depth + 1), ' ') << "Child Object: " << 1 << endl;
-            }
-        }
-        catch(...){
-            cout << "SubObject error " << endl;
-        }
-    }
-}
+#include "headers/obj_mesh.h"
+#include "headers/plane.h"
+#include "headers/textured_plane.h"
 
 int main(){
 
@@ -86,13 +53,13 @@ int main(){
 
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
 
-    Sphere sphere_1 = Sphere(
+    Sphere sphere = Sphere(
             Point(-50, -10, -200),
             15,
             pokeball_material
     );
 
-    Plane ceiling_plane = Plane(
+    Plane wall = Plane(
             Point(0, 0, -300),
             Vector(0, 0, 1),
             Material(
@@ -103,21 +70,20 @@ int main(){
             )
     );
 
-    Texture* ceiling_texture = new Texture("assets/textures/wood.jpg");
+    Texture* wood = new Texture("assets/textures/wood.jpg");
 
-    TexturedPlane ceiling = TexturedPlane(ceiling_plane, Vector(10, 0, 0), ceiling_texture, 3000);
+    TexturedPlane wall = TexturedPlane(wood, Vector(10, 0, 0), ceiling_texture, 3000);
 
-    TexturedSphere pokeball_1 = TexturedSphere(sphere_1, pokeball_texture);
-    pokeball_1.rotation_matrix = new RotationMatrixYAxis(1.57);
+    TexturedSphere pokeball = TexturedSphere(sphere, pokeball_texture);
+    pokeball.rotation_matrix = new RotationMatrixYAxis(1.57);
 
     PointLight light = PointLight(Point(0, 20, -100), 1, 1, 1);
 
     Color background = Color(100, 100, 255);
 
     Scene scene = Scene(camera, background);
-    //DirectionalLight light = DirectionalLight(Vector(0, 0, 1), 1, 1, 1);
-    scene.addObject(&pokeball_1);
-    scene.addObject(&ceiling);
+    scene.addObject(&pokeball);
+    scene.addObject(&wall);
     scene.addObject(&wrapped_bulbasaur);
     scene.addLight(&light);
     scene.paint(canvas);
@@ -125,10 +91,6 @@ int main(){
     Renderer renderer = Renderer(scene, canvas);
     renderer.start();
 }
-//
-// Created by Murilo on 09/12/2023.
-//
-
 //
 // Created by Murilo on 10/12/2023.
 //
