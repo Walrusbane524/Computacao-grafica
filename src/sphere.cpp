@@ -104,7 +104,7 @@ void Sphere::translate(){
     cin >> vector.z;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->center = matrix * center;
+    translate(matrix);
 }
 
 void Sphere::rotate(){
@@ -150,7 +150,7 @@ void Sphere::rotate(){
             
             matrix = RotationMatrixUAxis(vector, radians);
     }
-    this->center = matrix * this->center;
+    rotate(matrix);
 }
 
 void Sphere::scale(){
@@ -168,6 +168,16 @@ void Sphere::scale(){
     cin >> factor;
 
     TranslationMatrix matrix = TranslationMatrix(vector);
-    this->center = matrix * center;
+    scale(matrix);
     this->radius *= factor;
+}
+
+void Sphere::translate(Matrix matrix){
+    this->center = matrix * center;
+}
+void Sphere::rotate(Matrix matrix){
+    this->center = matrix * this->center;
+}
+void Sphere::scale(Matrix matrix){
+    this->center = matrix * center;
 }

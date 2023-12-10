@@ -21,6 +21,10 @@ class Sphere : public Object{
         void rotate() override;
         void scale() override;
 
+        void translate(Matrix matrix) override;
+        void rotate(Matrix matrix) override;
+        void scale(Matrix matrix) override;
+
     private:
         Vector get_normal(Point p) const;
 };
