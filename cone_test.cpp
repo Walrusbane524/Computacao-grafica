@@ -3,30 +3,18 @@
 #include <optional>
 #include <SDL2/SDL.h>
 #include <iostream>
-#include <limits>
+
+#include "headers/renderer.h"
 #include "headers/camera.h"
+#include "headers/scene.h"
 #include "headers/canvas.h"
+#include "headers/material.h"
 #include "headers/color.h"
-#include "headers/object.h"
 #include "headers/point.h"
 #include "headers/ray.h"
 #include "headers/vec.h"
-#include "headers/sphere.h"
-#include "headers/scene.h"
-#include "headers/plane.h"
-#include "headers/triangle.h"
-#include "headers/cone.h"
-#include "headers/mesh.h"
-#include "headers/obj_mesh.h"
 #include "headers/point_light.h"
-#include "headers/translation_matrix.h"
-#include "headers/rotation_matrix_y_axis.h"
-#include "headers/rotation_matrix_u_axis.h"
-#include "headers/spherical_wrapper.h"
-#include "headers/renderer.h"
-#include "headers/scale_matrix.h"
-#include "headers/textured_plane.h"
-#include "headers/textured_sphere.h"
+#include "headers/cone.h"
 
 int main(){
 
@@ -59,5 +47,4 @@ int main(){
 
     Renderer renderer = Renderer(scene, canvas);
     renderer.start();
-    //return scene.render(canvas);
 }
