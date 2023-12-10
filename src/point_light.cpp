@@ -32,6 +32,9 @@ Vec PointLight::get_diffuse_and_specular(LitPoint intersect, vector<Object*> obj
         double f_dif = l_.dot(intersect.normal);
         double f_spec = pow(v.dot(r), intersect.material.reflectivity);
 
+        //cout << "f_dif = " <<  f_dif << endl;
+        //cout << "f_spec = " <<  f_dif << endl;
+
         if (f_dif < 0) f_dif = 0;
         if (f_spec < 0) f_spec = 0;
 
@@ -39,6 +42,11 @@ Vec PointLight::get_diffuse_and_specular(LitPoint intersect, vector<Object*> obj
         Vec specular_intensity = *this * (intersect.material.shine * f_spec);
 
         Vec diffuse_specular = diffuse_intensity + specular_intensity;
+        
+        //cout << "diffuse_specular.r = " <<  diffuse_specular.x << endl;
+        //cout << "diffuse_specular.g = " <<  diffuse_specular.y << endl;
+        //cout << "diffuse_specular.b = " <<  diffuse_specular.z << endl;
+
         return diffuse_specular;
     }
     return Vec(0, 0, 0);

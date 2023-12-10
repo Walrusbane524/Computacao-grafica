@@ -13,9 +13,9 @@ Light::Light(double i_r, double i_g, double i_b){
 }
 
 Vec Light::operator*(const Vec v){
-    return Vec(this->i_r * v.x, this->i_r * v.y, this->i_r * v.z);
+    return Vec(this->i_r * v.x, this->i_g * v.y, this->i_b * v.z);
 }
 
 Vec Light::operator*(const Vec v) const{
-    return Vec(this->i_r * v.x, this->i_r * v.y, this->i_r * v.z);
+    return Vec(this->i_r * v.x, this->i_g * v.y, this->i_b * v.z);
 }
