@@ -9,6 +9,7 @@ class SphericalWrapper : public Object{
         Sphere sphere;
         vector<Object*> objects;
         ObjMesh* mesh;
+        int depth;
 
         SphericalWrapper();
         SphericalWrapper(ObjMesh* mesh, int depth);
@@ -20,4 +21,8 @@ class SphericalWrapper : public Object{
         optional<LitPoint> colide(Ray ray) const override;
 
         void info();
+        void transform(Matrix matrix);
+        void translate() override;
+        void rotate() override;
+        void scale() override;
 };
