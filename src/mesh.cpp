@@ -172,6 +172,18 @@ void Mesh::scale(){
     this->transform(matrix);
 }
 
+void Mesh::translate(Matrix matrix){
+    this->transform(matrix);
+}
+
+void Mesh::rotate(Matrix matrix){
+    this->transform(matrix);
+}
+
+void Mesh::scale(Matrix matrix){
+    this->transform(matrix);
+}
+
 
 Vector Mesh::get_normal(Point p) const{
     return Vector();

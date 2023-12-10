@@ -181,6 +181,18 @@ void Triangle::scale(){
     this->transform(matrix);
 }
 
+void Triangle::translate(Matrix matrix){
+    this->transform(matrix);
+}
+
+void Triangle::rotate(Matrix matrix){
+    this->transform(matrix);
+}
+
+void Triangle::scale(Matrix matrix){
+    this->transform(matrix);
+}
+
 Vector Triangle::get_normal(Point p) const{
     Vector r1 = this->p2 - this->p1;
     Vector r2 = this->p3 - this->p1;
