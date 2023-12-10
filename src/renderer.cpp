@@ -8,14 +8,17 @@ Renderer::Renderer(Scene& scene, Canvas& canvas){
     this->shift_down = false;
     this->ctrl_down = false;
     this->with_thread = true;
-    movement_speed = 1;
     is_running = false;
+    movement_speed = 10;
 }
 
 Renderer::Renderer(Scene& scene, int width, int height){
     this->scene = scene;
     this->canvas = Canvas(height, width);
-    movement_speed = 1;
+    movement_speed = 10;
+    this->shift_down = false;
+    this->ctrl_down = false;
+    this->with_thread = true;
     is_running = false;
 }
 
@@ -49,6 +52,33 @@ int Renderer::startWindow(int width, int height){
     return 0;
 }
 
+void Renderer::handlePicking(long unsigned int obj_index){
+    int choice = 0;
+    while(choice < 1 || choice > 5){
+        cout << "Choose an action:" << endl;
+        cout << "1. Show info" << endl;
+        cout << "2. Translate" << endl;
+        cout << "3. Rotate" << endl;
+        cout << "4. Scale" << endl;
+        cout << "5. Leave" << endl;
+        cin >> choice;
+        if(choice < 1 || choice > 5)
+            cout << "Choose a valid number" << endl;
+        else{
+            if(choice == 1)
+                scene.objects[obj_index]->info();
+            else if(choice == 2)
+                scene.objects[obj_index]->translate();
+            else if(choice == 3)
+                scene.objects[obj_index]->rotate();
+            else if(choice == 4)
+                scene.objects[obj_index]->scale();
+            else
+                break;
+        }
+    }
+}
+
 void Renderer::handleInput(SDL_Event& event){
     bool update = false;
     bool resize = false;
@@ -72,8 +102,12 @@ void Renderer::handleInput(SDL_Event& event){
                         update = true;
                         is_rendering = true;
                     }
-                    if(ctrl_down){
-                        scene.objects[at.obj_index]->info();
+                    else if(ctrl_down){
+                        long unsigned int obj_index = at.obj_index;
+                        scene.objects[obj_index]->info();
+                        handlePicking(obj_index);
+                        update = true;
+                        is_rendering = true;
                     }
                 }
             }  

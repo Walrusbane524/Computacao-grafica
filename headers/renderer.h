@@ -18,6 +18,7 @@ class Renderer{
     Renderer(Scene& scene, Canvas& canvas);
     Renderer(Scene& scene, int width, int height);
 
+    void handlePicking(long unsigned int obj_index);
     void handleInput(SDL_Event& event);
     void renderFrame();
     void render();
