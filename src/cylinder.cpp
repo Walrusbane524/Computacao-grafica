@@ -4,8 +4,8 @@
 
 Cylinder::Cylinder(Point base_center, Point top_center, double radius){
     
-    double height = (top_center - base_center).magnitude();
-    Vector direction = (top_center - base_center).normalize();
+    this->height = (top_center - base_center).magnitude();
+    this->direction = (top_center - base_center).normalize();
     Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
 
     this->radius = radius;
@@ -15,7 +15,7 @@ Cylinder::Cylinder(Point base_center, Point top_center, double radius){
 
     Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
     Plane* top_plane = new Plane(top_center, direction, this->material);
-    CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
+    CylindricalFace* cylinder_body = new CylindricalFace(base_center, this->direction, radius, this->height, this->material);
 
     this->sub_objects.push_back(base_plane);
     this->sub_objects.push_back(top_plane);
@@ -24,8 +24,8 @@ Cylinder::Cylinder(Point base_center, Point top_center, double radius){
 
 Cylinder::Cylinder(Point base_center, Point top_center, double radius, Material material){
     
-    double height = (top_center - base_center).magnitude();
-    Vector direction = (top_center - base_center).normalize();
+    this->height = (top_center - base_center).magnitude();
+    this->direction = (top_center - base_center).normalize();
     Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
 
     this->radius = radius;
@@ -50,8 +50,13 @@ Cylinder::Cylinder(Point base_center, Vector direction, double radius, double he
     this->base_center = base_center;
     this->top_center = top_center;
     this->material = Material();
+    this->direction = direction;
+    this->height = height;
+    this->radius = radius;
 
-    Plane* base_plane = new Plane(base_center, direction, this->material);
+    Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
+
+    Plane* base_plane = new Plane(base_center, inverse_direction, this->material);
     Plane* top_plane = new Plane(top_center, direction, this->material);
     CylindricalFace* cylinder_body = new CylindricalFace(base_center, direction, radius, height, this->material);
 
@@ -68,6 +73,8 @@ Cylinder::Cylinder(Point base_center, Vector direction, double radius, double he
     this->base_center = base_center;
     this->top_center = top_center;
     this->material = material;
+    this->height = height;
+    this->direction = direction;
 
     Plane* base_plane = new Plane(base_center, direction, this->material);
     Plane* top_plane = new Plane(top_center, direction, this->material);
@@ -154,35 +161,31 @@ void Cylinder::rotate(){
         if(type > 4 || type < 1)
             cout << "Insert a valid number!" << endl;
     }
-    double radians;
+    double angle;
     Matrix matrix;
-    switch(type){
-        case 1:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixXAxis(radians);
-        case 2:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixYAxis(radians);
-        case 3:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixZAxis(radians);
-        case 4:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            cout << "Insert the u vector values: " << endl;
-            cout << "x = ";
-            cin >> vector.x;
-            cout << "y = ";
-            cin >> vector.y;
-            cout << "z = ";
-            cin >> vector.z;
+    cout << "Insert the angle:" << endl;
+    cin >> angle;
+    if(type == 1){
+        matrix = RotationMatrixXAxis(angle);
+    }
+    else if (type == 2){
+        matrix = RotationMatrixYAxis(angle);
+    }
+    else if (type == 3){
+        matrix = RotationMatrixZAxis(angle);
+    } 
+    else if(type == 4){
+        cout << "Insert the u vector values: " << endl;
+        cout << "x = ";
+        cin >> vector.x;
+        cout << "y = ";
+        cin >> vector.y;
+        cout << "z = ";
+        cin >> vector.z;
 
-            Vector vector;
-            
-            matrix = RotationMatrixUAxis(vector, radians);
+        Vector vector;
+
+        matrix = RotationMatrixUAxis(vector, angle);
     }
     this->rotate(matrix);
 }
@@ -197,7 +200,7 @@ void Cylinder::scale(){
     cout << "z = ";
     cin >> vector.z;
 
-    TranslationMatrix matrix = TranslationMatrix(vector);
+    ScaleMatrix matrix = ScaleMatrix(vector);
 
     this->scale(matrix);
 }
@@ -218,14 +221,31 @@ void Cylinder::rotate(Matrix matrix){
 }
 void Cylinder::scale(Matrix matrix){
     double r_factor;
+    double h_factor;
 
     cout << "Insert the radius multiplier: " << endl;
     cin >> r_factor;
+
+    cout << "Insert the height multiplier: " << endl;
+    cin >> h_factor;
     
     this->radius *= r_factor;
+    this->height *= h_factor;
 
-    this->top_center = matrix * top_center;
     this->base_center = matrix * base_center;
-    for(Object* obj_ptr : sub_objects)
-        obj_ptr->scale(matrix);
+    this->top_center = base_center + (direction * height);
+
+    Vector inverse_direction = Vector(-direction.x, -direction.y, -direction.z);
+
+    Plane* new_base_plane = new Plane(base_center, inverse_direction, this->material);
+    Plane* new_top_plane = new Plane(top_center, direction, this->material);
+    CylindricalFace* new_cylinder_body = new CylindricalFace(base_center, this->direction, this->radius, this->height, this->material);
+
+    sub_objects.clear();
+
+    sub_objects.push_back(new_base_plane);
+    sub_objects.push_back(new_top_plane);
+    sub_objects.push_back(new_cylinder_body);
+
+    //sub_objects[2]->info();
 }

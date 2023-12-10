@@ -7,5 +7,5 @@ class RotationMatrixXAxis : public Matrix{
 
     RotationMatrixXAxis();
     RotationMatrixXAxis(double** matrix);
-    RotationMatrixXAxis(double radians);
+    RotationMatrixXAxis(double angle_degrees);
 };

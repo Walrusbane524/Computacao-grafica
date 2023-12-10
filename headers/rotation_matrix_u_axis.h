@@ -8,5 +8,5 @@ class RotationMatrixUAxis : public Matrix{
 
     RotationMatrixUAxis();
     RotationMatrixUAxis(double** matrix);
-    RotationMatrixUAxis(Vector u, double radians);
+    RotationMatrixUAxis(Vector u, double angle_degrees);
 };

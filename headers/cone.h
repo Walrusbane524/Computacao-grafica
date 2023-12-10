@@ -8,7 +8,9 @@ class Cone : public CompoundObject{
     public:
 
         Point base_center;
+        Vector direction;
         double radius;
+        double height;
 
         optional<LitPoint> colide(Ray ray) const override;
 

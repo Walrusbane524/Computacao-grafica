@@ -7,6 +7,8 @@ class Cylinder : public CompoundObject{
 
         Point base_center;
         Point top_center;
+        Vector direction;
+        double height;
         double radius;
 
         optional<LitPoint> colide(Ray ray) const override;
@@ -17,7 +19,7 @@ class Cylinder : public CompoundObject{
         Cylinder(Point base_center, Vector direction, double radius, double height, Material material);
     
         void info() override;
-        
+
         void translate() override;
         void rotate() override;
         void scale() override;

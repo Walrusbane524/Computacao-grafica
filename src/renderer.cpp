@@ -106,6 +106,7 @@ void Renderer::handleInput(SDL_Event& event){
                         long unsigned int obj_index = at.obj_index;
                         scene.objects[obj_index]->info();
                         handlePicking(obj_index);
+                        scene.objects[obj_index]->info();
                         update = true;
                         is_rendering = true;
                     }

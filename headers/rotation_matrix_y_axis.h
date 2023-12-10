@@ -7,5 +7,5 @@ class RotationMatrixYAxis : public Matrix{
 
     RotationMatrixYAxis();
     RotationMatrixYAxis(double** matrix);
-    RotationMatrixYAxis(double radians);
+    RotationMatrixYAxis(double angle_degrees);
 };

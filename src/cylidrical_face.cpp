@@ -85,7 +85,7 @@ void CylindricalFace::info(){
     cout << " - Direction   = " << "(" << direction.x << ", " << direction.y << ", " << direction.z << ")" << endl;
     cout << " - Height      = " << height << endl;
     cout << " - Radius      = " << radius << endl;
-    cout << " - Material    = {";
+    cout << " - Material    = {" << endl;;
     cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
     cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
     cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;

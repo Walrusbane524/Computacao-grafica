@@ -34,9 +34,13 @@ int main(){
             light = new PointLight(Point(0, 20, -5), 0.5, 0.5, 0.5);
             break;
         case 2:
-            light = new SpotLight(Point(0, 20, -5),
-                                           Vector(0, 0.5, 1),
-                                           10, 0.5, 0.5, 0.5);
+            light = new SpotLight(
+                Point(0, 20, -5),
+                Vector(0, -0.5, -1),
+                10, 
+                0.5, 
+                0.5, 
+                0.5);
             break;
         case 3:
             light = new DirectionalLight(Vector(0, -1, -1), 1, 1, 1);
