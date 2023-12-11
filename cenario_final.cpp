@@ -6,6 +6,8 @@
 #include <limits>
 #include "headers/camera.h"
 #include "headers/canvas.h"
+#include "headers/cone.h"
+#include "headers/cylinder.h"
 #include "headers/color.h"
 #include "headers/object.h"
 #include "headers/point.h"
@@ -94,6 +96,10 @@ int main(){
     Texture* bulbasaur_frame_texture = new Texture("assets/textures/bulbasaur_frame.jpeg");
     ObjMesh bulbasaur_frame = ObjMesh("assets/meshes/pokemon_frame.obj", bulbasaur_frame_texture);
 
+    Texture* plant_pot_texture = new Texture("assets/textures/plant_pot.png");
+    ObjMesh plant_pot = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture);
+    ObjMesh plant_pot2 = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture);
+
     pokemon_table.transform(TranslationMatrix(Vector(250, 0, 700)));
     squirtle.transform(TranslationMatrix(Vector(250 - 70, 0, 700 - 100)));
     charmander.transform(TranslationMatrix(Vector(250 + 70, 0, 700 - 100)));
@@ -109,11 +115,6 @@ int main(){
     bookshelf5.transform(TranslationMatrix(Vector(900, 0, 300)));
     bookshelf6.transform(TranslationMatrix(Vector(900 - 200, 0, 300)));
 
-    bulbasaur_frame.transform(TranslationMatrix(Vector(500, 250, 995)));
-    squirtle_frame.transform(TranslationMatrix(Vector(200, 250, 995)));
-    charmander_frame.transform(TranslationMatrix(Vector(800, 250, 995)));
-
-
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
     
     computer.transform(TranslationMatrix(Vector(725, 100, 950)));
@@ -123,6 +124,14 @@ int main(){
     carpet.transform(TranslationMatrix(Vector(500 , 0, 60)));
 
     door.transform(TranslationMatrix(Vector(500 , 2, 1)));
+
+    bulbasaur_frame.transform(TranslationMatrix(Vector(500, 250, 995)));
+    squirtle_frame.transform(TranslationMatrix(Vector(200, 250, 995)));
+    charmander_frame.transform(TranslationMatrix(Vector(800, 250, 995)));
+
+    plant_pot.transform(TranslationMatrix(Vector(60, 0, 60)));
+    plant_pot2.transform(TranslationMatrix(Vector(940, 0, 60)));
+
     cout << "Meshes moved" << endl;
 
     SphericalWrapper wrapped_squirtle = SphericalWrapper(&squirtle, -1);
@@ -148,6 +157,9 @@ int main(){
     SphericalWrapper wrapped_charmander_frame = SphericalWrapper(&charmander_frame, -1);
     SphericalWrapper wrapped_squirtle_frame = SphericalWrapper(&squirtle_frame, -1);
     SphericalWrapper wrapped_bulbasaur_frame = SphericalWrapper(&bulbasaur_frame, -1);
+
+    SphericalWrapper wrapped_plant_pot = SphericalWrapper(&plant_pot, -1);
+    SphericalWrapper wrapped_plant_pot2 = SphericalWrapper(&plant_pot2, -1);
 
     cout << "Meshes wrapped" << endl;
 
@@ -218,6 +230,36 @@ int main(){
     pokeball_4.rotation_matrix = pokeballs_rotation_matrix;
     pokeball_5.rotation_matrix = pokeballs_rotation_matrix;
     pokeball_6.rotation_matrix = pokeballs_rotation_matrix;
+
+    Material tree_cone_material = Material(
+        Vec(0, 0.7, 0.1),
+        Vec(0, 0.7, 0.1),
+        Vec(0, 0.7, 0.1),
+        1
+    );
+
+    Cone tree_cone = Cone(Point(60, 70, 60), Point(60, 170, 60), 60, tree_cone_material);
+    Cone tree_cone2 = Cone(Point(940, 70, 60), Point(940, 170, 60), 60, tree_cone_material);
+
+    Material tree_trunk_material = Material(
+        Vec(0.5, 0.3, 0.05),
+        Vec(0.5, 0.3, 0.05),
+        Vec(0.5, 0.3, 0.05),
+        1
+    );
+
+    Cylinder tree_trunk = Cylinder(Point(60, 45, 60), Point(60, 70, 60), 15, tree_trunk_material);
+    Cylinder tree_trunk2 = Cylinder(Point(940, 45, 60), Point(940, 70, 60), 15, tree_trunk_material);
+
+    Material tree_decoration_material = Material(
+        Vec(0.6, 0.6, 0.2),
+        Vec(0.7, 0.7, 0.0),
+        Vec(0.8, 0.8, 0.0),
+        50
+    );
+
+    Sphere tree_decoration = Sphere(Point(60, 170, 60), 8, tree_decoration_material);
+    Sphere tree_decoration2 = Sphere(Point(940, 170, 940), 8, tree_decoration_material);
 
     Texture* floor_texture = new Texture("assets/textures/wood.jpg");
 
@@ -339,6 +381,16 @@ int main(){
     scene.addObject(&wrapped_charmander_frame);
     scene.addObject(&wrapped_squirtle_frame);
     scene.addObject(&wrapped_bulbasaur_frame);
+
+    scene.addObject(&wrapped_plant_pot);
+    scene.addObject(&wrapped_plant_pot2);
+
+    scene.addObject(&tree_cone);
+    scene.addObject(&tree_cone2);
+    scene.addObject(&tree_trunk);
+    scene.addObject(&tree_trunk2);
+    scene.addObject(&tree_decoration);
+    scene.addObject(&tree_decoration2);
 
     scene.addLight(&light);
     scene.addLight(&porygon_machine_light1);
