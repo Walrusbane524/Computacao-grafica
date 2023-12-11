@@ -69,12 +69,12 @@ SphericalWrapper::SphericalWrapper(ObjMesh* mesh, int depth){
         vector<Triangle> sub_vector2(sorted_mesh.triangles.begin() + middleIndex, sorted_mesh.triangles.end());
 
         if(mesh->normals.empty()){
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.material, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.material, sorted_mesh.texture), depth - 1));
         }
         else{
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.material, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.material, sorted_mesh.texture), depth - 1));
         }
     }
     else
@@ -208,12 +208,12 @@ void SphericalWrapper::transform(Matrix matrix){
         vector<Triangle> sub_vector2(sorted_mesh.triangles.begin() + middleIndex, sorted_mesh.triangles.end());
 
         if(mesh->normals.empty()){
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, sorted_mesh.uv_points, sorted_mesh.material, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, sorted_mesh.uv_points, sorted_mesh.material, sorted_mesh.texture), depth - 1));
         }
         else{
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
-            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector1, mesh->uv_points, sorted_mesh.normals, sorted_mesh.material, sorted_mesh.texture), depth - 1));
+            this->objects.push_back(new SphericalWrapper(new ObjMesh(sorted_mesh.points, sorted_mesh.faces, sub_vector2, mesh->uv_points, sorted_mesh.normals, sorted_mesh.material, sorted_mesh.texture), depth - 1));
         }
     }
     else

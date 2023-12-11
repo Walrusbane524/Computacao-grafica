@@ -14,8 +14,8 @@ class Mesh : public Object{
 
         Mesh();
         Mesh(vector<Point> points, vector<vector<int>> faces);
-        Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture);
-        Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Texture* texture);
+        Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Material material, Texture* texture);
+        Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Material material, Texture* texture);
 
         virtual optional<LitPoint> colide(Ray ray) const override;
 

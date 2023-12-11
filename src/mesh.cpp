@@ -13,21 +13,23 @@ Mesh::Mesh(vector<Point> points, vector<vector<int>> faces){
     }
 }
 
-Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture){
+Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Material material, Texture* texture){
     this->points = points;
     this->faces = faces;
     this->triangles = triangles;
     this->uv_points = uv_points;
+    this->material = material;
     this->texture = texture;
 }
 
-Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Texture* texture){
+Mesh::Mesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Material material, Texture* texture){
     this->points = points;
     this->faces = faces;
     this->triangles = triangles;
     this->uv_points = uv_points;
-    this->texture = texture;
     this->normals = normals;
+    this->material = material;
+    this->texture = texture;
 }
 
 optional<LitPoint> Mesh::colide(Ray ray) const{

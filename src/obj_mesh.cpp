@@ -5,9 +5,9 @@
 
 ObjMesh::ObjMesh() : Mesh(){}
 
-ObjMesh::ObjMesh(const string& filepath, Texture* texture_ptr){
+ObjMesh::ObjMesh(const string& filepath, Texture* texture_ptr, Material material){
     this->texture = texture_ptr;
-    this->material = Material();
+    this->material = material;
 
     ifstream file(filepath);
     string line;
@@ -77,6 +77,6 @@ ObjMesh::ObjMesh(const string& filepath, Texture* texture_ptr){
     file.close();
 }
 
-ObjMesh::ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Texture* texture) : Mesh(points, faces, triangles, uv_points, texture){}
+ObjMesh::ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, Material material, Texture* texture) : Mesh(points, faces, triangles, uv_points, material, texture){}
 
-ObjMesh::ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Texture* texture) : Mesh(points, faces, triangles, uv_points, normals, texture){}
+ObjMesh::ObjMesh(vector<Point> points, vector<vector<int>> faces, vector<Triangle> triangles, vector<Point> uv_points, vector<Vector> normals, Material material, Texture* texture) : Mesh(points, faces, triangles, uv_points, normals, material, texture){}

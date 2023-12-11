@@ -40,20 +40,34 @@ int main(){
     camera.lookAt(Point(500, 100, 500), Point(500, 100, 1000), Point(500, 200, 500));
     Canvas canvas = Canvas(n_l, n_c);
 
+    Material pokemon_material = Material(
+        Vec(0.0, 0.0, 0.0),
+        Vec(0.8, 0.8, 0.8),
+        Vec(0.8, 0.8, 0.8),
+        1
+    );
+
+    Material porygon_material = Material(
+        Vec(0.3, 0.3, 0.3),
+        Vec(0.8, 0.8, 0.8),
+        Vec(0.8, 0.8, 0.8),
+        1
+    );
+
     Texture* squirtle_texture = new Texture("assets/textures/squirtle.jpeg");
-    ObjMesh squirtle = ObjMesh("assets/meshes/squirtle.obj", squirtle_texture);
+    ObjMesh squirtle = ObjMesh("assets/meshes/squirtle.obj", squirtle_texture, pokemon_material);
     cout << "Squirtle loaded" << endl;
 
     Texture* porygon_texture = new Texture("assets/textures/porygon.png");
-    ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture);
+    ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture, pokemon_material);
     cout << "Porygon loaded" << endl;
 
     Texture* charmander_texture = new Texture("assets/textures/charmander.jpeg");
-    ObjMesh charmander = ObjMesh("assets/meshes/charmander.obj", charmander_texture);
+    ObjMesh charmander = ObjMesh("assets/meshes/charmander.obj", charmander_texture, pokemon_material);
     cout << "Charmander loaded" << endl;
 
     Texture* bulbasaur_texture = new Texture("assets/textures/bulbasaur.jpeg");
-    ObjMesh bulbasaur = ObjMesh("assets/meshes/bulbasaur.obj", bulbasaur_texture);
+    ObjMesh bulbasaur = ObjMesh("assets/meshes/bulbasaur.obj", bulbasaur_texture, pokemon_material);
     cout << "Bulbasaur loaded" << endl;
 
     Texture* porygon_machine_texture = new Texture("assets/textures/porygon_machine.jpeg");
