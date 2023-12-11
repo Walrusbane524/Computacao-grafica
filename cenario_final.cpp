@@ -59,7 +59,7 @@ int main(){
     cout << "Squirtle loaded" << endl;
 
     Texture* porygon_texture = new Texture("assets/textures/porygon.png");
-    ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture, pokemon_material);
+    ObjMesh porygon = ObjMesh("assets/meshes/porygon.obj", porygon_texture, porygon_material);
     cout << "Porygon loaded" << endl;
 
     Texture* charmander_texture = new Texture("assets/textures/charmander.jpeg");
@@ -71,48 +71,69 @@ int main(){
     cout << "Bulbasaur loaded" << endl;
 
     Texture* porygon_machine_texture = new Texture("assets/textures/porygon_machine.jpeg");
-    ObjMesh porygon_machine = ObjMesh("assets/meshes/porygon_machine.obj", porygon_machine_texture);
+    Material porygon_machine_material = Material(Vec(0.8, 0.8, 0.8),
+                                          Vec(0.3, 0.3, 0.3),
+                                          Vec(1, 1, 0), 3);
+    ObjMesh porygon_machine = ObjMesh("assets/meshes/porygon_machine.obj", porygon_machine_texture, porygon_machine_material);
     cout << "Porygon machine loaded" << endl;
 
     Texture* bookshelf_texture = new Texture("assets/textures/bookshelf.jpg");
-    ObjMesh bookshelf = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    ObjMesh bookshelf2 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    ObjMesh bookshelf3 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    ObjMesh bookshelf4 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    ObjMesh bookshelf5 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
-    ObjMesh bookshelf6 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    Material bookshelf_material = Material(Vec(0.1, 0.1, 0.1),
+                                           Vec(0.9, 0.9, 0.9),
+                                           Vec(0.8, 0.8, 0.8), 1);
+    ObjMesh bookshelf = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
+    ObjMesh bookshelf2 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
+    ObjMesh bookshelf3 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
+    ObjMesh bookshelf4 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
+    ObjMesh bookshelf5 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
+    ObjMesh bookshelf6 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture, bookshelf_material);
 
     cout << "Bookshelfs loaded" << endl;
 
     Texture* table_texture = new Texture("assets/textures/mesa.jpg");
-    ObjMesh computer_table = ObjMesh("assets/meshes/mesa.obj", table_texture);
-
+    Material table_material = Material(Vec(0.1, 0.1, 0.1),
+                                           Vec(0.9, 0.9, 0.9),
+                                           Vec(0.8, 0.8, 0.8), 1);
+    ObjMesh computer_table = ObjMesh("assets/meshes/mesa.obj", table_texture, table_material);
     ObjMesh pokemon_table = computer_table;
 
     Texture* computer_texture = new Texture("assets/textures/computer.jpeg");
-    ObjMesh computer = ObjMesh("assets/meshes/computer.obj", computer_texture);
+    Material computer_material = Material(Vec(0.8, 0.8, 0.8),
+                                       Vec(0.5, 0.5, 0.5),
+                                       Vec(0.8, 0.8, 0.8), 2);
+    ObjMesh computer = ObjMesh("assets/meshes/computer.obj", computer_texture, computer_material);
 
     Texture* heal_machine_texture = new Texture("assets/textures/heal_machine.jpeg");
-    ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture);
+    ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture,computer_material);
 
     Texture* carpet_texture = new Texture("assets/textures/carpet.jpg");
-    ObjMesh carpet = ObjMesh("assets/meshes/carpet.obj", carpet_texture);
+    Material carpet_material = Material(Vec(0.1, 0.1, 0.1),
+                                          Vec(0.8, 0.8, 0.8),
+                                          Vec(0.8, 0.8, 0.8), 1);
+    ObjMesh carpet = ObjMesh("assets/meshes/carpet.obj", carpet_texture, carpet_material);
 
     Texture* door_texture = new Texture("assets/textures/door_textures.jpeg");
-    ObjMesh door = ObjMesh("assets/meshes/door.obj", door_texture);
+    ObjMesh door = ObjMesh("assets/meshes/door.obj", door_texture, table_material);
+
+    Material frames_material = Material(Vec(1, 1, 1),
+                                        Vec(0.1, 0.1, 0.1),
+                                        Vec(0.8, 0.8, 0.8), 3);
 
     Texture* charmander_frame_texture = new Texture("assets/textures/charmander_frame.jpeg");
-    ObjMesh charmander_frame = ObjMesh("assets/meshes/pokemon_frame.obj", charmander_frame_texture);
+    ObjMesh charmander_frame = ObjMesh("assets/meshes/pokemon_frame.obj", charmander_frame_texture, frames_material);
 
     Texture* squirtle_frame_texture = new Texture("assets/textures/squirtle_frame.jpeg");
-    ObjMesh squirtle_frame = ObjMesh("assets/meshes/pokemon_frame.obj", squirtle_frame_texture);
+    ObjMesh squirtle_frame = ObjMesh("assets/meshes/pokemon_frame.obj", squirtle_frame_texture, frames_material);
 
     Texture* bulbasaur_frame_texture = new Texture("assets/textures/bulbasaur_frame.jpeg");
-    ObjMesh bulbasaur_frame = ObjMesh("assets/meshes/pokemon_frame.obj", bulbasaur_frame_texture);
+    ObjMesh bulbasaur_frame = ObjMesh("assets/meshes/pokemon_frame.obj", bulbasaur_frame_texture, frames_material);
 
     Texture* plant_pot_texture = new Texture("assets/textures/plant_pot.png");
-    ObjMesh plant_pot = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture);
-    ObjMesh plant_pot2 = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture);
+    Material plant_pot_material = Material(Vec(0.1, 0.1, 0.1),
+                                        Vec(0.5, 0.5, 0.5),
+                                        Vec(0.8, 0.8, 0.8), 1);
+    ObjMesh plant_pot = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture, plant_pot_material);
+    ObjMesh plant_pot2 = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture, plant_pot_material);
 
     pokemon_table.transform(TranslationMatrix(Vector(250, 0, 700)));
     squirtle.transform(TranslationMatrix(Vector(250 - 70, 0, 700 - 100)));
@@ -273,7 +294,7 @@ int main(){
     );
 
     Sphere tree_decoration = Sphere(Point(60, 170, 60), 8, tree_decoration_material);
-    Sphere tree_decoration2 = Sphere(Point(940, 170, 940), 8, tree_decoration_material);
+    Sphere tree_decoration2 = Sphere(Point(940, 170, 60), 8, tree_decoration_material);
 
     Texture* floor_texture = new Texture("assets/textures/wood.jpg");
 
@@ -347,16 +368,18 @@ int main(){
 
     TexturedPlane ceiling = TexturedPlane(ceiling_plane, Vector(10, 0, 0), ceiling_texture, 3000);
 
-
     Color background = Color(100, 100, 255);
 
     Vec ambient = Vec(0.5, 0.5, 0.5);
 
     Scene scene = Scene(camera, background, ambient);
-    PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
 
-    SpotLight porygon_machine_light1 = SpotLight(Point(800, 185, 600 + 15), Vector(0, -1, -0.5), 30, 0, 0, 1);
-    SpotLight porygon_machine_light2 = SpotLight(Point(800, 185, 600 - 15), Vector(0, -1, 0.5), 30, 0, 0, 1);
+    PointLight light = PointLight(Point(500, 490, 500), 0.7, 0.7, 0.7);
+    SpotLight light2 = SpotLight(Point(200, 490, 180), Vector(0, -1, 0), 15, 0.6, 0.6, 0.6);
+    SpotLight light3 = SpotLight(Point(800, 490, 180), Vector(0, -1, 0), 15, 0.6, 0.6, 0.6);
+    SpotLight porygon_machine_light1 = SpotLight(Point(810, 185, 600), Vector(-0.3, -1, 0), 40, 0, 0.5, 1);
+    SpotLight porygon_machine_light2 = SpotLight(Point(790, 185, 600), Vector(0.3, -1, 0), 40, 0, 0.5, 1);
+    SpotLight computer_light = SpotLight(Point(730, 135, 930), Vector(0, -1, -1), 3, 0, 0.05, 0.01);
 
     scene.addObject(&floor);
     scene.addObject(&north_wall);
@@ -407,8 +430,13 @@ int main(){
     scene.addObject(&tree_decoration2);
 
     scene.addLight(&light);
+    scene.addLight(&light2);
+    scene.addLight(&light3);
+
+
     scene.addLight(&porygon_machine_light1);
     scene.addLight(&porygon_machine_light2);
+    scene.addLight(&computer_light);
 
     scene.paint(canvas);
 
