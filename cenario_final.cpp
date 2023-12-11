@@ -58,13 +58,13 @@ int main(){
     ObjMesh porygon_machine = ObjMesh("assets/meshes/porygon_machine.obj", porygon_machine_texture);
     cout << "Porygon machine loaded" << endl;
 
-    Texture* bookshelf_texture = new Texture("assets/textures/livros2.jpg");
-    ObjMesh bookshelf = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
-    ObjMesh bookshelf2 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
-    ObjMesh bookshelf3 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
-    ObjMesh bookshelf4 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
-    ObjMesh bookshelf5 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
-    ObjMesh bookshelf6 = ObjMesh("assets/meshes/livros2.obj", bookshelf_texture);
+    Texture* bookshelf_texture = new Texture("assets/textures/bookshelf.jpg");
+    ObjMesh bookshelf = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    ObjMesh bookshelf2 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    ObjMesh bookshelf3 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    ObjMesh bookshelf4 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    ObjMesh bookshelf5 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
+    ObjMesh bookshelf6 = ObjMesh("assets/meshes/bookshelf.obj", bookshelf_texture);
 
     cout << "Bookshelfs loaded" << endl;
 
@@ -79,26 +79,40 @@ int main(){
     Texture* heal_machine_texture = new Texture("assets/textures/heal_machine.jpeg");
     ObjMesh heal_machine = ObjMesh("assets/meshes/heal_machine.obj", heal_machine_texture);
 
-    Texture* tapete_texture = new Texture("assets/textures/tapete.jpg");
-    ObjMesh tapete = ObjMesh("assets/meshes/tapete.obj", tapete_texture);
+    Texture* carpet_texture = new Texture("assets/textures/carpet.jpg");
+    ObjMesh carpet = ObjMesh("assets/meshes/carpet.obj", carpet_texture);
 
-    Texture* wood = new Texture("assets/textures/wood.jpg");
-    ObjMesh door = ObjMesh("assets/meshes/door.obj", wood);
+    Texture* door_texture = new Texture("assets/textures/door_textures.jpeg");
+    ObjMesh door = ObjMesh("assets/meshes/door.obj", door_texture);
 
-    pokemon_table.transform(TranslationMatrix(Vector(320, 0, 700)));
-    squirtle.transform(TranslationMatrix(Vector(320 - 70, 0, 700 - 100)));
-    charmander.transform(TranslationMatrix(Vector(320 + 70, 0, 700 - 100)));
-    bulbasaur.transform(TranslationMatrix(Vector(320, 0, 700 - 100)));
+    Texture* charmander_frame_texture = new Texture("assets/textures/charmander_frame.jpeg");
+    ObjMesh charmander_frame = ObjMesh("assets/meshes/pokemon_frame.obj", charmander_frame_texture);
 
-    porygon_machine.transform(TranslationMatrix(Vector(800, 0, 700)));
-    porygon.transform(TranslationMatrix(Vector(800, 120, 700)));
+    Texture* squirtle_frame_texture = new Texture("assets/textures/squirtle_frame.jpeg");
+    ObjMesh squirtle_frame = ObjMesh("assets/meshes/pokemon_frame.obj", squirtle_frame_texture);
+
+    Texture* bulbasaur_frame_texture = new Texture("assets/textures/bulbasaur_frame.jpeg");
+    ObjMesh bulbasaur_frame = ObjMesh("assets/meshes/pokemon_frame.obj", bulbasaur_frame_texture);
+
+    pokemon_table.transform(TranslationMatrix(Vector(250, 0, 700)));
+    squirtle.transform(TranslationMatrix(Vector(250 - 70, 0, 700 - 100)));
+    charmander.transform(TranslationMatrix(Vector(250 + 70, 0, 700 - 100)));
+    bulbasaur.transform(TranslationMatrix(Vector(250, 0, 700 - 100)));
+
+    porygon_machine.transform(TranslationMatrix(Vector(800, 0, 600)));
+    porygon.transform(TranslationMatrix(Vector(800, 120, 600)));
     
-    bookshelf.transform(TranslationMatrix(Vector(175, 0, 960)));
-    bookshelf2.transform(TranslationMatrix(Vector(380, 0, 960)));
-    bookshelf3.transform(TranslationMatrix(Vector(150, 0, 300)));
-    bookshelf4.transform(TranslationMatrix(Vector(300, 0, 300)));
-    bookshelf5.transform(TranslationMatrix(Vector(850, 0, 300)));
-    bookshelf6.transform(TranslationMatrix(Vector(850 - 205, 0, 300)));
+    bookshelf.transform(TranslationMatrix(Vector(100, 0, 960)));
+    bookshelf2.transform(TranslationMatrix(Vector(100 + 200, 0, 960)));
+    bookshelf3.transform(TranslationMatrix(Vector(100, 0, 300)));
+    bookshelf4.transform(TranslationMatrix(Vector(100 + 200, 0, 300)));
+    bookshelf5.transform(TranslationMatrix(Vector(900, 0, 300)));
+    bookshelf6.transform(TranslationMatrix(Vector(900 - 200, 0, 300)));
+
+    bulbasaur_frame.transform(TranslationMatrix(Vector(500, 250, 995)));
+    squirtle_frame.transform(TranslationMatrix(Vector(200, 250, 995)));
+    charmander_frame.transform(TranslationMatrix(Vector(800, 250, 995)));
+
 
     computer_table.transform(TranslationMatrix(Vector(725, 0, 950)));
     
@@ -106,8 +120,7 @@ int main(){
 
     heal_machine.transform(TranslationMatrix(Vector(925, 0, 925)));
 
-    tapete.transform(ScaleMatrix(Vec(65, 10, 50)));
-    tapete.transform(TranslationMatrix(Vector(500 , 0, 50)));
+    carpet.transform(TranslationMatrix(Vector(500 , 0, 60)));
 
     door.transform(TranslationMatrix(Vector(500 , 2, 1)));
     cout << "Meshes moved" << endl;
@@ -117,18 +130,24 @@ int main(){
     SphericalWrapper wrapped_charmander = SphericalWrapper(&charmander, -1);
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
     SphericalWrapper wrapped_porygon_machine = SphericalWrapper(&porygon_machine, -1);
+
     SphericalWrapper wrapped_bookshelf = SphericalWrapper(&bookshelf, -1);
     SphericalWrapper wrapped_bookshelf2 = SphericalWrapper(&bookshelf2, -1);
     SphericalWrapper wrapped_bookshelf3 = SphericalWrapper(&bookshelf3, -1);
     SphericalWrapper wrapped_bookshelf4 = SphericalWrapper(&bookshelf4, -1);
     SphericalWrapper wrapped_bookshelf5 = SphericalWrapper(&bookshelf5, -1);
     SphericalWrapper wrapped_bookshelf6 = SphericalWrapper(&bookshelf6, -1);
+
     SphericalWrapper wrapped_computer_table = SphericalWrapper(&computer_table, -1);
     SphericalWrapper wrapped_pokemon_table = SphericalWrapper(&pokemon_table, -1);
     SphericalWrapper wrapped_computer = SphericalWrapper(&computer, -1);
     SphericalWrapper wrapped_heal_machine = SphericalWrapper(&heal_machine, -1);
-    SphericalWrapper wrapped_tapete = SphericalWrapper(&tapete, -1);
+    SphericalWrapper wrapped_carpet = SphericalWrapper(&carpet, -1);
     SphericalWrapper wrapped_door = SphericalWrapper(&door, -1);
+
+    SphericalWrapper wrapped_charmander_frame = SphericalWrapper(&charmander_frame, -1);
+    SphericalWrapper wrapped_squirtle_frame = SphericalWrapper(&squirtle_frame, -1);
+    SphericalWrapper wrapped_bulbasaur_frame = SphericalWrapper(&bulbasaur_frame, -1);
 
     cout << "Meshes wrapped" << endl;
 
@@ -162,12 +181,13 @@ int main(){
         9,
         pokeball_material
     );
+
     pokemon_table.transform(TranslationMatrix(Vector(320, 0, 700)));
 
     TexturedSphere pokeball_3 = TexturedSphere(sphere_3, pokeball_texture);
 
     Sphere sphere_4 = Sphere(
-            Point(320 - 70, 108, 700),
+            Point(250 - 70, 108, 700),
             9,
             pokeball_material
     );
@@ -175,7 +195,7 @@ int main(){
     TexturedSphere pokeball_4 = TexturedSphere(sphere_4, pokeball_texture);
 
     Sphere sphere_5 = Sphere(
-            Point(320, 108, 700),
+            Point(250, 108, 700),
             9,
             pokeball_material
     );
@@ -183,14 +203,14 @@ int main(){
     TexturedSphere pokeball_5 = TexturedSphere(sphere_5, pokeball_texture);
 
     Sphere sphere_6 = Sphere(
-            Point(320 + 70, 108, 700),
+            Point(250 + 70, 108, 700),
             9,
             pokeball_material
     );
 
     TexturedSphere pokeball_6 = TexturedSphere(sphere_6, pokeball_texture);
 
-    Matrix* pokeballs_rotation_matrix = new RotationMatrixYAxis(-1.5708);
+    Matrix* pokeballs_rotation_matrix = new RotationMatrixYAxis(-90);
 
     pokeball_1.rotation_matrix = pokeballs_rotation_matrix;
     pokeball_2.rotation_matrix = pokeballs_rotation_matrix;
@@ -279,9 +299,8 @@ int main(){
     Scene scene = Scene(camera, background, ambient);
     PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
 
-    SpotLight porygon_machine_light1 = SpotLight(Point(800, 185, 685), Vector(0, -1, -0.5), 30, 0, 0, 1);
-    SpotLight porygon_machine_light2 = SpotLight(Point(800, 185, 715), Vector(0, -1, 0.5), 30, 0, 0, 1);
-    //PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
+    SpotLight porygon_machine_light1 = SpotLight(Point(800, 185, 600 + 15), Vector(0, -1, -0.5), 30, 0, 0, 1);
+    SpotLight porygon_machine_light2 = SpotLight(Point(800, 185, 600 - 15), Vector(0, -1, 0.5), 30, 0, 0, 1);
 
     scene.addObject(&floor);
     scene.addObject(&north_wall);
@@ -300,7 +319,7 @@ int main(){
     scene.addObject(&wrapped_computer_table);
     scene.addObject(&wrapped_computer);
     scene.addObject(&wrapped_heal_machine);
-    scene.addObject(&wrapped_tapete);
+    scene.addObject(&wrapped_carpet);
     scene.addObject(&wrapped_door);
 
     scene.addObject(&wrapped_bookshelf);
@@ -316,6 +335,10 @@ int main(){
     scene.addObject(&pokeball_4);
     scene.addObject(&pokeball_5);
     scene.addObject(&pokeball_6);
+
+    scene.addObject(&wrapped_charmander_frame);
+    scene.addObject(&wrapped_squirtle_frame);
+    scene.addObject(&wrapped_bulbasaur_frame);
 
     scene.addLight(&light);
     scene.addLight(&porygon_machine_light1);
