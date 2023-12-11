@@ -279,7 +279,8 @@ int main(){
     Scene scene = Scene(camera, background, ambient);
     PointLight light = PointLight(Point(500, 490, 500), 0.8, 0.8, 0.8);
 
-    SpotLight porygon_machine_light = SpotLight(Point(800, 185, 700), Vector(0, -1, 0), 90, 0, 0, 1);
+    SpotLight porygon_machine_light1 = SpotLight(Point(800, 185, 685), Vector(0, -1, -0.5), 30, 0, 0, 1);
+    SpotLight porygon_machine_light2 = SpotLight(Point(800, 185, 715), Vector(0, -1, 0.5), 30, 0, 0, 1);
     //PointLight porygon_machine_light = PointLight(Point(800, 185, 700), 0, 0, 1.0);
 
     scene.addObject(&floor);
@@ -316,14 +317,12 @@ int main(){
     scene.addObject(&pokeball_5);
     scene.addObject(&pokeball_6);
 
-    //scene.addLight(&light);
-    scene.addLight(&porygon_machine_light);
-    //scene.addLight(&light);
-
+    scene.addLight(&light);
+    scene.addLight(&porygon_machine_light1);
+    scene.addLight(&porygon_machine_light2);
 
     scene.paint(canvas);
 
     Renderer renderer = Renderer(scene, canvas);
     renderer.start();
-    //return scene.render(canvas);
 }

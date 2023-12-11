@@ -54,7 +54,7 @@ int main(){
     SphericalWrapper wrapped_bulbasaur = SphericalWrapper(&bulbasaur, -1);
 
     Sphere sphere = Sphere(
-            Point(-50, -10, -200),
+            Point(0, 0, -200),
             15,
             pokeball_material
     );
@@ -72,10 +72,12 @@ int main(){
 
     Texture* wood = new Texture("assets/textures/wood.jpg");
 
-    TexturedPlane wall = TexturedPlane(wood, Vector(10, 0, 0), ceiling_texture, 3000);
+    TexturedPlane wall_textured = TexturedPlane(wall, Vector(10, 0, 0), wood, 3000);
 
     TexturedSphere pokeball = TexturedSphere(sphere, pokeball_texture);
-    pokeball.rotation_matrix = new RotationMatrixYAxis(1.57);
+    pokeball.translate(TranslationMatrix(Vector(Point(0, +10, 200))));
+    pokeball.rotation_matrix = new RotationMatrixYAxis(90);
+    pokeball.translate(TranslationMatrix(Vector(Point(0, -10, -200))));
 
     PointLight light = PointLight(Point(0, 20, -100), 1, 1, 1);
 
@@ -83,8 +85,8 @@ int main(){
 
     Scene scene = Scene(camera, background);
     scene.addObject(&pokeball);
-    scene.addObject(&wall);
-    scene.addObject(&wrapped_bulbasaur);
+    scene.addObject(&wall_textured);
+    //scene.addObject(&wrapped_bulbasaur);
     scene.addLight(&light);
     scene.paint(canvas);
 
