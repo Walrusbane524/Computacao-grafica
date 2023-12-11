@@ -85,8 +85,10 @@ void Plane::rotate(){
         break;
         case 2:
             matrix = RotationMatrixYAxis(radians);
+            break;
         case 3:
             matrix = RotationMatrixZAxis(radians);
+            break;
         case 4:
             cout << "Insert the u vector values: " << endl;
             cout << "x = ";
@@ -97,6 +99,7 @@ void Plane::rotate(){
             cin >> vector.z;
             
             matrix = RotationMatrixUAxis(vector, radians);
+            break;
     }
     rotate(matrix);
 }
