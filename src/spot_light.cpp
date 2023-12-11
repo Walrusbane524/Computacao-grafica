@@ -19,7 +19,7 @@ Vec SpotLight::get_diffuse_and_specular(LitPoint intersect, vector<Object*> obje
     double cosine = cos(radians);
     Vector l = ((Point)intersect - this->point).normalize();
 
-    if (cosine <= (l.dot(this->direction)))
+    if ((l.dot(this->direction)) >= cosine)
         return PointLight::get_diffuse_and_specular(intersect, objects, camera_ray);
     
     return Vec(0, 0, 0);

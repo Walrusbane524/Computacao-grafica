@@ -108,6 +108,7 @@ void TexturedSphere::translate(Matrix matrix){
     this->sphere.translate(matrix);
 }
 void TexturedSphere::rotate(Matrix matrix){
+    this->rotation_matrix = new RotationMatrixUAxis(matrix.matrix);
     this->sphere.rotate(matrix);
 }
 void TexturedSphere::scale(Matrix matrix){

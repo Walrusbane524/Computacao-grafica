@@ -70,14 +70,10 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     double smallest_t;
 
     Point p_intersect_1 = Point(ray.p_inicial + (ray.direction * t_1));
-    Vector v_1 = p_intersect_1 - this->base_center;
-    Vector projection_1 = this->direction * v_1.dot(this->direction);
-    double distance_along_axis_1 = projection_1.magnitude();
+    double distance_along_axis_1 = (tip - p_intersect_1).dot(direction);
 
     Point p_intersect_2 = Point(ray.p_inicial + (ray.direction * t_2));
-    Vector v_2 = p_intersect_2 - this->base_center;
-    Vector projection_2 = this->direction * v_2.dot(this->direction);
-    double distance_along_axis_2 = projection_2.magnitude();
+    double distance_along_axis_2 = (tip - p_intersect_2).dot(direction);
 
     if(distance_along_axis_1 > 0 && distance_along_axis_1 < this->height){
         if(distance_along_axis_2 > 0 && distance_along_axis_2 < this->height && t_2 < t_1) smallest_t = t_2;
@@ -87,6 +83,7 @@ optional<LitPoint> ConicalFace::colide(Ray ray) const{
     else return nullopt;
 
     Point p_intersect = ray.p_inicial + (ray.direction * smallest_t);
+
     Vector normal = this->get_normal(p_intersect);
 
     return LitPoint(p_intersect, smallest_t, normal, this->material);
@@ -98,7 +95,8 @@ void ConicalFace::info(){
     cout << " - Tip Point   = " << "(" << tip.x << ", " << tip.y << ", " << tip.z << ")" << endl;
     cout << " - Direction   = " << "(" << direction.x << ", " << direction.y << ", " << direction.z << ")" << endl;
     cout << " - Radius      = " << radius << endl;
-    cout << " - Material    = {";
+    cout << " - Height      = " << height << endl;
+    cout << " - Material    = {" << endl;
     cout << "       Kd = (" << material.roughness.x << ", " << material.roughness.y << ", " << material.roughness.z << ")" << endl;
     cout << "       Ke = (" << material.shine.x << ", " << material.shine.y << ", " << material.shine.z << ")" << endl;
     cout << "       Ka = (" << material.ambient.x << ", " << material.ambient.y << ", " << material.ambient.z << ")" << endl;

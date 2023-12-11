@@ -34,12 +34,6 @@ int main(){
     );
 
     Cone cone = Cone(Point(0, 0, -100), Point(0, 20, -100), 10, material);
-    cone.sub_objects[0]->material = Material(
-        Vec(0.8, 0.8, 0.8),
-        Vec(0.2, 0.2, 0.2),
-        Vec(0.2, 0.2, 0.2),
-        2.0
-        );
 
     Color background = Color(0, 0, 0);
 
