@@ -163,31 +163,32 @@ void Cylinder::rotate(){
     }
     double angle;
     Matrix matrix;
-    cout << "Insert the angle:" << endl;
+    cout << "Insert the angle (degrees):" << endl;
     cin >> angle;
-    if(type == 1){
-        matrix = RotationMatrixXAxis(angle);
-    }
-    else if (type == 2){
-        matrix = RotationMatrixYAxis(angle);
-    }
-    else if (type == 3){
-        matrix = RotationMatrixZAxis(angle);
-    } 
-    else if(type == 4){
-        cout << "Insert the u vector values: " << endl;
-        cout << "x = ";
-        cin >> vector.x;
-        cout << "y = ";
-        cin >> vector.y;
-        cout << "z = ";
-        cin >> vector.z;
+    switch(type){
+        case 1:
+            matrix = RotationMatrixXAxis(angle);
+        break;
+        case 2:
+            matrix = RotationMatrixYAxis(angle);
+        break;
+        case 3:
+            matrix = RotationMatrixZAxis(angle);
+        break;
+        case 4:
+            cout << "Insert the u vector values: " << endl;
+            cout << "x = ";
+            cin >> vector.x;
+            cout << "y = ";
+            cin >> vector.y;
+            cout << "z = ";
+            cin >> vector.z;
 
-        Vector vector;
-
-        matrix = RotationMatrixUAxis(vector, angle);
+            Vector vector;
+            
+            matrix = RotationMatrixUAxis(vector, angle);
+        break;
     }
-    this->rotate(matrix);
 }
 
 void Cylinder::scale(){

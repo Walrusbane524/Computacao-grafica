@@ -127,24 +127,21 @@ void Mesh::rotate(){
         if(type > 4 || type < 1)
             cout << "Insert a valid number!" << endl;
     }
-    double radians;
+    double degrees;
     Matrix matrix;
+    cout << "Insert the angle (degrees):" << endl;
+    cin >> degrees;
     switch(type){
         case 1:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixXAxis(radians);
+            matrix = RotationMatrixXAxis(degrees);
+        break;
         case 2:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixYAxis(radians);
+            matrix = RotationMatrixYAxis(degrees);
+        break;
         case 3:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
-            matrix = RotationMatrixZAxis(radians);
+            matrix = RotationMatrixZAxis(degrees);
+        break;
         case 4:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
             cout << "Insert the u vector values: " << endl;
             cout << "x = ";
             cin >> vector.x;
@@ -155,7 +152,8 @@ void Mesh::rotate(){
 
             Vector vector;
             
-            matrix = RotationMatrixUAxis(vector, radians);
+            matrix = RotationMatrixUAxis(vector, degrees);
+        break;
     }
     this->transform(matrix);
 }

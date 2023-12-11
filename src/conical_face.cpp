@@ -134,22 +134,19 @@ void ConicalFace::rotate(){
     }
     double radians;
     Matrix matrix;
+    cout << "Insert the angle (degrees):" << endl;
+    cin >> radians;
     switch(type){
         case 1:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
             matrix = RotationMatrixXAxis(radians);
+        break;
         case 2:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
             matrix = RotationMatrixYAxis(radians);
+        break;
         case 3:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
             matrix = RotationMatrixZAxis(radians);
+        break;
         case 4:
-            cout << "Insert the angle (radians):" << endl;
-            cin >> radians;
             cout << "Insert the u vector values: " << endl;
             cout << "x = ";
             cin >> vector.x;
@@ -161,6 +158,7 @@ void ConicalFace::rotate(){
             Vector vector;
             
             matrix = RotationMatrixUAxis(vector, radians);
+        break;
     }
     this->rotate(matrix);
 }

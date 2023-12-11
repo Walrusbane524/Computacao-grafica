@@ -91,16 +91,26 @@ int main(){
     cout << "Bookshelfs loaded" << endl;
 
     Texture* table_texture = new Texture("assets/textures/mesa.jpg");
-    Material table_material = Material(Vec(0.1, 0.1, 0.1),
-                                           Vec(0.9, 0.9, 0.9),
-                                           Vec(0.8, 0.8, 0.8), 1);
+    
+    Material table_material = Material(
+        Vec(0.1, 0.1, 0.1),
+        Vec(0.9, 0.9, 0.9),
+        Vec(0.8, 0.8, 0.8), 
+        1
+    );
+
     ObjMesh computer_table = ObjMesh("assets/meshes/mesa.obj", table_texture, table_material);
     ObjMesh pokemon_table = computer_table;
 
     Texture* computer_texture = new Texture("assets/textures/computer.jpeg");
-    Material computer_material = Material(Vec(0.8, 0.8, 0.8),
-                                       Vec(0.5, 0.5, 0.5),
-                                       Vec(0.8, 0.8, 0.8), 2);
+
+    Material computer_material = Material(
+        Vec(0.8, 0.8, 0.8),
+        Vec(0.5, 0.5, 0.5),
+        Vec(0.8, 0.8, 0.8), 
+        2
+    );
+
     ObjMesh computer = ObjMesh("assets/meshes/computer.obj", computer_texture, computer_material);
 
     Texture* heal_machine_texture = new Texture("assets/textures/heal_machine.jpeg");
@@ -115,9 +125,12 @@ int main(){
     Texture* door_texture = new Texture("assets/textures/door_textures.jpeg");
     ObjMesh door = ObjMesh("assets/meshes/door.obj", door_texture, table_material);
 
-    Material frames_material = Material(Vec(1, 1, 1),
-                                        Vec(0.1, 0.1, 0.1),
-                                        Vec(0.8, 0.8, 0.8), 3);
+    Material frames_material = Material(
+        Vec(1, 1, 1),
+        Vec(0.1, 0.1, 0.1),
+        Vec(0.8, 0.8, 0.8), 
+        3
+    );
 
     Texture* charmander_frame_texture = new Texture("assets/textures/charmander_frame.jpeg");
     ObjMesh charmander_frame = ObjMesh("assets/meshes/pokemon_frame.obj", charmander_frame_texture, frames_material);
@@ -129,9 +142,14 @@ int main(){
     ObjMesh bulbasaur_frame = ObjMesh("assets/meshes/pokemon_frame.obj", bulbasaur_frame_texture, frames_material);
 
     Texture* plant_pot_texture = new Texture("assets/textures/plant_pot.png");
-    Material plant_pot_material = Material(Vec(0.1, 0.1, 0.1),
-                                        Vec(0.5, 0.5, 0.5),
-                                        Vec(0.8, 0.8, 0.8), 1);
+
+    Material plant_pot_material = Material(
+        Vec(0.1, 0.1, 0.1),
+        Vec(0.5, 0.5, 0.5),
+        Vec(0.8, 0.8, 0.8), 
+        1
+    );
+
     ObjMesh plant_pot = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture, plant_pot_material);
     ObjMesh plant_pot2 = ObjMesh("assets/meshes/plant_pot.obj", plant_pot_texture, plant_pot_material);
 
